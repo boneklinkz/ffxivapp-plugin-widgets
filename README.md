@@ -1,7 +1,7 @@
-ffxivapp-plugin-informer
-========================
+ffxivapp-plugin-widgets
+=======================
 
-final fantasy xiv information analyzer
+ffxiv-app widget factory
 
 To use with FFXIVAPP (http://ffxiv-app.com)
 
