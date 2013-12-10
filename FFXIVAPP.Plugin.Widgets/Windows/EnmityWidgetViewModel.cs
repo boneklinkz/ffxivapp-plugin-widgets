@@ -1,16 +1,11 @@
 ﻿// FFXIVAPP.Plugin.Widgets
-// DPSWidgetViewModel.cs
+// EnmityWidgetViewModel.cs
 // 
 // © 2013 ZAM Network LLC
-
-#region Usings
 
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FFXIVAPP.Common.Core.Memory;
-using FFXIVAPP.Common.Core.Parse;
-
-#endregion
 
 namespace FFXIVAPP.Plugin.Widgets.Windows
 {
@@ -19,9 +14,9 @@ namespace FFXIVAPP.Plugin.Widgets.Windows
         #region Property Bindings
 
         private static EnmityWidgetViewModel _instance;
-        private TargetEntity _targetEntity;
-        private bool _currentTargetIsValid;
         private double _currentTargetHPPercent;
+        private bool _currentTargetIsValid;
+        private TargetEntity _targetEntity;
 
         public static EnmityWidgetViewModel Instance
         {

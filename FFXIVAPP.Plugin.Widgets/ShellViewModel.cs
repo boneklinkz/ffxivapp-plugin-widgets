@@ -3,14 +3,10 @@
 // 
 // © 2013 ZAM Network LLC
 
-#region Usings
-
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using FFXIVAPP.Plugin.Widgets.Properties;
-
-#endregion
 
 namespace FFXIVAPP.Plugin.Widgets
 {

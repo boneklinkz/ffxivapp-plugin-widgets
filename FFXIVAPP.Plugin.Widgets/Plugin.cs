@@ -3,8 +3,6 @@
 // 
 // © 2013 ZAM Network LLC
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,9 +20,6 @@ using FFXIVAPP.Plugin.Widgets.Properties;
 using FFXIVAPP.Plugin.Widgets.Utilities;
 using FFXIVAPP.Plugin.Widgets.Windows;
 using NLog;
-using NLog.Targets;
-
-#endregion
 
 namespace FFXIVAPP.Plugin.Widgets
 {
@@ -47,6 +42,12 @@ namespace FFXIVAPP.Plugin.Widgets
         private string _name;
         private MessageBoxResult _popupResult;
 
+        public IPluginHost Host
+        {
+            get { return _host; }
+            set { PHost = _host = value; }
+        }
+
         public MessageBoxResult PopupResult
         {
             get { return _popupResult; }
@@ -55,12 +56,6 @@ namespace FFXIVAPP.Plugin.Widgets
                 _popupResult = value;
                 PluginViewModel.Instance.OnPopupResultChanged(new PopupResultEvent(value));
             }
-        }
-
-        public IPluginHost Host
-        {
-            get { return _host; }
-            set { PHost = _host = value; }
         }
 
         public Dictionary<string, string> Locale
@@ -126,11 +121,6 @@ namespace FFXIVAPP.Plugin.Widgets
             Notice = "";
         }
 
-        private void PHostOnNewShit(object sender, EventArgs eventArgs)
-        {
-            Application.Current.Shutdown(0);
-        }
-
         public void Dispose(bool isUpdating = false)
         {
             /*
@@ -176,6 +166,11 @@ namespace FFXIVAPP.Plugin.Widgets
         }
 
         #endregion
+
+        private void PHostOnNewShit(object sender, EventArgs eventArgs)
+        {
+            Application.Current.Shutdown(0);
+        }
 
         private void PluginHostOnNewConstantsEntity(object sender, ConstantsEntityEvent constantsEntityEvent)
         {

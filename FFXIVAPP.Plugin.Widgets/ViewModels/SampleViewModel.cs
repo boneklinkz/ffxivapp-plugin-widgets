@@ -3,14 +3,10 @@
 // 
 // © 2013 ZAM Network LLC
 
-#region Usings
-
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using FFXIVAPP.Common.ViewModelBase;
-
-#endregion
 
 namespace FFXIVAPP.Plugin.Widgets.ViewModels
 {

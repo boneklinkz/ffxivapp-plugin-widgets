@@ -1,5 +1,5 @@
 ﻿// FFXIVAPP.Plugin.Widgets
-// DPSWidget.xaml.cs
+// EnmityWidget.xaml.cs
 // 
 // © 2013 ZAM Network LLC
 

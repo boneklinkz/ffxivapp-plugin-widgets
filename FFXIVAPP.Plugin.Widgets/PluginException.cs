@@ -3,12 +3,8 @@
 // 
 // © 2013 ZAM Network LLC
 
-#region Usings
-
 using System;
 using System.Runtime.Serialization;
-
-#endregion
 
 namespace FFXIVAPP.Plugin.Widgets
 {

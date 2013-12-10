@@ -3,14 +3,10 @@
 // 
 // © 2013 ZAM Network LLC
 
-#region Usings
-
 using System;
 using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Utilities;
 using NLog;
-
-#endregion
 
 namespace FFXIVAPP.Plugin.Widgets.Utilities
 {

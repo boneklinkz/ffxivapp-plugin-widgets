@@ -3,8 +3,6 @@
 // 
 // © 2013 ZAM Network LLC
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,8 +18,6 @@ using NLog;
 using Color = System.Windows.Media.Color;
 using ColorConverter = System.Windows.Media.ColorConverter;
 using FontFamily = System.Drawing.FontFamily;
-
-#endregion
 
 namespace FFXIVAPP.Plugin.Widgets.Properties
 {
@@ -192,7 +188,7 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
         [DefaultSettingValue("True")]
         public bool ShowDPSWidgetOnLoad
         {
-            get { return ((bool)(this["ShowDPSWidgetOnLoad"])); }
+            get { return ((bool) (this["ShowDPSWidgetOnLoad"])); }
             set
             {
                 this["ShowDPSWidgetOnLoad"] = value;
@@ -205,7 +201,7 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
         [DefaultSettingValue("100")]
         public int DPSWidgetTop
         {
-            get { return ((int)(this["DPSWidgetTop"])); }
+            get { return ((int) (this["DPSWidgetTop"])); }
             set
             {
                 this["DPSWidgetTop"] = value;
@@ -218,7 +214,7 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
         [DefaultSettingValue("100")]
         public int DPSWidgetLeft
         {
-            get { return ((int)(this["DPSWidgetLeft"])); }
+            get { return ((int) (this["DPSWidgetLeft"])); }
             set
             {
                 this["DPSWidgetLeft"] = value;
@@ -231,7 +227,7 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
         [DefaultSettingValue("True")]
         public bool ShowEnmityWidgetOnLoad
         {
-            get { return ((bool)(this["ShowEnmityWidgetOnLoad"])); }
+            get { return ((bool) (this["ShowEnmityWidgetOnLoad"])); }
             set
             {
                 this["ShowEnmityWidgetOnLoad"] = value;
@@ -244,7 +240,7 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
         [DefaultSettingValue("100")]
         public int EnmityWidgetTop
         {
-            get { return ((int)(this["EnmityWidgetTop"])); }
+            get { return ((int) (this["EnmityWidgetTop"])); }
             set
             {
                 this["EnmityWidgetTop"] = value;
@@ -257,7 +253,7 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
         [DefaultSettingValue("100")]
         public int EnmityWidgetLeft
         {
-            get { return ((int)(this["EnmityWidgetLeft"])); }
+            get { return ((int) (this["EnmityWidgetLeft"])); }
             set
             {
                 this["EnmityWidgetLeft"] = value;
