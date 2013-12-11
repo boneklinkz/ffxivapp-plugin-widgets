@@ -20,7 +20,7 @@ namespace FFXIVAPP.Plugin.Widgets
             set { _instance = value; }
         }
 
-        private DPSWidget DPSWidget
+        public DPSWidget DPSWidget
         {
             get { return _dpsWidget ?? (_dpsWidget = new DPSWidget()); }
         }
