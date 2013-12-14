@@ -34,9 +34,33 @@
                                                                                Source={StaticResource Settings}}" />
                                 </StackPanel>
                             </GroupBox>
+                            <GroupBox Header="Show DTPS Widget On Load">
+                                <StackPanel>
+                                    <controls:ToggleSwitch IsChecked="{Binding ShowDTPSWidgetOnLoad,
+                                                                               Source={StaticResource Settings}}" />
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Header="Show HPS Widget On Load">
+                                <StackPanel>
+                                    <controls:ToggleSwitch IsChecked="{Binding ShowHPSWidgetOnLoad,
+                                                                               Source={StaticResource Settings}}" />
+                                </StackPanel>
+                            </GroupBox>
                             <GroupBox Header="Show Enmity Widget On Load">
                                 <StackPanel>
                                     <controls:ToggleSwitch IsChecked="{Binding ShowEnmityWidgetOnLoad,
+                                                                               Source={StaticResource Settings}}" />
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Header="Show Focus Target Widget On Load">
+                                <StackPanel>
+                                    <controls:ToggleSwitch IsChecked="{Binding ShowFocusTargetWidgetOnLoad,
+                                                                               Source={StaticResource Settings}}" />
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Header="Show Current Target Widget On Load">
+                                <StackPanel>
+                                    <controls:ToggleSwitch IsChecked="{Binding ShowCurrentTargetWidgetOnLoad,
                                                                                Source={StaticResource Settings}}" />
                                 </StackPanel>
                             </GroupBox>

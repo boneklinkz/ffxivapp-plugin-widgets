@@ -67,9 +67,21 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
             Constants.Settings.Add("ShowDPSWidgetOnLoad");
             Constants.Settings.Add("DPSWidgetTop");
             Constants.Settings.Add("DPSWidgetLeft");
+            Constants.Settings.Add("ShowDTPSWidgetOnLoad");
+            Constants.Settings.Add("DTPSWidgetTop");
+            Constants.Settings.Add("DTPSWidgetLeft");
+            Constants.Settings.Add("ShowHPSWidgetOnLoad");
+            Constants.Settings.Add("HPSWidgetTop");
+            Constants.Settings.Add("HPSWidgetLeft");
             Constants.Settings.Add("ShowEnmityWidgetOnLoad");
             Constants.Settings.Add("EnmityWidgetTop");
             Constants.Settings.Add("EnmityWidgetLeft");
+            Constants.Settings.Add("ShowEnmityWidgetCurrentTargetInfo");
+            Constants.Settings.Add("ShowFocusTargetWidgetOnLoad");
+            Constants.Settings.Add("FocusTargetWidgetTop");
+            Constants.Settings.Add("FocusTargetWidgetLeft");
+            Constants.Settings.Add("CurrentTargetWidgetTop");
+            Constants.Settings.Add("CurrentTargetWidgetLeft");
         }
 
         public new void Reset()
@@ -225,6 +237,84 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
+        public bool ShowDTPSWidgetOnLoad
+        {
+            get { return ((bool) (this["ShowDTPSWidgetOnLoad"])); }
+            set
+            {
+                this["ShowDTPSWidgetOnLoad"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("200")]
+        public int DTPSWidgetTop
+        {
+            get { return ((int) (this["DTPSWidgetTop"])); }
+            set
+            {
+                this["DTPSWidgetTop"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("100")]
+        public int DTPSWidgetLeft
+        {
+            get { return ((int) (this["DTPSWidgetLeft"])); }
+            set
+            {
+                this["DTPSWidgetLeft"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ShowHPSWidgetOnLoad
+        {
+            get { return ((bool) (this["ShowHPSWidgetOnLoad"])); }
+            set
+            {
+                this["ShowHPSWidgetOnLoad"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("300")]
+        public int HPSWidgetTop
+        {
+            get { return ((int) (this["HPSWidgetTop"])); }
+            set
+            {
+                this["HPSWidgetTop"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("100")]
+        public int HPSWidgetLeft
+        {
+            get { return ((int) (this["HPSWidgetLeft"])); }
+            set
+            {
+                this["HPSWidgetLeft"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
         public bool ShowEnmityWidgetOnLoad
         {
             get { return ((bool) (this["ShowEnmityWidgetOnLoad"])); }
@@ -250,13 +340,104 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        [DefaultSettingValue("100")]
+        [DefaultSettingValue("400")]
         public int EnmityWidgetLeft
         {
             get { return ((int) (this["EnmityWidgetLeft"])); }
             set
             {
                 this["EnmityWidgetLeft"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ShowEnmityWidgetCurrentTargetInfo
+        {
+            get { return ((bool) (this["ShowEnmityWidgetCurrentTargetInfo"])); }
+            set
+            {
+                this["ShowEnmityWidgetCurrentTargetInfo"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ShowFocusTargetWidgetOnLoad
+        {
+            get { return ((bool) (this["ShowFocusTargetWidgetOnLoad"])); }
+            set
+            {
+                this["ShowFocusTargetWidgetOnLoad"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("200")]
+        public int FocusTargetWidgetTop
+        {
+            get { return ((int) (this["FocusTargetWidgetTop"])); }
+            set
+            {
+                this["FocusTargetWidgetTop"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("400")]
+        public int FocusTargetWidgetLeft
+        {
+            get { return ((int) (this["FocusTargetWidgetLeft"])); }
+            set
+            {
+                this["FocusTargetWidgetLeft"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ShowCurrentTargetWidgetOnLoad
+        {
+            get { return ((bool) (this["ShowCurrentTargetWidgetOnLoad"])); }
+            set
+            {
+                this["ShowCurrentTargetWidgetOnLoad"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("300")]
+        public int CurrentTargetWidgetTop
+        {
+            get { return ((int) (this["CurrentTargetWidgetTop"])); }
+            set
+            {
+                this["CurrentTargetWidgetTop"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("400")]
+        public int CurrentTargetWidgetLeft
+        {
+            get { return ((int) (this["CurrentTargetWidgetLeft"])); }
+            set
+            {
+                this["CurrentTargetWidgetLeft"] = value;
                 RaisePropertyChanged();
             }
         }

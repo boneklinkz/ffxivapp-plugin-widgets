@@ -111,6 +111,22 @@
       <DependentUpon>SampleView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Widgets.cs" />
+    <Compile Include="Windows\DTPSWidget.xaml.cs">
+      <DependentUpon>DTPSWidget.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DTPSWidgetViewModel.cs" />
+    <Compile Include="Windows\CurrentTargetWidget.xaml.cs">
+      <DependentUpon>CurrentTargetWidget.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\CurrentTargetWidgetViewModel.cs" />
+    <Compile Include="Windows\FocusTargetWidgetViewModel.cs" />
+    <Compile Include="Windows\FocusTargetWidget.xaml.cs">
+      <DependentUpon>FocusTargetWidget.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\HPSWidgetViewModel.cs" />
+    <Compile Include="Windows\HPSWidget.xaml.cs">
+      <DependentUpon>HPSWidget.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\EnmityWidgetViewModel.cs" />
     <Compile Include="Windows\EnmityWidget.xaml.cs">
       <DependentUpon>EnmityWidget.xaml</DependentUpon>
@@ -163,6 +179,22 @@
     <Page Include="Views\SampleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DTPSWidget.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\CurrentTargetWidget.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\FocusTargetWidget.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\HPSWidget.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\EnmityWidget.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -27,6 +27,8 @@
         <converters:VisibilityConverter x:Key="VisibilityConverter" />
         <x:Static x:Key="EnmityWidgetViewModel"
                   Member="ViewModels:EnmityWidgetViewModel.Instance" />
+        <x:Static x:Key="Settings"
+                  Member="PluginProperties:Settings.Default" />
         <Style x:Key="StatLabelStyle">
             <Setter Property="Control.Padding" Value="0" />
         </Style>
@@ -242,7 +244,7 @@
                                 <Label Grid.Row="0"
                                        Margin="5 -1"
                                        HorizontalAlignment="Right"
-                                       Content="[ENMITY|HP]"
+                                       Content="[ENMITY]"
                                        FontSize="14"
                                        FontWeight="Bold"
                                        Foreground="Black"
@@ -264,10 +266,12 @@
                         Margin="5 1"
                         DataContext="{Binding TargetEntity.CurrentTarget,
                                               Source={StaticResource EnmityWidgetViewModel}}"
-                        Visibility="{Binding CurrentTargetIsValid,
-                                             Source={StaticResource EnmityWidgetViewModel},
+                        Visibility="{Binding ShowEnmityWidgetCurrentTargetInfo,
+                                             Source={StaticResource Settings},
                                              Converter={StaticResource VisibilityConverter}}">
-                <Grid>
+                <Grid Visibility="{Binding CurrentTargetIsValid,
+                                           Source={StaticResource EnmityWidgetViewModel},
+                                           Converter={StaticResource VisibilityConverter}}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />

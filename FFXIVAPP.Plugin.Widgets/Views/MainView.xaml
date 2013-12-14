@@ -5,6 +5,7 @@
              xmlns:Plugin="clr-namespace:FFXIVAPP.Plugin.Widgets"
              xmlns:Properties="clr-namespace:FFXIVAPP.Plugin.Widgets.Properties"
              xmlns:ViewModels="clr-namespace:FFXIVAPP.Plugin.Widgets.ViewModels"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
@@ -32,10 +33,40 @@
                             <Button Margin="3"
                                     Command="{Binding ResetDPSWidgetCommand,
                                                       Source={StaticResource MainViewModel}}"
-                                    Content="Reset Position (0,0)"
+                                    Content="Reset Position"
                                     DockPanel.Dock="Right" />
                             <Button Margin="3"
                                     Command="{Binding OpenDPSWidgetCommand,
+                                                      Source={StaticResource MainViewModel}}"
+                                    Content="Open Now" />
+                        </DockPanel>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="DTPS Widget">
+                    <StackPanel>
+                        <DockPanel LastChildFill="True">
+                            <Button Margin="3"
+                                    Command="{Binding ResetDTPSWidgetCommand,
+                                                      Source={StaticResource MainViewModel}}"
+                                    Content="Reset Position"
+                                    DockPanel.Dock="Right" />
+                            <Button Margin="3"
+                                    Command="{Binding OpenDTPSWidgetCommand,
+                                                      Source={StaticResource MainViewModel}}"
+                                    Content="Open Now" />
+                        </DockPanel>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="HPS Widget">
+                    <StackPanel>
+                        <DockPanel LastChildFill="True">
+                            <Button Margin="3"
+                                    Command="{Binding ResetHPSWidgetCommand,
+                                                      Source={StaticResource MainViewModel}}"
+                                    Content="Reset Position"
+                                    DockPanel.Dock="Right" />
+                            <Button Margin="3"
+                                    Command="{Binding OpenHPSWidgetCommand,
                                                       Source={StaticResource MainViewModel}}"
                                     Content="Open Now" />
                         </DockPanel>
@@ -47,10 +78,46 @@
                             <Button Margin="3"
                                     Command="{Binding ResetEnmityWidgetCommand,
                                                       Source={StaticResource MainViewModel}}"
-                                    Content="Reset Position (0,0)"
+                                    Content="Reset Position"
                                     DockPanel.Dock="Right" />
                             <Button Margin="3"
                                     Command="{Binding OpenEnmityWidgetCommand,
+                                                      Source={StaticResource MainViewModel}}"
+                                    Content="Open Now" />
+                        </DockPanel>
+                        <GroupBox Header="Show Enmity Widget Current Target Info">
+                            <StackPanel>
+                                <controls:ToggleSwitch IsChecked="{Binding ShowEnmityWidgetCurrentTargetInfo,
+                                                                           Source={StaticResource Settings}}" />
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Focus Target Widget">
+                    <StackPanel>
+                        <DockPanel LastChildFill="True">
+                            <Button Margin="3"
+                                    Command="{Binding ResetFocusTargetWidgetCommand,
+                                                      Source={StaticResource MainViewModel}}"
+                                    Content="Reset Position"
+                                    DockPanel.Dock="Right" />
+                            <Button Margin="3"
+                                    Command="{Binding OpenFocusTargetWidgetCommand,
+                                                      Source={StaticResource MainViewModel}}"
+                                    Content="Open Now" />
+                        </DockPanel>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Current Target Widget">
+                    <StackPanel>
+                        <DockPanel LastChildFill="True">
+                            <Button Margin="3"
+                                    Command="{Binding ResetCurrentTargetWidgetCommand,
+                                                      Source={StaticResource MainViewModel}}"
+                                    Content="Reset Position"
+                                    DockPanel.Dock="Right" />
+                            <Button Margin="3"
+                                    Command="{Binding OpenCurrentTargetWidgetCommand,
                                                       Source={StaticResource MainViewModel}}"
                                     Content="Open Now" />
                         </DockPanel>

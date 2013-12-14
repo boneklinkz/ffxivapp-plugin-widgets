@@ -1,4 +1,4 @@
-﻿<Window x:Class="FFXIVAPP.Plugin.Widgets.Windows.DPSWidget"
+﻿<Window x:Class="FFXIVAPP.Plugin.Widgets.Windows.HPSWidget"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:PluginProperties="clr-namespace:FFXIVAPP.Plugin.Widgets.Properties"
@@ -6,25 +6,25 @@
         xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Title="DPSWidget"
+        Title="HPSWidget"
         Width="250"
         Height="450"
         AllowsTransparency="True"
         Background="Transparent"
-        Closing="DPSWidget_OnClosing"
-        Left="{Binding DPSWidgetLeft,
+        Closing="HPSWidget_OnClosing"
+        Left="{Binding HPSWidgetLeft,
                        Mode=TwoWay,
                        Source={x:Static PluginProperties:Settings.Default}}"
         ShowInTaskbar="False"
-        Top="{Binding DPSWidgetTop,
+        Top="{Binding HPSWidgetTop,
                       Mode=TwoWay,
                       Source={x:Static PluginProperties:Settings.Default}}"
         Topmost="True"
         WindowStyle="None">
 
     <Window.Resources>
-        <x:Static x:Key="DPSWidgetViewModel"
-                  Member="ViewModels:DPSWidgetViewModel.Instance" />
+        <x:Static x:Key="HPSWidgetViewModel"
+                  Member="ViewModels:HPSWidgetViewModel.Instance" />
         <Style x:Key="StatLabelStyle">
             <Setter Property="Control.Padding" Value="0" />
         </Style>
@@ -240,7 +240,7 @@
                                 <Label Grid.Row="0"
                                        Margin="5 -1"
                                        HorizontalAlignment="Right"
-                                       Content="[DPS]"
+                                       Content="[HPS]"
                                        FontSize="14"
                                        FontWeight="Bold"
                                        Foreground="Black"
@@ -262,10 +262,10 @@
                 <ItemsControl.Resources>
                     <CollectionViewSource x:Key="Party"
                                           Source="{Binding ParseEntity.Players,
-                                                           Source={StaticResource DPSWidgetViewModel}}">
+                                                           Source={StaticResource HPSWidgetViewModel}}">
                         <CollectionViewSource.SortDescriptions>
                             <componentModel:SortDescription Direction="Descending"
-                                                            PropertyName="TotalOverallDamage" />
+                                                            PropertyName="TotalOverallHealing" />
                         </CollectionViewSource.SortDescriptions>
                     </CollectionViewSource>
                 </ItemsControl.Resources>
@@ -293,7 +293,7 @@
                                         <DockPanel DockPanel.Dock="Right">
                                             <Label Margin="5 0"
                                                    HorizontalAlignment="Left"
-                                                   Content="{Binding DPS}"
+                                                   Content="{Binding HPS}"
                                                    FontSize="12"
                                                    FontWeight="Bold"
                                                    Foreground="Black"
@@ -318,12 +318,12 @@
                                              Maximum="1"
                                              Minimum="0"
                                              Style="{StaticResource ProgressBarStyleStopAnimation}"
-                                             Value="{Binding PercentOfTotalOverallDamage}" />
+                                             Value="{Binding PercentOfTotalOverallHealing}" />
                                 <Label Grid.Row="0"
                                        Margin="5 0"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
-                                       Content="{Binding TotalOverallDamage}"
+                                       Content="{Binding TotalOverallHealing}"
                                        FontWeight="Bold"
                                        Foreground="Black"
                                        Style="{StaticResource CommaNumberStyle}" />
@@ -331,7 +331,7 @@
                                        Margin="5 0"
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Center"
-                                       Content="{Binding PercentOfTotalOverallDamage}"
+                                       Content="{Binding PercentOfTotalOverallHealing}"
                                        FontWeight="Bold"
                                        Foreground="Black"
                                        Style="{StaticResource PercentStyle}" />

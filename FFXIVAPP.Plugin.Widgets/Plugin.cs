@@ -277,15 +277,25 @@ namespace FFXIVAPP.Plugin.Widgets
             }
             var targetEntity = targetEntityEvent.TargetEntity;
             EnmityWidgetViewModel.Instance.TargetEntity = targetEntity;
+            FocusTargetWidgetViewModel.Instance.TargetEntity = targetEntity;
+            CurrentTargetWidgetViewModel.Instance.TargetEntity = targetEntity;
+            EnmityWidgetViewModel.Instance.CurrentTargetIsValid = false;
+            EnmityWidgetViewModel.Instance.CurrentTargetHPPercent = 0;
+            FocusTargetWidgetViewModel.Instance.FocusTargetIsValid = false;
+            FocusTargetWidgetViewModel.Instance.FocusTargetHPPercent = 0;
+            CurrentTargetWidgetViewModel.Instance.CurrentTargetIsValid = false;
+            CurrentTargetWidgetViewModel.Instance.CurrentTargetHPPercent = 0;
             if (targetEntity.CurrentTarget != null && targetEntity.CurrentTarget.IsValid)
             {
                 EnmityWidgetViewModel.Instance.CurrentTargetIsValid = true;
                 EnmityWidgetViewModel.Instance.CurrentTargetHPPercent = (double) targetEntity.CurrentTarget.HPPercent;
+                CurrentTargetWidgetViewModel.Instance.CurrentTargetIsValid = true;
+                CurrentTargetWidgetViewModel.Instance.CurrentTargetHPPercent = (double) targetEntity.CurrentTarget.HPPercent;
             }
-            else
+            if (targetEntity.FocusTarget != null && targetEntity.FocusTarget.IsValid)
             {
-                EnmityWidgetViewModel.Instance.CurrentTargetIsValid = false;
-                EnmityWidgetViewModel.Instance.CurrentTargetHPPercent = 0;
+                FocusTargetWidgetViewModel.Instance.FocusTargetIsValid = true;
+                FocusTargetWidgetViewModel.Instance.FocusTargetHPPercent = (double) targetEntity.CurrentTarget.HPPercent;
             }
         }
 
@@ -300,6 +310,8 @@ namespace FFXIVAPP.Plugin.Widgets
             }
             var parseEntity = parseEntityEvent.ParseEntity;
             DPSWidgetViewModel.Instance.ParseEntity = parseEntity;
+            DTPSWidgetViewModel.Instance.ParseEntity = parseEntity;
+            HPSWidgetViewModel.Instance.ParseEntity = parseEntity;
         }
     }
 }
