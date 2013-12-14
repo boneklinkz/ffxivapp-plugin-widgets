@@ -80,6 +80,7 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
             Constants.Settings.Add("ShowFocusTargetWidgetOnLoad");
             Constants.Settings.Add("FocusTargetWidgetTop");
             Constants.Settings.Add("FocusTargetWidgetLeft");
+            Constants.Settings.Add("ShowCurrentTargetWidgetOnLoad");
             Constants.Settings.Add("CurrentTargetWidgetTop");
             Constants.Settings.Add("CurrentTargetWidgetLeft");
         }
