@@ -167,11 +167,6 @@ namespace FFXIVAPP.Plugin.Widgets
 
         #endregion
 
-        private void PHostOnNewShit(object sender, EventArgs eventArgs)
-        {
-            Application.Current.Shutdown(0);
-        }
-
         private void PluginHostOnNewConstantsEntity(object sender, ConstantsEntityEvent constantsEntityEvent)
         {
             // delegate event from constants, not required to subsribe, but recommended as it gives you app settings
@@ -295,7 +290,7 @@ namespace FFXIVAPP.Plugin.Widgets
             if (targetEntity.FocusTarget != null && targetEntity.FocusTarget.IsValid)
             {
                 FocusTargetWidgetViewModel.Instance.FocusTargetIsValid = true;
-                FocusTargetWidgetViewModel.Instance.FocusTargetHPPercent = (double) targetEntity.CurrentTarget.HPPercent;
+                FocusTargetWidgetViewModel.Instance.FocusTargetHPPercent = (double) targetEntity.FocusTarget.HPPercent;
             }
         }
 
