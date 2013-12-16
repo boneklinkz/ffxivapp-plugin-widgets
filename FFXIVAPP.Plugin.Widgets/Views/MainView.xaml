@@ -85,12 +85,6 @@
                                                       Source={StaticResource MainViewModel}}"
                                     Content="Open Now" />
                         </DockPanel>
-                        <GroupBox Header="Show Enmity Widget Current Target Info">
-                            <StackPanel>
-                                <controls:ToggleSwitch IsChecked="{Binding ShowEnmityWidgetCurrentTargetInfo,
-                                                                           Source={StaticResource Settings}}" />
-                            </StackPanel>
-                        </GroupBox>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="Focus Target Widget">

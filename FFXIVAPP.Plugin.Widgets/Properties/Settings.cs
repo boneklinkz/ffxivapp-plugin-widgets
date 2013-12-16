@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
@@ -67,12 +68,15 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
             Constants.Settings.Add("ShowDPSWidgetOnLoad");
             Constants.Settings.Add("DPSWidgetTop");
             Constants.Settings.Add("DPSWidgetLeft");
+            Constants.Settings.Add("DPSVisibility");
             Constants.Settings.Add("ShowDTPSWidgetOnLoad");
             Constants.Settings.Add("DTPSWidgetTop");
             Constants.Settings.Add("DTPSWidgetLeft");
+            Constants.Settings.Add("DTPSVisibility");
             Constants.Settings.Add("ShowHPSWidgetOnLoad");
             Constants.Settings.Add("HPSWidgetTop");
             Constants.Settings.Add("HPSWidgetLeft");
+            Constants.Settings.Add("HPSVisibility");
             Constants.Settings.Add("ShowEnmityWidgetOnLoad");
             Constants.Settings.Add("EnmityWidgetTop");
             Constants.Settings.Add("EnmityWidgetLeft");
@@ -237,6 +241,41 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
+        [DefaultSettingValue("0")]
+        public string DPSVisibility
+        {
+            get { return ((string) (this["DPSVisibility"])); }
+            set
+            {
+                this["DPSVisibility"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0</string>
+  <string>50</string>
+  <string>100</string>
+  <string>150</string>
+  <string>200</string>
+  <string>250</string>
+  <string>300</string>
+</ArrayOfString>")]
+        public StringCollection DPSVisibilityList
+        {
+            get { return ((StringCollection) (this["DPSVisibilityList"])); }
+            set
+            {
+                this["DPSVisibilityList"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
         public bool ShowDTPSWidgetOnLoad
         {
@@ -276,6 +315,41 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
+        [DefaultSettingValue("0")]
+        public string DTPSVisibility
+        {
+            get { return ((string) (this["DTPSVisibility"])); }
+            set
+            {
+                this["DTPSVisibility"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0</string>
+  <string>50</string>
+  <string>100</string>
+  <string>150</string>
+  <string>200</string>
+  <string>250</string>
+  <string>300</string>
+</ArrayOfString>")]
+        public StringCollection DTPSVisibilityList
+        {
+            get { return ((StringCollection) (this["DTPSVisibilityList"])); }
+            set
+            {
+                this["DTPSVisibilityList"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
         public bool ShowHPSWidgetOnLoad
         {
@@ -309,6 +383,41 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
             set
             {
                 this["HPSWidgetLeft"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("0")]
+        public string HPSVisibility
+        {
+            get { return ((string) (this["HPSVisibility"])); }
+            set
+            {
+                this["HPSVisibility"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0</string>
+  <string>50</string>
+  <string>100</string>
+  <string>150</string>
+  <string>200</string>
+  <string>250</string>
+  <string>300</string>
+</ArrayOfString>")]
+        public StringCollection HPSVisibilityList
+        {
+            get { return ((StringCollection) (this["HPSVisibilityList"])); }
+            set
+            {
+                this["HPSVisibilityList"] = value;
                 RaisePropertyChanged();
             }
         }

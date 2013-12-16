@@ -28,42 +28,102 @@
                     <TabItem x:Name="SettingsWidgetsTI"
                              Header="Widget Settings">
                         <StackPanel>
-                            <GroupBox Header="Show DPS Widget On Load">
+                            <Expander Header="Settings:DPS">
                                 <StackPanel>
-                                    <controls:ToggleSwitch IsChecked="{Binding ShowDPSWidgetOnLoad,
-                                                                               Source={StaticResource Settings}}" />
+                                    <GroupBox Header="Show On Load">
+                                        <StackPanel>
+                                            <controls:ToggleSwitch IsChecked="{Binding ShowDPSWidgetOnLoad,
+                                                                                       Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
+                                    <GroupBox Header="Player Visibility Threshold">
+                                        <StackPanel>
+                                            <ComboBox Margin="5"
+                                                      IsReadOnly="False"
+                                                      ItemsSource="{Binding DPSVisibilityList,
+                                                                            Source={StaticResource Settings}}"
+                                                      SelectedValue="{Binding DPSVisibility,
+                                                                              Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
                                 </StackPanel>
-                            </GroupBox>
-                            <GroupBox Header="Show DTPS Widget On Load">
+                            </Expander>
+                            <Expander Header="Settings:DTPS">
                                 <StackPanel>
-                                    <controls:ToggleSwitch IsChecked="{Binding ShowDTPSWidgetOnLoad,
-                                                                               Source={StaticResource Settings}}" />
+                                    <GroupBox Header="Show On Load">
+                                        <StackPanel>
+                                            <controls:ToggleSwitch IsChecked="{Binding ShowDTPSWidgetOnLoad,
+                                                                                       Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
+                                    <GroupBox Header="Player Visibility Threshold">
+                                        <StackPanel>
+                                            <ComboBox Margin="5"
+                                                      IsReadOnly="False"
+                                                      ItemsSource="{Binding DTPSVisibilityList,
+                                                                            Source={StaticResource Settings}}"
+                                                      SelectedValue="{Binding DTPSVisibility,
+                                                                              Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
                                 </StackPanel>
-                            </GroupBox>
-                            <GroupBox Header="Show HPS Widget On Load">
+                            </Expander>
+                            <Expander Header="Settings:HPS">
                                 <StackPanel>
-                                    <controls:ToggleSwitch IsChecked="{Binding ShowHPSWidgetOnLoad,
-                                                                               Source={StaticResource Settings}}" />
+                                    <GroupBox Header="Show On Load">
+                                        <StackPanel>
+                                            <controls:ToggleSwitch IsChecked="{Binding ShowHPSWidgetOnLoad,
+                                                                                       Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
+                                    <GroupBox Header="Player Visibility Threshold">
+                                        <StackPanel>
+                                            <ComboBox Margin="5"
+                                                      IsReadOnly="False"
+                                                      ItemsSource="{Binding HPSVisibilityList,
+                                                                            Source={StaticResource Settings}}"
+                                                      SelectedValue="{Binding HPSVisibility,
+                                                                              Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
                                 </StackPanel>
-                            </GroupBox>
-                            <GroupBox Header="Show Enmity Widget On Load">
+                            </Expander>
+                            <Expander Header="Settings:Enmity">
                                 <StackPanel>
-                                    <controls:ToggleSwitch IsChecked="{Binding ShowEnmityWidgetOnLoad,
-                                                                               Source={StaticResource Settings}}" />
+                                    <GroupBox Header="Show On Load">
+                                        <StackPanel>
+                                            <controls:ToggleSwitch IsChecked="{Binding ShowEnmityWidgetOnLoad,
+                                                                                       Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
+                                    <GroupBox Header="Show Current Target Info">
+                                        <StackPanel>
+                                            <controls:ToggleSwitch IsChecked="{Binding ShowEnmityWidgetCurrentTargetInfo,
+                                                                                       Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
                                 </StackPanel>
-                            </GroupBox>
-                            <GroupBox Header="Show Focus Target Widget On Load">
+                            </Expander>
+                            <Expander Header="Settings:Focus Target">
                                 <StackPanel>
-                                    <controls:ToggleSwitch IsChecked="{Binding ShowFocusTargetWidgetOnLoad,
-                                                                               Source={StaticResource Settings}}" />
+                                    <GroupBox Header="Show On Load">
+                                        <StackPanel>
+                                            <controls:ToggleSwitch IsChecked="{Binding ShowFocusTargetWidgetOnLoad,
+                                                                                       Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
                                 </StackPanel>
-                            </GroupBox>
-                            <GroupBox Header="Show Current Target Widget On Load">
+                            </Expander>
+                            <Expander Header="Settings:Current Target">
                                 <StackPanel>
-                                    <controls:ToggleSwitch IsChecked="{Binding ShowCurrentTargetWidgetOnLoad,
-                                                                               Source={StaticResource Settings}}" />
+                                    <GroupBox Header="Show On Load">
+                                        <StackPanel>
+                                            <controls:ToggleSwitch IsChecked="{Binding ShowCurrentTargetWidgetOnLoad,
+                                                                                       Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
                                 </StackPanel>
-                            </GroupBox>
+                            </Expander>
                         </StackPanel>
                     </TabItem>
                 </TabControl>

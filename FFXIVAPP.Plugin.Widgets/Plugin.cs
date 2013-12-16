@@ -271,15 +271,18 @@ namespace FFXIVAPP.Plugin.Widgets
                 return;
             }
             var targetEntity = targetEntityEvent.TargetEntity;
+            // assign entity
             EnmityWidgetViewModel.Instance.TargetEntity = targetEntity;
             FocusTargetWidgetViewModel.Instance.TargetEntity = targetEntity;
             CurrentTargetWidgetViewModel.Instance.TargetEntity = targetEntity;
+            // assign default current/focus target info
             EnmityWidgetViewModel.Instance.CurrentTargetIsValid = false;
             EnmityWidgetViewModel.Instance.CurrentTargetHPPercent = 0;
             FocusTargetWidgetViewModel.Instance.FocusTargetIsValid = false;
             FocusTargetWidgetViewModel.Instance.FocusTargetHPPercent = 0;
             CurrentTargetWidgetViewModel.Instance.CurrentTargetIsValid = false;
             CurrentTargetWidgetViewModel.Instance.CurrentTargetHPPercent = 0;
+            // if valid assign actual current target info
             if (targetEntity.CurrentTarget != null && targetEntity.CurrentTarget.IsValid)
             {
                 EnmityWidgetViewModel.Instance.CurrentTargetIsValid = true;
@@ -287,6 +290,7 @@ namespace FFXIVAPP.Plugin.Widgets
                 CurrentTargetWidgetViewModel.Instance.CurrentTargetIsValid = true;
                 CurrentTargetWidgetViewModel.Instance.CurrentTargetHPPercent = (double) targetEntity.CurrentTarget.HPPercent;
             }
+            // if valid assign actual focus target info
             if (targetEntity.FocusTarget != null && targetEntity.FocusTarget.IsValid)
             {
                 FocusTargetWidgetViewModel.Instance.FocusTargetIsValid = true;
@@ -304,9 +308,9 @@ namespace FFXIVAPP.Plugin.Widgets
                 return;
             }
             var parseEntity = parseEntityEvent.ParseEntity;
-            DPSWidgetViewModel.Instance.ParseEntity = parseEntity;
-            DTPSWidgetViewModel.Instance.ParseEntity = parseEntity;
-            HPSWidgetViewModel.Instance.ParseEntity = parseEntity;
+            DPSWidgetViewModel.Instance.ParseEntity = EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.DPS);
+            DTPSWidgetViewModel.Instance.ParseEntity = EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.DTPS);
+            HPSWidgetViewModel.Instance.ParseEntity = EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.HPS);
         }
     }
 }
