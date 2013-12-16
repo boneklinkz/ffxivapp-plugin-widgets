@@ -212,12 +212,6 @@
     </Window.Resources>
 
     <Grid x:Name="LayoutRoot">
-        <Grid.Effect>
-            <DropShadowEffect BlurRadius="3"
-                              Direction="0"
-                              RenderingBias="Quality"
-                              ShadowDepth="0" />
-        </Grid.Effect>
         <StackPanel>
             <DockPanel LastChildFill="True">
                 <Border Margin="5"
