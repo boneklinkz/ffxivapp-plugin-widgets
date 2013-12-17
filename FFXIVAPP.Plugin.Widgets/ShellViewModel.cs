@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using FFXIVAPP.Plugin.Widgets.Properties;
+using FFXIVAPP.Plugin.Widgets.Windows;
 
 namespace FFXIVAPP.Plugin.Widgets
 {

@@ -65,6 +65,7 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
         private void DefaultSettings()
         {
             Constants.Settings.Clear();
+            Constants.Settings.Add("WidgetOpenCloseModifiesShowOnLoad");
             Constants.Settings.Add("ShowDPSWidgetOnLoad");
             Constants.Settings.Add("DPSWidgetTop");
             Constants.Settings.Add("DPSWidgetLeft");
@@ -196,6 +197,19 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
             set
             {
                 this["Zoom"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool WidgetOpenCloseModifiesShowOnLoad
+        {
+            get { return ((bool)(this["WidgetOpenCloseModifiesShowOnLoad"])); }
+            set
+            {
+                this["WidgetOpenCloseModifiesShowOnLoad"] = value;
                 RaisePropertyChanged();
             }
         }

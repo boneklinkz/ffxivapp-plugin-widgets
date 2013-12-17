@@ -12,7 +12,7 @@
         Height="450"
         AllowsTransparency="True"
         Background="Transparent"
-        Closing="EnmityWidget_OnClosing"
+        Closing="Widget_OnClosing"
         Left="{Binding EnmityWidgetLeft,
                        Mode=TwoWay,
                        Source={x:Static PluginProperties:Settings.Default}}"

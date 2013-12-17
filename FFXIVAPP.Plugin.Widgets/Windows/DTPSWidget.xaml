@@ -11,7 +11,7 @@
         Height="450"
         AllowsTransparency="True"
         Background="Transparent"
-        Closing="DTPSWidget_OnClosing"
+        Closing="Widget_OnClosing"
         Left="{Binding DTPSWidgetLeft,
                        Mode=TwoWay,
                        Source={x:Static PluginProperties:Settings.Default}}"

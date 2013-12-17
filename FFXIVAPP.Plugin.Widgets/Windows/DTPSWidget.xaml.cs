@@ -35,7 +35,7 @@ namespace FFXIVAPP.Plugin.Widgets.Windows
             Close();
         }
 
-        private void DTPSWidget_OnClosing(object sender, CancelEventArgs e)
+        private void Widget_OnClosing(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
             Hide();
