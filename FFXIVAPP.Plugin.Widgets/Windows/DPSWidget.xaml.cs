@@ -6,6 +6,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using FFXIVAPP.Plugin.Widgets.Interop;
 
 namespace FFXIVAPP.Plugin.Widgets.Windows
 {
@@ -20,9 +21,10 @@ namespace FFXIVAPP.Plugin.Widgets.Windows
         {
             View = this;
             InitializeComponent();
+            View.SourceInitialized += delegate { WinAPI.ToggleClickThrough(this); };
         }
 
-        private void UIElement_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void TitleBar_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (Mouse.LeftButton == MouseButtonState.Pressed)
             {

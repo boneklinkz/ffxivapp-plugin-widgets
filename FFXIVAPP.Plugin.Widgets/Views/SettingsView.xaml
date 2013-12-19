@@ -25,6 +25,28 @@
         <ScrollViewer>
             <StackPanel>
                 <TabControl x:Name="SettingsTC">
+                    <TabItem Header="{Binding Locale[app_MainSettingsTabHeader],
+                                              Source={StaticResource PluginViewModel}}">
+                        <StackPanel>
+                            <GroupBox Header="Enable Click-Through On Widgets">
+                                <StackPanel>
+                                    <controls:ToggleSwitch IsChecked="{Binding WidgetClickThroughEnabled,
+                                                                               Source={StaticResource Settings}}" />
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Header="Widget Opacity">
+                                <StackPanel>
+                                    <ComboBox x:Name="WidgetSelect"
+                                              Margin="5"
+                                              IsReadOnly="False"
+                                              ItemsSource="{Binding WidgetOpacityList,
+                                                                    Source={StaticResource Settings}}"
+                                              SelectedValue="{Binding WidgetOpacity,
+                                                                      Source={StaticResource Settings}}" />
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+                    </TabItem>
                     <TabItem x:Name="SettingsWidgetsTI"
                              Header="Widget Settings">
                         <StackPanel>

@@ -84,6 +84,7 @@
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="Helpers\LocaleHelper.cs" />
+    <Compile Include="Interop\WinAPI.cs" />
     <Compile Include="Localization\English.cs" />
     <Compile Include="Localization\French.cs" />
     <Compile Include="Localization\German.cs" />

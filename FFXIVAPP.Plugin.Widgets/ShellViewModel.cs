@@ -6,8 +6,8 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using FFXIVAPP.Plugin.Widgets.Interop;
 using FFXIVAPP.Plugin.Widgets.Properties;
-using FFXIVAPP.Plugin.Widgets.Windows;
 
 namespace FFXIVAPP.Plugin.Widgets
 {
@@ -65,6 +65,18 @@ namespace FFXIVAPP.Plugin.Widgets
 
         private static void DefaultOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
+            var propertyName = propertyChangedEventArgs.PropertyName;
+            switch (propertyName)
+            {
+                case "WidgetClickThroughEnabled":
+                    WinAPI.ToggleClickThrough(Widgets.Instance.CurrentTargetWidget);
+                    WinAPI.ToggleClickThrough(Widgets.Instance.DPSWidget);
+                    WinAPI.ToggleClickThrough(Widgets.Instance.DTPSWidget);
+                    WinAPI.ToggleClickThrough(Widgets.Instance.EnmityWidget);
+                    WinAPI.ToggleClickThrough(Widgets.Instance.FocusTargetWidget);
+                    WinAPI.ToggleClickThrough(Widgets.Instance.HPSWidget);
+                    break;
+            }
         }
 
         #region Loading Functions

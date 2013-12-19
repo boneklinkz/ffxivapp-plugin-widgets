@@ -16,6 +16,8 @@
         Left="{Binding EnmityWidgetLeft,
                        Mode=TwoWay,
                        Source={x:Static PluginProperties:Settings.Default}}"
+        Opacity="{Binding WidgetOpacity,
+                          Source={x:Static PluginProperties:Settings.Default}}"
         ShowInTaskbar="False"
         Top="{Binding EnmityWidgetTop,
                       Mode=TwoWay,
@@ -233,7 +235,7 @@
                                   Stroke="Black" />
                         </Button>
                         <DockPanel Background="WhiteSmoke"
-                                   PreviewMouseDown="UIElement_OnPreviewMouseDown">
+                                   PreviewMouseDown="TitleBar_OnPreviewMouseDown">
                             <Grid>
                                 <Label Grid.Row="0"
                                        Margin="5 -1"

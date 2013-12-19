@@ -66,6 +66,8 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
         {
             Constants.Settings.Clear();
             Constants.Settings.Add("WidgetOpenCloseModifiesShowOnLoad");
+            Constants.Settings.Add("WidgetClickThroughEnabled");
+            Constants.Settings.Add("WidgetOpacity");
             Constants.Settings.Add("ShowDPSWidgetOnLoad");
             Constants.Settings.Add("DPSWidgetTop");
             Constants.Settings.Add("DPSWidgetLeft");
@@ -206,10 +208,57 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
         [DefaultSettingValue("False")]
         public bool WidgetOpenCloseModifiesShowOnLoad
         {
-            get { return ((bool)(this["WidgetOpenCloseModifiesShowOnLoad"])); }
+            get { return ((bool) (this["WidgetOpenCloseModifiesShowOnLoad"])); }
             set
             {
                 this["WidgetOpenCloseModifiesShowOnLoad"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("0.7")]
+        public string WidgetOpacity
+        {
+            get { return ((string) (this["WidgetOpacity"])); }
+            set
+            {
+                this["WidgetOpacity"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0.5</string>
+  <string>0.6</string>
+  <string>0.7</string>
+  <string>0.8</string>
+  <string>0.9</string>
+  <string>1.0</string>
+</ArrayOfString>")]
+        public StringCollection WidgetOpacityList
+        {
+            get { return ((StringCollection)(this["WidgetOpacityList"])); }
+            set
+            {
+                this["WidgetOpacityList"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool WidgetClickThroughEnabled
+        {
+            get { return ((bool) (this["WidgetClickThroughEnabled"])); }
+            set
+            {
+                this["WidgetClickThroughEnabled"] = value;
                 RaisePropertyChanged();
             }
         }
@@ -266,7 +315,7 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
             }
         }
 
-        [UserScopedSetting]
+        [ApplicationScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
@@ -340,7 +389,7 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
             }
         }
 
-        [UserScopedSetting]
+        [ApplicationScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
@@ -414,7 +463,7 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
             }
         }
 
-        [UserScopedSetting]
+        [ApplicationScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
