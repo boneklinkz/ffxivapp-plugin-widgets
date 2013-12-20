@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
+    <Compile Include="Helpers\WidgetTopMostHelper.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="Helpers\LocaleHelper.cs" />
     <Compile Include="Interop\WinAPI.cs" />

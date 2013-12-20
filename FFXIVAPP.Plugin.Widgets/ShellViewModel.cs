@@ -31,38 +31,13 @@ namespace FFXIVAPP.Plugin.Widgets
         public ShellViewModel()
         {
             Initializer.LoadSettings();
+            Initializer.SetupWidgetTopMost();
             Settings.Default.PropertyChanged += DefaultOnPropertyChanged;
         }
 
         internal static void Loaded(object sender, RoutedEventArgs e)
         {
             ShellView.View.Loaded -= Loaded;
-            /*
-            if (Settings.Default.ShowDPSWidgetOnLoad)
-            {
-                Widgets.Instance.ShowDPSWidget();
-            }
-            if (Settings.Default.ShowDTPSWidgetOnLoad)
-            {
-                Widgets.Instance.ShowDTPSWidget();
-            }
-            if (Settings.Default.ShowHPSWidgetOnLoad)
-            {
-                Widgets.Instance.ShowHPSWidget();
-            }
-            if (Settings.Default.ShowEnmityWidgetOnLoad)
-            {
-                Widgets.Instance.ShowEnmityWidget();
-            }
-            if (Settings.Default.ShowFocusTargetWidgetOnLoad)
-            {
-                Widgets.Instance.ShowFocusTargetWidget();
-            }
-            if (Settings.Default.ShowCurrentTargetWidgetOnLoad)
-            {
-                Widgets.Instance.ShowCurrentTargetWidget();
-            }
-            */
         }
 
         private static void DefaultOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)

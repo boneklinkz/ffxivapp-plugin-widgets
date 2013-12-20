@@ -5,6 +5,7 @@
 
 using System;
 using System.Xml.Linq;
+using FFXIVAPP.Plugin.Widgets.Helpers;
 using FFXIVAPP.Plugin.Widgets.Properties;
 
 namespace FFXIVAPP.Plugin.Widgets
@@ -37,6 +38,11 @@ namespace FFXIVAPP.Plugin.Widgets
                     }
                 }
             }
+        }
+
+        public static void SetupWidgetTopMost()
+        {
+            WidgetTopMostHelper.HookWidgetTopMost();
         }
     }
 }

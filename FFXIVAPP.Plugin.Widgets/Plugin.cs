@@ -8,26 +8,18 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Runtime.CompilerServices;
-using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interop;
-using System.Windows.Threading;
-using FFXIVAPP.Common.Core.Constant;
-using FFXIVAPP.Common.Core.Memory;
-using FFXIVAPP.Common.Core.Parse;
 using FFXIVAPP.Common.Events;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
 using FFXIVAPP.IPluginInterface.Events;
 using FFXIVAPP.Plugin.Widgets.Helpers;
-using FFXIVAPP.Plugin.Widgets.Interop;
 using FFXIVAPP.Plugin.Widgets.Properties;
 using FFXIVAPP.Plugin.Widgets.Utilities;
 using FFXIVAPP.Plugin.Widgets.Windows;
 using NLog;
-using PlayerEntity = FFXIVAPP.Common.Core.Memory.PlayerEntity;
 
 namespace FFXIVAPP.Plugin.Widgets
 {
@@ -50,10 +42,6 @@ namespace FFXIVAPP.Plugin.Widgets
         private Dictionary<string, string> _locale;
         private string _name;
         private MessageBoxResult _popupResult;
-        private WinAPI.WinEventDelegate dele;
-        private IntPtr m_hhook;
-
-        private Timer setWindowTimer;
 
         public IPluginHost Host
         {
@@ -77,7 +65,7 @@ namespace FFXIVAPP.Plugin.Widgets
             set
             {
                 _locale = value;
-                Dictionary<string, string> locale = LocaleHelper.Update(Constants.CultureInfo);
+                var locale = LocaleHelper.Update(Constants.CultureInfo);
                 foreach (var resource in locale)
                 {
                     try
@@ -132,21 +120,6 @@ namespace FFXIVAPP.Plugin.Widgets
             Copyright = AssemblyHelper.Copyright;
             Version = AssemblyHelper.Version.ToString();
             Notice = "";
-
-
-            try
-            {
-                dele = BringWidgetsIntoFocus;
-                m_hhook = WinAPI.SetWinEventHook(WinAPI.EVENT_SYSTEM_FOREGROUND, WinAPI.EVENT_SYSTEM_FOREGROUND, IntPtr.Zero, dele, 0, 0, WinAPI.WINEVENT_OUTOFCONTEXT);
-            }
-            catch (Exception e)
-            {
-                //MessageBox.Show("Initialize exception: " + e.Message);
-            }
-
-            setWindowTimer = new Timer(1000);
-            setWindowTimer.Elapsed += setWindowTimer_Elapsed;
-            setWindowTimer.Enabled = true;
         }
 
         public void Dispose(bool isUpdating = false)
@@ -195,11 +168,6 @@ namespace FFXIVAPP.Plugin.Widgets
 
         #endregion
 
-        private void setWindowTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate { BringWidgetsIntoFocus(); }));
-        }
-
         private void PluginHostOnNewConstantsEntity(object sender, ConstantsEntityEvent constantsEntityEvent)
         {
             // delegate event from constants, not required to subsribe, but recommended as it gives you app settings
@@ -207,7 +175,7 @@ namespace FFXIVAPP.Plugin.Widgets
             {
                 return;
             }
-            ConstantsEntity constantsEntity = constantsEntityEvent.ConstantsEntity;
+            var constantsEntity = constantsEntityEvent.ConstantsEntity;
             Constants.AutoTranslate = constantsEntity.AutoTranslate;
             Constants.ChatCodes = constantsEntity.ChatCodes;
             Constants.Colors = constantsEntity.Colors;
@@ -227,7 +195,7 @@ namespace FFXIVAPP.Plugin.Widgets
             {
                 return;
             }
-            ChatLogEntry chatLogEntry = chatLogEntryEvent.ChatLogEntry;
+            var chatLogEntry = chatLogEntryEvent.ChatLogEntry;
             try
             {
                 if (chatLogEntry.Line.ToLower()
@@ -252,7 +220,7 @@ namespace FFXIVAPP.Plugin.Widgets
             {
                 return;
             }
-            List<ActorEntity> monsterEntities = actorEntitiesEvent.ActorEntities;
+            var monsterEntities = actorEntitiesEvent.ActorEntities;
         }
 
         private void PluginHostOnNewNPCEntries(object sender, ActorEntitiesEvent actorEntitiesEvent)
@@ -265,7 +233,7 @@ namespace FFXIVAPP.Plugin.Widgets
             {
                 return;
             }
-            List<ActorEntity> npcEntities = actorEntitiesEvent.ActorEntities;
+            var npcEntities = actorEntitiesEvent.ActorEntities;
         }
 
         private void PluginHostOnNewPCEntries(object sender, ActorEntitiesEvent actorEntitiesEvent)
@@ -277,7 +245,7 @@ namespace FFXIVAPP.Plugin.Widgets
             {
                 return;
             }
-            List<ActorEntity> pcEntities = actorEntitiesEvent.ActorEntities;
+            var pcEntities = actorEntitiesEvent.ActorEntities;
         }
 
         private void PluginHostOnNewPlayerEntity(object sender, PlayerEntityEvent playerEntityEvent)
@@ -289,7 +257,7 @@ namespace FFXIVAPP.Plugin.Widgets
             {
                 return;
             }
-            PlayerEntity playerEntity = playerEntityEvent.PlayerEntity;
+            var playerEntity = playerEntityEvent.PlayerEntity;
         }
 
         private void PluginHostOnNewTargetEntity(object sender, TargetEntityEvent targetEntityEvent)
@@ -303,7 +271,7 @@ namespace FFXIVAPP.Plugin.Widgets
             {
                 return;
             }
-            TargetEntity targetEntity = targetEntityEvent.TargetEntity;
+            var targetEntity = targetEntityEvent.TargetEntity;
             // assign entity
             EnmityWidgetViewModel.Instance.TargetEntity = targetEntity;
             FocusTargetWidgetViewModel.Instance.TargetEntity = targetEntity;
@@ -340,107 +308,10 @@ namespace FFXIVAPP.Plugin.Widgets
             {
                 return;
             }
-            ParseEntity parseEntity = parseEntityEvent.ParseEntity;
+            var parseEntity = parseEntityEvent.ParseEntity;
             DPSWidgetViewModel.Instance.ParseEntity = EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.DPS);
             DTPSWidgetViewModel.Instance.ParseEntity = EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.DTPS);
             HPSWidgetViewModel.Instance.ParseEntity = EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.HPS);
-        }
-
-        private static void BringWidgetsIntoFocus(IntPtr hwineventhook, uint eventtype, IntPtr hwnd, int idobject, int idchild, uint dweventthread, uint dwmseventtime)
-        {
-            BringWidgetsIntoFocus(true);
-        }
-
-
-        private static void BringWidgetsIntoFocus(bool force = false)
-        {
-            try
-            {
-
-                IntPtr handle = WinAPI.GetForegroundWindow();
-                string name = WinAPI.GetActiveWindowTitle()
-                             .ToUpper();
-                //MessageBox.Show("name" + name);
-                bool stayOnTop = WinAPI.GetActiveWindowTitle()
-                                  .ToUpper()
-                                  .StartsWith("FINAL FANTASY XIV");
-
-
-                // If any of the widgets are focused, don't try to hide any of them, or it'll prevent us from moving/closing them
-                if (handle == new WindowInteropHelper(Widgets.Instance.DPSWidget).Handle)
-                {
-                    return;
-                }
-                if (handle == new WindowInteropHelper(Widgets.Instance.EnmityWidget).Handle)
-                {
-                    return;
-                }
-                if (handle == new WindowInteropHelper(Widgets.Instance.CurrentTargetWidget).Handle)
-                {
-                    return;
-                }
-                if (handle == new WindowInteropHelper(Widgets.Instance.DTPSWidget).Handle)
-                {
-                    return;
-                }
-                if (handle == new WindowInteropHelper(Widgets.Instance.FocusTargetWidget).Handle)
-                {
-                    return;
-                }
-
-                if (Settings.Default.ShowDPSWidgetOnLoad)
-                {
-                    ToggleTopMost(Widgets.Instance.DPSWidget, stayOnTop, force);
-                }
-                if (Settings.Default.ShowEnmityWidgetOnLoad)
-                {
-                    ToggleTopMost(Widgets.Instance.EnmityWidget, stayOnTop, force);
-                }
-                if (Settings.Default.ShowCurrentTargetWidgetOnLoad)
-                {
-                    ToggleTopMost(Widgets.Instance.CurrentTargetWidget, stayOnTop, force);
-                }
-                if (Settings.Default.ShowDTPSWidgetOnLoad)
-                {
-                    ToggleTopMost(Widgets.Instance.DTPSWidget, stayOnTop, force);
-                }
-                if (Settings.Default.ShowFocusTargetWidgetOnLoad)
-                {
-                    ToggleTopMost(Widgets.Instance.FocusTargetWidget, stayOnTop, force);
-                }
-            }
-            catch (Exception e)
-            {
-                //MessageBox.Show("Exception: " + e.Message);
-            }
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="window"></param>
-        /// <param name="stayOnTop"></param>
-        private static void ToggleTopMost(Window window, bool stayOnTop, bool force)
-        {
-            if (window.Topmost && stayOnTop && !force)
-            {
-                return;
-            }
-
-            window.Topmost = false;
-            if (!stayOnTop)
-            {
-                if (window.IsVisible)
-                {
-                    window.Hide();
-                }
-                return;
-            }
-
-            window.Topmost = true;
-            if (!window.IsVisible)
-            {
-                window.Show();
-            }
         }
     }
 }

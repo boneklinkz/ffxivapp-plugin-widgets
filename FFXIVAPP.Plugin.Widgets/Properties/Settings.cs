@@ -242,7 +242,7 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
 </ArrayOfString>")]
         public StringCollection WidgetOpacityList
         {
-            get { return ((StringCollection)(this["WidgetOpacityList"])); }
+            get { return ((StringCollection) (this["WidgetOpacityList"])); }
             set
             {
                 this["WidgetOpacityList"] = value;
