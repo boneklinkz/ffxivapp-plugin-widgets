@@ -22,7 +22,6 @@
         Top="{Binding FocusTargetWidgetTop,
                       Mode=TwoWay,
                       Source={x:Static PluginProperties:Settings.Default}}"
-        Topmost="True"
         WindowStyle="None">
 
     <Window.Resources>
