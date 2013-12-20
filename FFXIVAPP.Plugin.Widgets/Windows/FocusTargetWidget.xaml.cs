@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using FFXIVAPP.Plugin.Widgets.Interop;
+using FFXIVAPP.Plugin.Widgets.Properties;
 
 namespace FFXIVAPP.Plugin.Widgets.Windows
 {
@@ -34,6 +35,7 @@ namespace FFXIVAPP.Plugin.Widgets.Windows
 
         private void WidgetClose_OnClick(object sender, RoutedEventArgs e)
         {
+            Settings.Default.ShowFocusTargetWidgetOnLoad = false;
             Close();
         }
 

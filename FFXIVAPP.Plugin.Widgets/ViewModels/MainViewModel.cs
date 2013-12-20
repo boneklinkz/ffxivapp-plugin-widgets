@@ -75,6 +75,7 @@ namespace FFXIVAPP.Plugin.Widgets.ViewModels
 
         public void OpenDPSWidget()
         {
+            Settings.Default.ShowDPSWidgetOnLoad = true;
             Widgets.Instance.ShowDPSWidget();
         }
 
@@ -86,6 +87,7 @@ namespace FFXIVAPP.Plugin.Widgets.ViewModels
 
         public void OpenDTPSWidget()
         {
+            Settings.Default.ShowDTPSWidgetOnLoad = true;
             Widgets.Instance.ShowDTPSWidget();
         }
 
@@ -97,6 +99,7 @@ namespace FFXIVAPP.Plugin.Widgets.ViewModels
 
         public void OpenHPSWidget()
         {
+            Settings.Default.ShowHPSWidgetOnLoad = true;
             Widgets.Instance.ShowHPSWidget();
         }
 
@@ -108,6 +111,7 @@ namespace FFXIVAPP.Plugin.Widgets.ViewModels
 
         public void OpenEnmityWidget()
         {
+            Settings.Default.ShowEnmityWidgetOnLoad = true;
             Widgets.Instance.ShowEnmityWidget();
         }
 
@@ -119,6 +123,7 @@ namespace FFXIVAPP.Plugin.Widgets.ViewModels
 
         public void OpenFocusTargetWidget()
         {
+            Settings.Default.ShowFocusTargetWidgetOnLoad = true;
             Widgets.Instance.ShowFocusTargetWidget();
         }
 
@@ -130,6 +135,7 @@ namespace FFXIVAPP.Plugin.Widgets.ViewModels
 
         public void OpenCurrentTargetWidget()
         {
+            Settings.Default.ShowCurrentTargetWidgetOnLoad = true;
             Widgets.Instance.ShowCurrentTargetWidget();
         }
 

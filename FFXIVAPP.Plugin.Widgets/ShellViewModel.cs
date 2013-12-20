@@ -37,6 +37,7 @@ namespace FFXIVAPP.Plugin.Widgets
         internal static void Loaded(object sender, RoutedEventArgs e)
         {
             ShellView.View.Loaded -= Loaded;
+            /*
             if (Settings.Default.ShowDPSWidgetOnLoad)
             {
                 Widgets.Instance.ShowDPSWidget();
@@ -61,6 +62,7 @@ namespace FFXIVAPP.Plugin.Widgets
             {
                 Widgets.Instance.ShowCurrentTargetWidget();
             }
+            */
         }
 
         private static void DefaultOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
