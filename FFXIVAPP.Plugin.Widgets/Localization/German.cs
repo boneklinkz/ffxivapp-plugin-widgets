@@ -17,10 +17,23 @@ namespace FFXIVAPP.Plugin.Widgets.Localization
         public static ResourceDictionary Context()
         {
             Dictionary.Clear();
-            Dictionary.Add("sample_", "*PH*");
-            Dictionary.Add("sample_ChatLogTabHeader", "Chat");
-            Dictionary.Add("sample_ClearChatLogMessage", "Clear ChatLogFD");
-            Dictionary.Add("sample_ClearChatLogToolTip", "Clear Chat");
+            Dictionary.Add("widgets_PLACEHOLDER", "*PH*");
+            Dictionary.Add("widgets_OpenNowButtonText", "Open Now");
+            Dictionary.Add("widgets_ResetPositionButtonText", "Reset Postion");
+            Dictionary.Add("widgets_DPSTitleBar", "[DPS]");
+            Dictionary.Add("widgets_HPSTitleBar", "[HPS]");
+            Dictionary.Add("widgets_DTPSTitleBar", "[DTPS]");
+            Dictionary.Add("widgets_EnmityTitleBar", "[Enmity]");
+            Dictionary.Add("widgets_FocusTitleBar", "[Focus]");
+            Dictionary.Add("widgets_CurrentTitleBar", "[Current]");
+            Dictionary.Add("widgets_DPSWidgetHeader", "DPS Widget");
+            Dictionary.Add("widgets_HPSWidgetHeader", "HPS Widget");
+            Dictionary.Add("widgets_DTPSWidgetHeader", "DTPS Widget");
+            Dictionary.Add("widgets_EnmityWidgetHeader", "Enmity Widget");
+            Dictionary.Add("widgets_FocusWidgetHeader", "Focus Target Widget");
+            Dictionary.Add("widgets_CurrentWidgetHeader", "Current Target Widget");
+            Dictionary.Add("widgets_EnableClickThroughHeader", "Enabled Click-Through On Widgets");
+            Dictionary.Add("widgets_WidgetOpacityHeader", "Widget Opacity");
             return Dictionary;
         }
     }

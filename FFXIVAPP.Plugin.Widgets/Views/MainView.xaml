@@ -27,93 +27,111 @@
           DataContext="{StaticResource MainViewModel}">
         <ScrollViewer>
             <StackPanel>
-                <GroupBox Header="DPS Widget">
+                <GroupBox Header="{Binding Locale[widgets_DPSWidgetHeader],
+                                           Source={StaticResource PluginViewModel}}">
                     <StackPanel>
                         <DockPanel LastChildFill="True">
                             <Button Margin="3"
                                     Command="{Binding ResetDPSWidgetCommand,
                                                       Source={StaticResource MainViewModel}}"
-                                    Content="Reset Position"
+                                    Content="{Binding Locale[widgets_ResetPositionButtonText],
+                                                      Source={StaticResource PluginViewModel}}"
                                     DockPanel.Dock="Right" />
                             <Button Margin="3"
                                     Command="{Binding OpenDPSWidgetCommand,
                                                       Source={StaticResource MainViewModel}}"
-                                    Content="Open Now" />
+                                    Content="{Binding Locale[widgets_OpenNowButtonText],
+                                                      Source={StaticResource PluginViewModel}}" />
                         </DockPanel>
                     </StackPanel>
                 </GroupBox>
-                <GroupBox Header="DTPS Widget">
+                <GroupBox Header="{Binding Locale[widgets_DTPSWidgetHeader],
+                                           Source={StaticResource PluginViewModel}}">
                     <StackPanel>
                         <DockPanel LastChildFill="True">
                             <Button Margin="3"
                                     Command="{Binding ResetDTPSWidgetCommand,
                                                       Source={StaticResource MainViewModel}}"
-                                    Content="Reset Position"
+                                    Content="{Binding Locale[widgets_ResetPositionButtonText],
+                                                      Source={StaticResource PluginViewModel}}"
                                     DockPanel.Dock="Right" />
                             <Button Margin="3"
                                     Command="{Binding OpenDTPSWidgetCommand,
                                                       Source={StaticResource MainViewModel}}"
-                                    Content="Open Now" />
+                                    Content="{Binding Locale[widgets_OpenNowButtonText],
+                                                      Source={StaticResource PluginViewModel}}" />
                         </DockPanel>
                     </StackPanel>
                 </GroupBox>
-                <GroupBox Header="HPS Widget">
+                <GroupBox Header="{Binding Locale[widgets_HPSWidgetHeader],
+                                           Source={StaticResource PluginViewModel}}">
                     <StackPanel>
                         <DockPanel LastChildFill="True">
                             <Button Margin="3"
                                     Command="{Binding ResetHPSWidgetCommand,
                                                       Source={StaticResource MainViewModel}}"
-                                    Content="Reset Position"
+                                    Content="{Binding Locale[widgets_ResetPositionButtonText],
+                                                      Source={StaticResource PluginViewModel}}"
                                     DockPanel.Dock="Right" />
                             <Button Margin="3"
                                     Command="{Binding OpenHPSWidgetCommand,
                                                       Source={StaticResource MainViewModel}}"
-                                    Content="Open Now" />
+                                    Content="{Binding Locale[widgets_OpenNowButtonText],
+                                                      Source={StaticResource PluginViewModel}}" />
                         </DockPanel>
                     </StackPanel>
                 </GroupBox>
-                <GroupBox Header="Enmity Widget">
+                <GroupBox Header="{Binding Locale[widgets_EnmityWidgetHeader],
+                                           Source={StaticResource PluginViewModel}}">
                     <StackPanel>
                         <DockPanel LastChildFill="True">
                             <Button Margin="3"
                                     Command="{Binding ResetEnmityWidgetCommand,
                                                       Source={StaticResource MainViewModel}}"
-                                    Content="Reset Position"
+                                    Content="{Binding Locale[widgets_ResetPositionButtonText],
+                                                      Source={StaticResource PluginViewModel}}"
                                     DockPanel.Dock="Right" />
                             <Button Margin="3"
                                     Command="{Binding OpenEnmityWidgetCommand,
                                                       Source={StaticResource MainViewModel}}"
-                                    Content="Open Now" />
+                                    Content="{Binding Locale[widgets_OpenNowButtonText],
+                                                      Source={StaticResource PluginViewModel}}" />
                         </DockPanel>
                     </StackPanel>
                 </GroupBox>
-                <GroupBox Header="Focus Target Widget">
+                <GroupBox Header="{Binding Locale[widgets_FocusWidgetHeader],
+                                           Source={StaticResource PluginViewModel}}">
                     <StackPanel>
                         <DockPanel LastChildFill="True">
                             <Button Margin="3"
                                     Command="{Binding ResetFocusTargetWidgetCommand,
                                                       Source={StaticResource MainViewModel}}"
-                                    Content="Reset Position"
+                                    Content="{Binding Locale[widgets_ResetPositionButtonText],
+                                                      Source={StaticResource PluginViewModel}}"
                                     DockPanel.Dock="Right" />
                             <Button Margin="3"
                                     Command="{Binding OpenFocusTargetWidgetCommand,
                                                       Source={StaticResource MainViewModel}}"
-                                    Content="Open Now" />
+                                    Content="{Binding Locale[widgets_OpenNowButtonText],
+                                                      Source={StaticResource PluginViewModel}}" />
                         </DockPanel>
                     </StackPanel>
                 </GroupBox>
-                <GroupBox Header="Current Target Widget">
+                <GroupBox Header="{Binding Locale[widgets_CurrentWidgetHeader],
+                                           Source={StaticResource PluginViewModel}}">
                     <StackPanel>
                         <DockPanel LastChildFill="True">
                             <Button Margin="3"
                                     Command="{Binding ResetCurrentTargetWidgetCommand,
                                                       Source={StaticResource MainViewModel}}"
-                                    Content="Reset Position"
+                                    Content="{Binding Locale[widgets_ResetPositionButtonText],
+                                                      Source={StaticResource PluginViewModel}}"
                                     DockPanel.Dock="Right" />
                             <Button Margin="3"
                                     Command="{Binding OpenCurrentTargetWidgetCommand,
                                                       Source={StaticResource MainViewModel}}"
-                                    Content="Open Now" />
+                                    Content="{Binding Locale[widgets_OpenNowButtonText],
+                                                      Source={StaticResource PluginViewModel}}" />
                         </DockPanel>
                     </StackPanel>
                 </GroupBox>

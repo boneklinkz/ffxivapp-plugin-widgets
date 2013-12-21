@@ -28,13 +28,15 @@
                     <TabItem Header="{Binding Locale[app_MainSettingsTabHeader],
                                               Source={StaticResource PluginViewModel}}">
                         <StackPanel>
-                            <GroupBox Header="Enable Click-Through On Widgets">
+                            <GroupBox Header="{Binding Locale[widgets_EnableClickThroughHeader],
+                                                       Source={StaticResource PluginViewModel}}">
                                 <StackPanel>
                                     <controls:ToggleSwitch IsChecked="{Binding WidgetClickThroughEnabled,
                                                                                Source={StaticResource Settings}}" />
                                 </StackPanel>
                             </GroupBox>
-                            <GroupBox Header="Widget Opacity">
+                            <GroupBox Header="{Binding Locale[widgets_WidgetOpacityHeader],
+                                                       Source={StaticResource PluginViewModel}}">
                                 <StackPanel>
                                     <ComboBox x:Name="WidgetSelect"
                                               Margin="5"
