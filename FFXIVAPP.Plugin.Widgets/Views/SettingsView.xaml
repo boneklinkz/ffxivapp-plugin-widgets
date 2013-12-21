@@ -49,6 +49,75 @@
                             </GroupBox>
                         </StackPanel>
                     </TabItem>
+                    <TabItem x:Name="SettingsWidgetsTI"
+                             Header="Widget Settings">
+                        <StackPanel>
+                            <Expander Header="Settings:DPS">
+                                <StackPanel>
+                                    <GroupBox Header="Player Visibility Threshold">
+                                        <StackPanel>
+                                            <ComboBox Margin="5"
+                                                      IsReadOnly="False"
+                                                      ItemsSource="{Binding DPSVisibilityList,
+                                                                            Source={StaticResource Settings}}"
+                                                      SelectedValue="{Binding DPSVisibility,
+                                                                              Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
+                                </StackPanel>
+                            </Expander>
+                            <Expander Header="Settings:DTPS">
+                                <StackPanel>
+                                    <GroupBox Header="Player Visibility Threshold">
+                                        <StackPanel>
+                                            <ComboBox Margin="5"
+                                                      IsReadOnly="False"
+                                                      ItemsSource="{Binding DTPSVisibilityList,
+                                                                            Source={StaticResource Settings}}"
+                                                      SelectedValue="{Binding DTPSVisibility,
+                                                                              Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
+                                </StackPanel>
+                            </Expander>
+                            <Expander Header="Settings:HPS">
+                                <StackPanel>
+                                    <GroupBox Header="Player Visibility Threshold">
+                                        <StackPanel>
+                                            <ComboBox Margin="5"
+                                                      IsReadOnly="False"
+                                                      ItemsSource="{Binding HPSVisibilityList,
+                                                                            Source={StaticResource Settings}}"
+                                                      SelectedValue="{Binding HPSVisibility,
+                                                                              Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
+                                </StackPanel>
+                            </Expander>
+                            <Expander Header="Settings:Enmity">
+                                <StackPanel>
+                                    <GroupBox Header="Show Current Target Info">
+                                        <StackPanel>
+                                            <controls:ToggleSwitch IsChecked="{Binding ShowEnmityWidgetCurrentTargetInfo,
+                                                                                       Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
+                                </StackPanel>
+                            </Expander>
+                            <Expander Header="Settings:Focus Target">
+                                <StackPanel>
+                                    <StackPanel>
+                                        <Label>More details coming soon!</Label>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Expander>
+                            <Expander Header="Settings:Current Target">
+                                <StackPanel>
+                                    <Label>More details coming soon!</Label>
+                                </StackPanel>
+                            </Expander>
+                        </StackPanel>
+                    </TabItem>
                 </TabControl>
             </StackPanel>
         </ScrollViewer>
