@@ -38,8 +38,7 @@
                             <GroupBox Header="{Binding Locale[widgets_WidgetOpacityHeader],
                                                        Source={StaticResource PluginViewModel}}">
                                 <StackPanel>
-                                    <ComboBox x:Name="WidgetSelect"
-                                              Margin="5"
+                                    <ComboBox Margin="5"
                                               IsReadOnly="False"
                                               ItemsSource="{Binding WidgetOpacityList,
                                                                     Source={StaticResource Settings}}"
@@ -54,6 +53,36 @@
                         <StackPanel>
                             <Expander Header="Settings:DPS">
                                 <StackPanel>
+                                    <GroupBox Header="UI Scale">
+                                        <StackPanel>
+                                            <ComboBox Margin="5"
+                                                      IsReadOnly="False"
+                                                      ItemsSource="{Binding DPSWidgetUIScaleList,
+                                                                            Source={StaticResource Settings}}"
+                                                      SelectedValue="{Binding DPSWidgetUIScale,
+                                                                              Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
+                                    <GroupBox Header="Sort Direction">
+                                        <StackPanel>
+                                            <ComboBox Margin="5"
+                                                      IsReadOnly="False"
+                                                      ItemsSource="{Binding DPSWidgetSortDirectionList,
+                                                                            Source={StaticResource Settings}}"
+                                                      SelectedValue="{Binding DPSWidgetSortDirection,
+                                                                              Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
+                                    <GroupBox Header="Sort Property">
+                                        <StackPanel>
+                                            <ComboBox Margin="5"
+                                                      IsReadOnly="False"
+                                                      ItemsSource="{Binding DPSWidgetSortPropertyList,
+                                                                            Source={StaticResource Settings}}"
+                                                      SelectedValue="{Binding DPSWidgetSortProperty,
+                                                                              Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
                                     <GroupBox Header="Player Visibility Threshold">
                                         <StackPanel>
                                             <ComboBox Margin="5"
@@ -68,6 +97,36 @@
                             </Expander>
                             <Expander Header="Settings:DTPS">
                                 <StackPanel>
+                                    <GroupBox Header="UI Scale">
+                                        <StackPanel>
+                                            <ComboBox Margin="5"
+                                                      IsReadOnly="False"
+                                                      ItemsSource="{Binding DTPSWidgetUIScaleList,
+                                                                            Source={StaticResource Settings}}"
+                                                      SelectedValue="{Binding DTPSWidgetUIScale,
+                                                                              Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
+                                    <GroupBox Header="Sort Direction">
+                                        <StackPanel>
+                                            <ComboBox Margin="5"
+                                                      IsReadOnly="False"
+                                                      ItemsSource="{Binding DTPSWidgetSortDirectionList,
+                                                                            Source={StaticResource Settings}}"
+                                                      SelectedValue="{Binding DTPSWidgetSortDirection,
+                                                                              Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
+                                    <GroupBox Header="Sort Property">
+                                        <StackPanel>
+                                            <ComboBox Margin="5"
+                                                      IsReadOnly="False"
+                                                      ItemsSource="{Binding DTPSWidgetSortPropertyList,
+                                                                            Source={StaticResource Settings}}"
+                                                      SelectedValue="{Binding DTPSWidgetSortProperty,
+                                                                              Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
                                     <GroupBox Header="Player Visibility Threshold">
                                         <StackPanel>
                                             <ComboBox Margin="5"
@@ -82,6 +141,36 @@
                             </Expander>
                             <Expander Header="Settings:HPS">
                                 <StackPanel>
+                                    <GroupBox Header="UI Scale">
+                                        <StackPanel>
+                                            <ComboBox Margin="5"
+                                                      IsReadOnly="False"
+                                                      ItemsSource="{Binding HPSWidgetUIScaleList,
+                                                                            Source={StaticResource Settings}}"
+                                                      SelectedValue="{Binding HPSWidgetUIScale,
+                                                                              Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
+                                    <GroupBox Header="Sort Direction">
+                                        <StackPanel>
+                                            <ComboBox Margin="5"
+                                                      IsReadOnly="False"
+                                                      ItemsSource="{Binding HPSWidgetSortDirectionList,
+                                                                            Source={StaticResource Settings}}"
+                                                      SelectedValue="{Binding HPSWidgetSortDirection,
+                                                                              Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
+                                    <GroupBox Header="Sort Property">
+                                        <StackPanel>
+                                            <ComboBox Margin="5"
+                                                      IsReadOnly="False"
+                                                      ItemsSource="{Binding HPSWidgetSortPropertyList,
+                                                                            Source={StaticResource Settings}}"
+                                                      SelectedValue="{Binding HPSWidgetSortProperty,
+                                                                              Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
                                     <GroupBox Header="Player Visibility Threshold">
                                         <StackPanel>
                                             <ComboBox Margin="5"
@@ -96,6 +185,16 @@
                             </Expander>
                             <Expander Header="Settings:Enmity">
                                 <StackPanel>
+                                    <GroupBox Header="UI Scale">
+                                        <StackPanel>
+                                            <ComboBox Margin="5"
+                                                      IsReadOnly="False"
+                                                      ItemsSource="{Binding EnmityWidgetUIScaleList,
+                                                                            Source={StaticResource Settings}}"
+                                                      SelectedValue="{Binding EnmityWidgetUIScale,
+                                                                              Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
                                     <GroupBox Header="Show Current Target Info">
                                         <StackPanel>
                                             <controls:ToggleSwitch IsChecked="{Binding ShowEnmityWidgetCurrentTargetInfo,
@@ -107,13 +206,31 @@
                             <Expander Header="Settings:Focus Target">
                                 <StackPanel>
                                     <StackPanel>
-                                        <Label>More details coming soon!</Label>
+                                        <GroupBox Header="UI Scale">
+                                            <StackPanel>
+                                                <ComboBox Margin="5"
+                                                          IsReadOnly="False"
+                                                          ItemsSource="{Binding FocusTargetWidgetUIScaleList,
+                                                                                Source={StaticResource Settings}}"
+                                                          SelectedValue="{Binding FocusTargetWidgetUIScale,
+                                                                                  Source={StaticResource Settings}}" />
+                                            </StackPanel>
+                                        </GroupBox>
                                     </StackPanel>
                                 </StackPanel>
                             </Expander>
                             <Expander Header="Settings:Current Target">
                                 <StackPanel>
-                                    <Label>More details coming soon!</Label>
+                                    <GroupBox Header="UI Scale">
+                                        <StackPanel>
+                                            <ComboBox Margin="5"
+                                                      IsReadOnly="False"
+                                                      ItemsSource="{Binding CurrentTargetWidgetUIScaleList,
+                                                                            Source={StaticResource Settings}}"
+                                                      SelectedValue="{Binding CurrentTargetWidgetUIScale,
+                                                                              Source={StaticResource Settings}}" />
+                                        </StackPanel>
+                                    </GroupBox>
                                 </StackPanel>
                             </Expander>
                         </StackPanel>

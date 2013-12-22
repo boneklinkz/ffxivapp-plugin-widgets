@@ -157,15 +157,15 @@ namespace FFXIVAPP.Plugin.Widgets
             if (targetEntity.CurrentTarget != null && targetEntity.CurrentTarget.IsValid)
             {
                 EnmityWidgetViewModel.Instance.CurrentTargetIsValid = true;
-                EnmityWidgetViewModel.Instance.CurrentTargetHPPercent = (double)targetEntity.CurrentTarget.HPPercent;
+                EnmityWidgetViewModel.Instance.CurrentTargetHPPercent = (double) targetEntity.CurrentTarget.HPPercent;
                 CurrentTargetWidgetViewModel.Instance.CurrentTargetIsValid = true;
-                CurrentTargetWidgetViewModel.Instance.CurrentTargetHPPercent = (double)targetEntity.CurrentTarget.HPPercent;
+                CurrentTargetWidgetViewModel.Instance.CurrentTargetHPPercent = (double) targetEntity.CurrentTarget.HPPercent;
             }
             // if valid assign actual focus target info
             if (targetEntity.FocusTarget != null && targetEntity.FocusTarget.IsValid)
             {
                 FocusTargetWidgetViewModel.Instance.FocusTargetIsValid = true;
-                FocusTargetWidgetViewModel.Instance.FocusTargetHPPercent = (double)targetEntity.FocusTarget.HPPercent;
+                FocusTargetWidgetViewModel.Instance.FocusTargetHPPercent = (double) targetEntity.FocusTarget.HPPercent;
             }
         }
 
@@ -179,9 +179,9 @@ namespace FFXIVAPP.Plugin.Widgets
                 return;
             }
             var parseEntity = parseEntityEvent.ParseEntity;
-            DPSWidgetViewModel.Instance.ParseEntity = EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.DPS);
-            DTPSWidgetViewModel.Instance.ParseEntity = EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.DTPS);
-            HPSWidgetViewModel.Instance.ParseEntity = EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.HPS);
+            EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.DPS);
+            EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.DTPS);
+            EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.HPS);
         }
 
         #endregion

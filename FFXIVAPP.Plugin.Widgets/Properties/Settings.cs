@@ -65,6 +65,30 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
         private void DefaultSettings()
         {
             Constants.Settings.Clear();
+            Constants.Settings.Add("DPSWidgetWidth");
+            Constants.Settings.Add("DPSWidgetHeight");
+            Constants.Settings.Add("HPSWidgetWidth");
+            Constants.Settings.Add("HPSWidgetHeight");
+            Constants.Settings.Add("DTPSWidgetWidth");
+            Constants.Settings.Add("DTPSWidgetHeight");
+            Constants.Settings.Add("CurrentTargetWidgetWidth");
+            Constants.Settings.Add("CurrentTargetWidgetHeight");
+            Constants.Settings.Add("FocusTargetWidgetWidth");
+            Constants.Settings.Add("FocusTargetWidgetHeight");
+            Constants.Settings.Add("EnmityWidgetWidth");
+            Constants.Settings.Add("EnmityWidgetHeight");
+            Constants.Settings.Add("DPSWidgetSortDirection");
+            Constants.Settings.Add("DPSWidgetSortProperty");
+            Constants.Settings.Add("HPSWidgetSortDirection");
+            Constants.Settings.Add("HPSWidgetSortProperty");
+            Constants.Settings.Add("DTPSWidgetSortDirection");
+            Constants.Settings.Add("DTPSWidgetSortProperty");
+            Constants.Settings.Add("DPSWidgetUIScale");
+            Constants.Settings.Add("HPSWidgetUIScale");
+            Constants.Settings.Add("DTPSWidgetUIScale");
+            Constants.Settings.Add("CurrentTargetWidgetUIScale");
+            Constants.Settings.Add("FocusTargetWidgetUIScale");
+            Constants.Settings.Add("EnmityWidgetUIScale");
             Constants.Settings.Add("WidgetOpenCloseModifiesShowOnLoad");
             Constants.Settings.Add("WidgetClickThroughEnabled");
             Constants.Settings.Add("WidgetOpacity");
@@ -201,6 +225,507 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
                 this["Zoom"] = value;
                 RaisePropertyChanged();
             }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("250")]
+        public int DPSWidgetWidth
+        {
+            get { return ((int) (this["DPSWidgetWidth"])); }
+            set
+            {
+                this["DPSWidgetWidth"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("450")]
+        public int DPSWidgetHeight
+        {
+            get { return ((int) (this["DPSWidgetHeight"])); }
+            set
+            {
+                this["DPSWidgetHeight"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("250")]
+        public int HPSWidgetWidth
+        {
+            get { return ((int) (this["HPSWidgetWidth"])); }
+            set
+            {
+                this["HPSWidgetWidth"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("450")]
+        public int HPSWidgetHeight
+        {
+            get { return ((int) (this["HPSWidgetHeight"])); }
+            set
+            {
+                this["HPSWidgetHeight"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("250")]
+        public int DTPSWidgetWidth
+        {
+            get { return ((int) (this["DTPSWidgetWidth"])); }
+            set
+            {
+                this["DTPSWidgetWidth"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("450")]
+        public int DTPSWidgetHeight
+        {
+            get { return ((int) (this["DTPSWidgetHeight"])); }
+            set
+            {
+                this["DTPSWidgetHeight"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("250")]
+        public int CurrentTargetWidgetWidth
+        {
+            get { return ((int) (this["CurrentTargetWidgetWidth"])); }
+            set
+            {
+                this["CurrentTargetWidgetWidth"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("450")]
+        public int CurrentTargetWidgetHeight
+        {
+            get { return ((int) (this["CurrentTargetWidgetHeight"])); }
+            set
+            {
+                this["CurrentTargetWidgetHeight"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("250")]
+        public int FocusTargetWidgetWidth
+        {
+            get { return ((int) (this["FocusTargetWidgetWidth"])); }
+            set
+            {
+                this["FocusTargetWidgetWidth"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("450")]
+        public int FocusTargetWidgetHeight
+        {
+            get { return ((int) (this["FocusTargetWidgetHeight"])); }
+            set
+            {
+                this["FocusTargetWidgetHeight"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("250")]
+        public int EnmityWidgetWidth
+        {
+            get { return ((int) (this["EnmityWidgetWidth"])); }
+            set
+            {
+                this["EnmityWidgetWidth"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("450")]
+        public int EnmityWidgetHeight
+        {
+            get { return ((int) (this["EnmityWidgetHeight"])); }
+            set
+            {
+                this["EnmityWidgetHeight"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("Descending")]
+        public string DPSWidgetSortDirection
+        {
+            get { return ((string) (this["DPSWidgetSortDirection"])); }
+            set
+            {
+                this["DPSWidgetSortDirection"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>Ascending</string>
+  <string>Descending</string>
+</ArrayOfString>")]
+        public StringCollection DPSWidgetSortDirectionList
+        {
+            get { return ((StringCollection) (this["DPSWidgetSortDirectionList"])); }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("DPS")]
+        public string DPSWidgetSortProperty
+        {
+            get { return ((string) (this["DPSWidgetSortProperty"])); }
+            set
+            {
+                this["DPSWidgetSortProperty"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>Name</string>
+  <string>Job</string>
+  <string>DPS</string>
+  <string>TotalOverallDamage</string>
+  <string>PercentOfOverallDamage</string>
+</ArrayOfString>")]
+        public StringCollection DPSWidgetSortPropertyList
+        {
+            get { return ((StringCollection) (this["DPSWidgetSortPropertyList"])); }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("Descending")]
+        public string HPSWidgetSortDirection
+        {
+            get { return ((string) (this["HPSWidgetSortDirection"])); }
+            set
+            {
+                this["HPSWidgetSortDirection"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>Ascending</string>
+  <string>Descending</string>
+</ArrayOfString>")]
+        public StringCollection HPSWidgetSortDirectionList
+        {
+            get { return ((StringCollection) (this["HPSWidgetSortDirectionList"])); }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("HPS")]
+        public string HPSWidgetSortProperty
+        {
+            get { return ((string) (this["HPSWidgetSortProperty"])); }
+            set
+            {
+                this["HPSWidgetSortProperty"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>Name</string>
+  <string>Job</string>
+  <string>HPS</string>
+  <string>TotalOverallHealing</string>
+  <string>PercentOfOverallHealing</string>
+</ArrayOfString>")]
+        public StringCollection HPSWidgetSortPropertyList
+        {
+            get { return ((StringCollection) (this["HPSWidgetSortPropertyList"])); }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("Descending")]
+        public string DTPSWidgetSortDirection
+        {
+            get { return ((string) (this["DTPSWidgetSortDirection"])); }
+            set
+            {
+                this["DTPSWidgetSortDirection"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>Ascending</string>
+  <string>Descending</string>
+</ArrayOfString>")]
+        public StringCollection DTPSWidgetSortDirectionList
+        {
+            get { return ((StringCollection) (this["DTPSWidgetSortDirectionList"])); }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("DTPS")]
+        public string DTPSWidgetSortProperty
+        {
+            get { return ((string) (this["DTPSWidgetSortProperty"])); }
+            set
+            {
+                this["DTPSWidgetSortProperty"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>Name</string>
+  <string>Job</string>
+  <string>DTPS</string>
+  <string>TotalOverallDamageTaken</string>
+  <string>PercentOfOverallDamageTaken</string>
+</ArrayOfString>")]
+        public StringCollection DTPSWidgetSortPropertyList
+        {
+            get { return ((StringCollection) (this["DTPSWidgetSortPropertyList"])); }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("1.0")]
+        public string DPSWidgetUIScale
+        {
+            get { return ((string) (this["DPSWidgetUIScale"])); }
+            set
+            {
+                this["DPSWidgetUIScale"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0.8</string>
+  <string>0.9</string>
+  <string>1.0</string>
+  <string>1.1</string>
+  <string>1.2</string>
+  <string>1.3</string>
+  <string>1.4</string>
+  <string>1.5</string>
+</ArrayOfString>")]
+        public StringCollection DPSWidgetUIScaleList
+        {
+            get { return ((StringCollection) (this["DPSWidgetUIScaleList"])); }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("1.0")]
+        public string DTPSWidgetUIScale
+        {
+            get { return ((string) (this["DTPSWidgetUIScale"])); }
+            set
+            {
+                this["DTPSWidgetUIScale"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0.8</string>
+  <string>0.9</string>
+  <string>1.0</string>
+  <string>1.1</string>
+  <string>1.2</string>
+  <string>1.3</string>
+  <string>1.4</string>
+  <string>1.5</string>
+</ArrayOfString>")]
+        public StringCollection DTPSWidgetUIScaleList
+        {
+            get { return ((StringCollection) (this["DTPSWidgetUIScaleList"])); }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("1.0")]
+        public string HPSWidgetUIScale
+        {
+            get { return ((string) (this["HPSWidgetUIScale"])); }
+            set
+            {
+                this["HPSWidgetUIScale"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0.8</string>
+  <string>0.9</string>
+  <string>1.0</string>
+  <string>1.1</string>
+  <string>1.2</string>
+  <string>1.3</string>
+  <string>1.4</string>
+  <string>1.5</string>
+</ArrayOfString>")]
+        public StringCollection HPSWidgetUIScaleList
+        {
+            get { return ((StringCollection) (this["HPSWidgetUIScaleList"])); }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("1.0")]
+        public string CurrentTargetWidgetUIScale
+        {
+            get { return ((string) (this["CurrentTargetWidgetUIScale"])); }
+            set
+            {
+                this["CurrentTargetWidgetUIScale"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0.8</string>
+  <string>0.9</string>
+  <string>1.0</string>
+  <string>1.1</string>
+  <string>1.2</string>
+  <string>1.3</string>
+  <string>1.4</string>
+  <string>1.5</string>
+</ArrayOfString>")]
+        public StringCollection CurrentTargetWidgetUIScaleList
+        {
+            get { return ((StringCollection) (this["CurrentTargetWidgetUIScaleList"])); }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("1.0")]
+        public string FocusTargetWidgetUIScale
+        {
+            get { return ((string) (this["FocusTargetWidgetUIScale"])); }
+            set
+            {
+                this["FocusTargetWidgetUIScale"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0.8</string>
+  <string>0.9</string>
+  <string>1.0</string>
+  <string>1.1</string>
+  <string>1.2</string>
+  <string>1.3</string>
+  <string>1.4</string>
+  <string>1.5</string>
+</ArrayOfString>")]
+        public StringCollection FocusTargetWidgetUIScaleList
+        {
+            get { return ((StringCollection) (this["FocusTargetWidgetUIScaleList"])); }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("1.0")]
+        public string EnmityWidgetUIScale
+        {
+            get { return ((string) (this["EnmityWidgetUIScale"])); }
+            set
+            {
+                this["EnmityWidgetUIScale"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0.8</string>
+  <string>0.9</string>
+  <string>1.0</string>
+  <string>1.1</string>
+  <string>1.2</string>
+  <string>1.3</string>
+  <string>1.4</string>
+  <string>1.5</string>
+</ArrayOfString>")]
+        public StringCollection EnmityWidgetUIScaleList
+        {
+            get { return ((StringCollection) (this["EnmityWidgetUIScaleList"])); }
         }
 
         [UserScopedSetting]

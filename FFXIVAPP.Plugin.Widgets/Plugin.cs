@@ -14,11 +14,8 @@ using FFXIVAPP.Common.Events;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
-using FFXIVAPP.IPluginInterface.Events;
 using FFXIVAPP.Plugin.Widgets.Helpers;
 using FFXIVAPP.Plugin.Widgets.Properties;
-using FFXIVAPP.Plugin.Widgets.Utilities;
-using FFXIVAPP.Plugin.Widgets.Windows;
 using NLog;
 
 namespace FFXIVAPP.Plugin.Widgets

@@ -5,6 +5,7 @@
 
 using FFXIVAPP.Common.Core.Parse;
 using FFXIVAPP.Plugin.Widgets.Properties;
+using FFXIVAPP.Plugin.Widgets.Windows;
 
 namespace FFXIVAPP.Plugin.Widgets.Helpers
 {
@@ -19,7 +20,7 @@ namespace FFXIVAPP.Plugin.Widgets.Helpers
                 HPS
             }
 
-            public static ParseEntity CleanAndCopy(ParseEntity source, ParseType parseType)
+            public static void CleanAndCopy(ParseEntity source, ParseType parseType)
             {
                 var target = new ParseEntity
                 {
@@ -65,6 +66,7 @@ namespace FFXIVAPP.Plugin.Widgets.Helpers
                         DTPS = playerEntity.DTPS,
                         HPS = playerEntity.HPS,
                         Name = playerEntity.Name,
+                        Job = playerEntity.Job,
                         TotalOverallDamage = playerEntity.TotalOverallDamage,
                         TotalOverallDamageTaken = playerEntity.TotalOverallDamageTaken,
                         TotalOverallHealing = playerEntity.TotalOverallHealing,
@@ -74,7 +76,18 @@ namespace FFXIVAPP.Plugin.Widgets.Helpers
                     };
                     target.Players.Add(entity);
                 }
-                return target;
+                switch (parseType)
+                {
+                    case ParseType.DPS:
+                        DPSWidgetViewModel.Instance.ParseEntity = target;
+                        break;
+                    case ParseType.DTPS:
+                        DTPSWidgetViewModel.Instance.ParseEntity = target;
+                        break;
+                    case ParseType.HPS:
+                        HPSWidgetViewModel.Instance.ParseEntity = target;
+                        break;
+                }
             }
         }
 

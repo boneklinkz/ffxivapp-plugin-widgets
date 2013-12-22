@@ -7,8 +7,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         Title="DTPSWidget"
-        Width="250"
-        Height="450"
+        Width="{Binding DTPSWidgetWidth,
+                        Source={x:Static PluginProperties:Settings.Default},
+                        Mode=TwoWay}"
+        Height="{Binding DTPSWidgetHeight,
+                         Source={x:Static PluginProperties:Settings.Default},
+                         Mode=TwoWay}"
+        MinWidth="200"
+        MinHeight="360"
         AllowsTransparency="True"
         Background="Transparent"
         Closing="Widget_OnClosing"
@@ -24,191 +30,24 @@
         WindowStyle="None">
 
     <Window.Resources>
-        <x:Static x:Key="DTPSWidgetViewModel"
-                  Member="ViewModels:DTPSWidgetViewModel.Instance" />
-        <Style x:Key="StatLabelStyle">
-            <Setter Property="Control.Padding" Value="0" />
-        </Style>
-        <Style x:Key="CommaNumberStyle"
-               BasedOn="{StaticResource StatLabelStyle}">
-            <Setter Property="ContentControl.ContentStringFormat" Value="{}{0:N0}" />
-        </Style>
-        <Style x:Key="PercentStyle"
-               BasedOn="{StaticResource StatLabelStyle}">
-            <Setter Property="ContentControl.ContentStringFormat" Value="{}{0:P}" />
-        </Style>
-        <Style x:Key="DecimalStyle"
-               BasedOn="{StaticResource StatLabelStyle}">
-            <Setter Property="ContentControl.ContentStringFormat" Value="{}{0:F2}" />
-        </Style>
-        <LinearGradientBrush x:Key="ProgressBarBackground" StartPoint="0,0" EndPoint="1,0">
-            <GradientStop Offset="0" Color="#BABABA" />
-            <GradientStop Offset="0.5" Color="#C7C7C7" />
-            <GradientStop Offset="1" Color="#BABABA" />
-        </LinearGradientBrush>
-        <LinearGradientBrush x:Key="ProgressBarBorderBrush" StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Offset="0" Color="#B2B2B2" />
-            <GradientStop Offset="1" Color="#8C8C8C" />
-        </LinearGradientBrush>
-        <LinearGradientBrush x:Key="ProgressBarGlassyHighlight" StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Offset="0.5385" Color="#50FFFFFF" />
-            <GradientStop Offset="0.5385" Color="#00FFFFFF" />
-        </LinearGradientBrush>
-        <LinearGradientBrush x:Key="ProgressBarTopHighlight" StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Offset="0.05" Color="#80FFFFFF" />
-            <GradientStop Offset="0.25" Color="#00FFFFFF" />
-        </LinearGradientBrush>
-        <LinearGradientBrush x:Key="ProgressBarIndicatorAnimatedFill" StartPoint="0,0" EndPoint="1,0">
-            <GradientStop Offset="0" Color="#00FFFFFF" />
-            <GradientStop Offset="0.4" Color="#60FFFFFF" />
-            <GradientStop Offset="0.6" Color="#60FFFFFF" />
-            <GradientStop Offset="1" Color="#00FFFFFF" />
-        </LinearGradientBrush>
-        <LinearGradientBrush x:Key="ProgressBarIndicatorDarkEdgeLeft" StartPoint="0,0" EndPoint="1,0">
-            <GradientStop Offset="0" Color="#0C000000" />
-            <GradientStop Offset="0.3" Color="#20000000" />
-            <GradientStop Offset="1" Color="#00000000" />
-        </LinearGradientBrush>
-        <LinearGradientBrush x:Key="ProgressBarIndicatorDarkEdgeRight" StartPoint="0,0" EndPoint="1,0">
-            <GradientStop Offset="0" Color="#00000000" />
-            <GradientStop Offset="0.7" Color="#20000000" />
-            <GradientStop Offset="1" Color="#0C000000" />
-        </LinearGradientBrush>
-        <RadialGradientBrush x:Key="ProgressBarIndicatorLightingEffectLeft" RadiusX="1" RadiusY="1" RelativeTransform="1,0,0,1,0.5,0.5">
-            <GradientStop Offset="0" Color="#60FFFFC4" />
-            <GradientStop Offset="1" Color="#00FFFFC4" />
-        </RadialGradientBrush>
-        <LinearGradientBrush x:Key="ProgressBarIndicatorLightingEffect" StartPoint="0,1" EndPoint="0,0">
-            <GradientStop Offset="0" Color="#60FFFFC4" />
-            <GradientStop Offset="1" Color="#00FFFFC4" />
-        </LinearGradientBrush>
-        <RadialGradientBrush x:Key="ProgressBarIndicatorLightingEffectRight" RadiusX="1" RadiusY="1" RelativeTransform="1,0,0,1,-0.5,0.5">
-            <GradientStop Offset="0" Color="#60FFFFC4" />
-            <GradientStop Offset="1" Color="#00FFFFC4" />
-        </RadialGradientBrush>
-        <LinearGradientBrush x:Key="ProgressBarIndicatorGlassyHighlight" StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Offset="0.5385" Color="#90FFFFFF" />
-            <GradientStop Offset="0.5385" Color="#00FFFFFF" />
-        </LinearGradientBrush>
-        <Style x:Key="ProgressBarStyleStopAnimation"
-               TargetType="{x:Type ProgressBar}">
-            <Setter Property="Foreground" Value="#01D328" />
-            <Setter Property="Background" Value="{StaticResource ProgressBarBackground}" />
-            <Setter Property="BorderBrush" Value="{StaticResource ProgressBarBorderBrush}" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ProgressBar}">
-                        <Grid x:Name="TemplateRoot"
-                              SnapsToDevicePixels="true">
-                            <Rectangle Fill="{TemplateBinding Background}"
-                                       RadiusX="2"
-                                       RadiusY="2" />
-                            <Border Margin="1"
-                                    Background="{StaticResource ProgressBarGlassyHighlight}"
-                                    CornerRadius="2" />
-                            <Border Margin="1"
-                                    Background="{StaticResource ProgressBarTopHighlight}"
-                                    BorderBrush="#80FFFFFF"
-                                    BorderThickness="1,0,1,1" />
-                            <Rectangle x:Name="PART_Track"
-                                       Margin="1" />
-                            <Decorator x:Name="PART_Indicator"
-                                       Margin="1"
-                                       HorizontalAlignment="Left">
-                                <Grid x:Name="Foreground">
-                                    <Rectangle x:Name="Indicator"
-                                               Fill="{TemplateBinding Foreground}" />
-                                    <Grid x:Name="Animation"
-                                          ClipToBounds="true">
-                                        <Rectangle x:Name="PART_GlowRect"
-                                                   Width="100"
-                                                   Margin="-100,0,0,0"
-                                                   HorizontalAlignment="Left"
-                                                   Fill="{StaticResource ProgressBarIndicatorAnimatedFill}" />
-                                    </Grid>
-                                    <Grid x:Name="Overlay">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition MaxWidth="15" />
-                                            <ColumnDefinition Width="0.1*" />
-                                            <ColumnDefinition MaxWidth="15" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                        </Grid.RowDefinitions>
-                                        <Rectangle x:Name="LeftDark"
-                                                   Grid.RowSpan="2"
-                                                   Margin="1,1,0,1"
-                                                   Fill="{StaticResource ProgressBarIndicatorDarkEdgeLeft}"
-                                                   RadiusX="1"
-                                                   RadiusY="1" />
-                                        <Rectangle x:Name="RightDark"
-                                                   Grid.RowSpan="2"
-                                                   Grid.Column="2"
-                                                   Margin="0,1,1,1"
-                                                   Fill="{StaticResource ProgressBarIndicatorDarkEdgeRight}"
-                                                   RadiusX="1"
-                                                   RadiusY="1" />
-                                        <Rectangle x:Name="LeftLight"
-                                                   Grid.Row="2"
-                                                   Grid.Column="0"
-                                                   Fill="{StaticResource ProgressBarIndicatorLightingEffectLeft}" />
-                                        <Rectangle x:Name="CenterLight"
-                                                   Grid.Row="2"
-                                                   Grid.Column="1"
-                                                   Fill="{StaticResource ProgressBarIndicatorLightingEffect}" />
-                                        <Rectangle x:Name="RightLight"
-                                                   Grid.Row="2"
-                                                   Grid.Column="2"
-                                                   Fill="{StaticResource ProgressBarIndicatorLightingEffectRight}" />
-                                        <Border x:Name="Highlight1"
-                                                Grid.RowSpan="2"
-                                                Grid.ColumnSpan="3"
-                                                Background="{StaticResource ProgressBarIndicatorGlassyHighlight}" />
-                                        <Border x:Name="Highlight2"
-                                                Grid.RowSpan="2"
-                                                Grid.ColumnSpan="3"
-                                                Background="{StaticResource ProgressBarTopHighlight}" />
-                                    </Grid>
-                                </Grid>
-                            </Decorator>
-                            <Border BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="2" />
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="Orientation" Value="Vertical">
-                                <Setter TargetName="TemplateRoot" Property="LayoutTransform">
-                                    <Setter.Value>
-                                        <RotateTransform Angle="-90" />
-                                    </Setter.Value>
-                                </Setter>
-                            </Trigger>
-                            <Trigger Property="IsIndeterminate" Value="true">
-                                <Setter TargetName="LeftDark" Property="Visibility" Value="Collapsed" />
-                                <Setter TargetName="RightDark" Property="Visibility" Value="Collapsed" />
-                                <Setter TargetName="LeftLight" Property="Visibility" Value="Collapsed" />
-                                <Setter TargetName="CenterLight" Property="Visibility" Value="Collapsed" />
-                                <Setter TargetName="RightLight" Property="Visibility" Value="Collapsed" />
-                                <Setter TargetName="Indicator" Property="Visibility" Value="Collapsed" />
-                            </Trigger>
-                            <Trigger Property="IsIndeterminate" Value="false">
-                                <Setter TargetName="Animation" Property="Background" Value="#80B5FFA9" />
-                            </Trigger>
-                            <!--
-                                <Trigger Property="Value" Value="100">
-                                <Setter Property="Visibility" TargetName="Animation" Value="Collapsed"/>
-                                </Trigger>
-                            -->
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <ResourceDictionary>
+            <x:Static x:Key="Settings"
+                      Member="PluginProperties:Settings.Default" />
+            <x:Static x:Key="DTPSWidgetViewModel"
+                      Member="ViewModels:DTPSWidgetViewModel.Instance" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/FFXIVAPP.Plugin.Widgets;component/Resources/WidgetStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
 
     <Grid x:Name="LayoutRoot">
+        <Grid.LayoutTransform>
+            <ScaleTransform ScaleX="{Binding DTPSWidgetUIScale,
+                                             Source={StaticResource Settings}}"
+                            ScaleY="{Binding DTPSWidgetUIScale,
+                                             Source={StaticResource Settings}}" />
+        </Grid.LayoutTransform>
         <StackPanel>
             <DockPanel LastChildFill="True">
                 <Border Margin="5"
@@ -253,16 +92,11 @@
                     </DockPanel>
                 </Border>
             </DockPanel>
-            <ItemsControl>
+            <ItemsControl x:Name="Party">
                 <ItemsControl.Resources>
                     <CollectionViewSource x:Key="Party"
                                           Source="{Binding ParseEntity.Players,
-                                                           Source={StaticResource DTPSWidgetViewModel}}">
-                        <CollectionViewSource.SortDescriptions>
-                            <componentModel:SortDescription Direction="Descending"
-                                                            PropertyName="TotalOverallDamageTaken" />
-                        </CollectionViewSource.SortDescriptions>
-                    </CollectionViewSource>
+                                                           Source={StaticResource DTPSWidgetViewModel}}" />
                 </ItemsControl.Resources>
                 <ItemsControl.ItemsSource>
                     <Binding Source="{StaticResource Party}" />
@@ -322,14 +156,25 @@
                                        FontWeight="Bold"
                                        Foreground="Black"
                                        Style="{StaticResource CommaNumberStyle}" />
-                                <Label Grid.Row="0"
-                                       Margin="5 0"
-                                       HorizontalAlignment="Right"
-                                       VerticalAlignment="Center"
-                                       Content="{Binding PercentOfTotalOverallDamageTaken}"
-                                       FontWeight="Bold"
-                                       Foreground="Black"
-                                       Style="{StaticResource PercentStyle}" />
+                                <StackPanel Grid.Row="0"
+                                            Margin="5 0"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Orientation="Horizontal">
+                                    <Label Margin="2 0"
+                                           VerticalAlignment="Center"
+                                           Content="{Binding PercentOfTotalOverallDamageTaken}"
+                                           FontWeight="Bold"
+                                           Foreground="Black"
+                                           Style="{StaticResource PercentStyle}" />
+                                    <TextBlock Margin="2 0"
+                                               VerticalAlignment="Center"
+                                               FontWeight="Bold"
+                                               Foreground="Black"
+                                               Style="{StaticResource PercentStyle}"
+                                               Text="{Binding Job,
+                                                              StringFormat=[{0}]}" />
+                                </StackPanel>
                             </Grid>
                         </StackPanel>
                     </DataTemplate>
