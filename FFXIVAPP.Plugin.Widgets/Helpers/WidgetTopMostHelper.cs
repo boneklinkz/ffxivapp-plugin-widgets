@@ -51,9 +51,6 @@ namespace FFXIVAPP.Plugin.Widgets.Helpers
             try
             {
                 var handle = WinAPI.GetForegroundWindow();
-                var name = WinAPI.GetActiveWindowTitle()
-                                 .ToUpper();
-                //MessageBox.Show("name" + name);
                 var stayOnTop = WinAPI.GetActiveWindowTitle()
                                       .ToUpper()
                                       .StartsWith("FINAL FANTASY XIV");
@@ -78,6 +75,10 @@ namespace FFXIVAPP.Plugin.Widgets.Helpers
                 {
                     return;
                 }
+                if (handle == new WindowInteropHelper(Widgets.Instance.HPSWidget).Handle)
+                {
+                    return;
+                }
                 if (Settings.Default.ShowDPSWidgetOnLoad)
                 {
                     ToggleTopMost(Widgets.Instance.DPSWidget, stayOnTop, force);
@@ -98,6 +99,10 @@ namespace FFXIVAPP.Plugin.Widgets.Helpers
                 {
                     ToggleTopMost(Widgets.Instance.FocusTargetWidget, stayOnTop, force);
                 }
+                if (Settings.Default.ShowHPSWidgetOnLoad)
+                {
+                    ToggleTopMost(Widgets.Instance.HPSWidget, stayOnTop, force);
+                }
             }
             catch (Exception ex)
             {
@@ -108,6 +113,7 @@ namespace FFXIVAPP.Plugin.Widgets.Helpers
         /// </summary>
         /// <param name="window"></param>
         /// <param name="stayOnTop"></param>
+        /// <param name="force"></param>
         private static void ToggleTopMost(Window window, bool stayOnTop, bool force)
         {
             if (window.Topmost && stayOnTop && !force)
