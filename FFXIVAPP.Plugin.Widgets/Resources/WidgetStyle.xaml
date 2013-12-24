@@ -66,7 +66,7 @@
     </LinearGradientBrush>
     <Style x:Key="ProgressBarStyleStopAnimation"
            TargetType="{x:Type ProgressBar}">
-        <Setter Property="Foreground" Value="#01D328" />
+        <Setter Property="Foreground" Value="DarkGray" />
         <Setter Property="Background" Value="{StaticResource ProgressBarBackground}" />
         <Setter Property="BorderBrush" Value="{StaticResource ProgressBarBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
@@ -168,7 +168,8 @@
                             <Setter TargetName="Indicator" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                         <Trigger Property="IsIndeterminate" Value="false">
-                            <Setter TargetName="Animation" Property="Background" Value="#80B5FFA9" />
+                            <!--  <Setter TargetName="Animation" Property="Background" Value="#80B5FFA9" />  -->
+                            <Setter TargetName="Animation" Property="Background" Value="#00000000" />
                         </Trigger>
                         <!--
                             <Trigger Property="Value" Value="100">

@@ -4,6 +4,7 @@
         xmlns:PluginProperties="clr-namespace:FFXIVAPP.Plugin.Widgets.Properties"
         xmlns:ViewModels="clr-namespace:FFXIVAPP.Plugin.Widgets.Windows"
         xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:converters="clr-namespace:FFXIVAPP.Plugin.Widgets.Converters"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         Title="DTPSWidget"
@@ -35,6 +36,7 @@
                       Member="PluginProperties:Settings.Default" />
             <x:Static x:Key="DTPSWidgetViewModel"
                       Member="ViewModels:DTPSWidgetViewModel.Instance" />
+            <converters:JobToBrushConverter x:Key="JobToBrushConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/FFXIVAPP.Plugin.Widgets;component/Resources/WidgetStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -144,6 +146,8 @@
                                              Height="18"
                                              VerticalAlignment="Top"
                                              BorderBrush="Black"
+                                             Foreground="{Binding Job,
+                                                                  Converter={StaticResource JobToBrushConverter}}"
                                              Maximum="1"
                                              Minimum="0"
                                              Style="{StaticResource ProgressBarStyleStopAnimation}"
@@ -167,13 +171,6 @@
                                            FontWeight="Bold"
                                            Foreground="Black"
                                            Style="{StaticResource PercentStyle}" />
-                                    <TextBlock Margin="2 0"
-                                               VerticalAlignment="Center"
-                                               FontWeight="Bold"
-                                               Foreground="Black"
-                                               Style="{StaticResource PercentStyle}"
-                                               Text="{Binding Job,
-                                                              StringFormat=[{0}]}" />
                                 </StackPanel>
                             </Grid>
                         </StackPanel>
