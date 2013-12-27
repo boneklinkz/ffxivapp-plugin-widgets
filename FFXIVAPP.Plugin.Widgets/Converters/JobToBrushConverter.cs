@@ -7,7 +7,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
-using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Common.Core.Memory.Enums;
 
 namespace FFXIVAPP.Plugin.Widgets.Converters
 {
@@ -15,8 +15,8 @@ namespace FFXIVAPP.Plugin.Widgets.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var job = ((Enums.Actor.Job) value).ToString()
-                                               .ToUpperInvariant();
+            var job = ((Actor.Job) value).ToString()
+                                         .ToUpperInvariant();
             switch (job)
             {
                 case "GLD":
@@ -33,21 +33,21 @@ namespace FFXIVAPP.Plugin.Widgets.Converters
                     return Brushes.Red;
                 case "CNJ":
                 case "WHM":
-                    return Brushes.DarkGray;
+                    return Brushes.White;
                 case "ACN":
                     return Brushes.NavajoWhite;
                 case "SCH":
                     return Brushes.MediumPurple;
                 case "PGL":
                 case "MNK":
-                    return Brushes.Gold;
+                    return Brushes.Goldenrod;
                 case "ARC":
                 case "BRD":
                     return Brushes.GreenYellow;
                 case "SMN":
                     return Brushes.LimeGreen;
                 default:
-                    return Brushes.RosyBrown;
+                    return Brushes.HotPink;
             }
         }
 

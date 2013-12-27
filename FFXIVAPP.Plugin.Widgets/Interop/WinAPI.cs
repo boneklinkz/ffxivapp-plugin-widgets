@@ -42,12 +42,7 @@ namespace FFXIVAPP.Plugin.Widgets.Interop
             var handle = IntPtr.Zero;
             var Buff = new StringBuilder(nChars);
             handle = GetForegroundWindow();
-
-            if (GetWindowText(handle, Buff, nChars) > 0)
-            {
-                return Buff.ToString();
-            }
-            return "";
+            return GetWindowText(handle, Buff, nChars) > 0 ? Buff.ToString() : "";
         }
 
         private static void SetWindowTransparent(IntPtr hwnd)
