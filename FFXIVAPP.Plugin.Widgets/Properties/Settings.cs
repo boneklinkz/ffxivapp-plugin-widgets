@@ -10,8 +10,10 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
+using System.Xml.Linq;
 using FFXIVAPP.Common.Helpers;
 using FFXIVAPP.Common.Models;
 using FFXIVAPP.Common.Utilities;
@@ -33,87 +35,85 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
 
         public override void Save()
         {
-            XmlHelper.DeleteXmlNode(Constants.XSettings, "Setting");
-            if (Constants.Settings.Count == 0)
-            {
-            }
+            // this call to default settings only ensures we keep the settings we want and delete the ones we don't (old)
             DefaultSettings();
-            foreach (var item in Constants.Settings)
-            {
-                try
-                {
-                    var xKey = item;
-                    var xValue = Default[xKey].ToString();
-                    var keyPairList = new List<XValuePair>
-                    {
-                        new XValuePair
-                        {
-                            Key = "Value",
-                            Value = xValue
-                        }
-                    };
-                    XmlHelper.SaveXmlNode(Constants.XSettings, "Settings", "Setting", xKey, keyPairList);
-                }
-                catch (Exception ex)
-                {
-                    Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
-                }
-            }
+            SaveSettingsNode();
             Constants.XSettings.Save(Constants.BaseDirectory + "Settings.xml");
         }
 
         private void DefaultSettings()
         {
             Constants.Settings.Clear();
+
+            #region Widgets
+
             Constants.Settings.Add("DPSWidgetWidth");
             Constants.Settings.Add("DPSWidgetHeight");
-            Constants.Settings.Add("HPSWidgetWidth");
-            Constants.Settings.Add("HPSWidgetHeight");
-            Constants.Settings.Add("DTPSWidgetWidth");
-            Constants.Settings.Add("DTPSWidgetHeight");
-            Constants.Settings.Add("CurrentTargetWidgetWidth");
-            Constants.Settings.Add("CurrentTargetWidgetHeight");
-            Constants.Settings.Add("FocusTargetWidgetWidth");
-            Constants.Settings.Add("FocusTargetWidgetHeight");
-            Constants.Settings.Add("EnmityWidgetWidth");
-            Constants.Settings.Add("EnmityWidgetHeight");
             Constants.Settings.Add("DPSWidgetSortDirection");
             Constants.Settings.Add("DPSWidgetSortProperty");
-            Constants.Settings.Add("HPSWidgetSortDirection");
-            Constants.Settings.Add("HPSWidgetSortProperty");
-            Constants.Settings.Add("DTPSWidgetSortDirection");
-            Constants.Settings.Add("DTPSWidgetSortProperty");
             Constants.Settings.Add("DPSWidgetUIScale");
-            Constants.Settings.Add("HPSWidgetUIScale");
-            Constants.Settings.Add("DTPSWidgetUIScale");
-            Constants.Settings.Add("CurrentTargetWidgetUIScale");
-            Constants.Settings.Add("FocusTargetWidgetUIScale");
-            Constants.Settings.Add("EnmityWidgetUIScale");
-            Constants.Settings.Add("WidgetOpenCloseModifiesShowOnLoad");
-            Constants.Settings.Add("WidgetClickThroughEnabled");
-            Constants.Settings.Add("WidgetOpacity");
             Constants.Settings.Add("ShowDPSWidgetOnLoad");
             Constants.Settings.Add("DPSWidgetTop");
             Constants.Settings.Add("DPSWidgetLeft");
             Constants.Settings.Add("DPSVisibility");
-            Constants.Settings.Add("ShowDTPSWidgetOnLoad");
-            Constants.Settings.Add("DTPSWidgetTop");
-            Constants.Settings.Add("DTPSWidgetLeft");
-            Constants.Settings.Add("DTPSVisibility");
+            Constants.Settings.Add("HPSWidgetWidth");
+            Constants.Settings.Add("HPSWidgetHeight");
+            Constants.Settings.Add("HPSWidgetSortDirection");
+            Constants.Settings.Add("HPSWidgetSortProperty");
+            Constants.Settings.Add("HPSWidgetUIScale");
             Constants.Settings.Add("ShowHPSWidgetOnLoad");
             Constants.Settings.Add("HPSWidgetTop");
             Constants.Settings.Add("HPSWidgetLeft");
             Constants.Settings.Add("HPSVisibility");
+            Constants.Settings.Add("DTPSWidgetWidth");
+            Constants.Settings.Add("DTPSWidgetHeight");
+            Constants.Settings.Add("DTPSWidgetSortDirection");
+            Constants.Settings.Add("DTPSWidgetSortProperty");
+            Constants.Settings.Add("DTPSWidgetUIScale");
+            Constants.Settings.Add("ShowDTPSWidgetOnLoad");
+            Constants.Settings.Add("DTPSWidgetTop");
+            Constants.Settings.Add("DTPSWidgetLeft");
+            Constants.Settings.Add("DTPSVisibility");
+            Constants.Settings.Add("EnmityWidgetWidth");
+            Constants.Settings.Add("EnmityWidgetHeight");
+            Constants.Settings.Add("EnmityWidgetUIScale");
             Constants.Settings.Add("ShowEnmityWidgetOnLoad");
             Constants.Settings.Add("EnmityWidgetTop");
             Constants.Settings.Add("EnmityWidgetLeft");
             Constants.Settings.Add("ShowEnmityWidgetCurrentTargetInfo");
-            Constants.Settings.Add("ShowFocusTargetWidgetOnLoad");
-            Constants.Settings.Add("FocusTargetWidgetTop");
-            Constants.Settings.Add("FocusTargetWidgetLeft");
+            Constants.Settings.Add("CurrentTargetWidgetWidth");
+            Constants.Settings.Add("CurrentTargetWidgetHeight");
+            Constants.Settings.Add("CurrentTargetWidgetUIScale");
             Constants.Settings.Add("ShowCurrentTargetWidgetOnLoad");
             Constants.Settings.Add("CurrentTargetWidgetTop");
             Constants.Settings.Add("CurrentTargetWidgetLeft");
+            Constants.Settings.Add("FocusTargetWidgetWidth");
+            Constants.Settings.Add("FocusTargetWidgetHeight");
+            Constants.Settings.Add("FocusTargetWidgetUIScale");
+            Constants.Settings.Add("ShowFocusTargetWidgetOnLoad");
+            Constants.Settings.Add("FocusTargetWidgetTop");
+            Constants.Settings.Add("FocusTargetWidgetLeft");
+
+            #endregion
+
+            Constants.Settings.Add("ShowJobNameInWidgets");
+            Constants.Settings.Add("WidgetClickThroughEnabled");
+            Constants.Settings.Add("WidgetOpacity");
+
+            #region Colors
+
+            Constants.Settings.Add("DefaultProgressBarForeground");
+            Constants.Settings.Add("PLDProgressBarForeground");
+            Constants.Settings.Add("DRGProgressBarForeground");
+            Constants.Settings.Add("BLMProgressBarForeground");
+            Constants.Settings.Add("WARProgressBarForeground");
+            Constants.Settings.Add("WHMProgressBarForeground");
+            Constants.Settings.Add("SCHProgressBarForeground");
+            Constants.Settings.Add("MNKProgressBarForeground");
+            Constants.Settings.Add("BRDProgressBarForeground");
+            Constants.Settings.Add("SMNProgressBarForeground");
+
+            #endregion
         }
 
         public new void Reset()
@@ -229,6 +229,202 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
+        [DefaultSettingValue("0.7")]
+        public string WidgetOpacity
+        {
+            get { return ((string) (this["WidgetOpacity"])); }
+            set
+            {
+                this["WidgetOpacity"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0.5</string>
+  <string>0.6</string>
+  <string>0.7</string>
+  <string>0.8</string>
+  <string>0.9</string>
+  <string>1.0</string>
+</ArrayOfString>")]
+        public StringCollection WidgetOpacityList
+        {
+            get { return ((StringCollection) (this["WidgetOpacityList"])); }
+            set
+            {
+                this["WidgetOpacityList"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("False")]
+        public bool WidgetClickThroughEnabled
+        {
+            get { return ((bool) (this["WidgetClickThroughEnabled"])); }
+            set
+            {
+                this["WidgetClickThroughEnabled"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ShowJobNameInWidgets
+        {
+            get { return ((bool) (this["ShowJobNameInWidgets"])); }
+            set
+            {
+                this["ShowJobNameInWidgets"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #region Widget Color Settings
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("FF00FF00")]
+        public string DefaultProgressBarForeground
+        {
+            get { return ((string) (this["DefaultProgressBarForeground"])); }
+            set
+            {
+                this["DefaultProgressBarForeground"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("SkyBlue")]
+        public string PLDProgressBarForeground
+        {
+            get { return ((string) (this["PLDProgressBarForeground"])); }
+            set
+            {
+                this["PLDProgressBarForeground"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("DarkSlateBlue")]
+        public string DRGProgressBarForeground
+        {
+            get { return ((string) (this["DRGProgressBarForeground"])); }
+            set
+            {
+                this["DRGProgressBarForeground"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("Purple")]
+        public string BLMProgressBarForeground
+        {
+            get { return ((string) (this["BLMProgressBarForeground"])); }
+            set
+            {
+                this["BLMProgressBarForeground"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("Red")]
+        public string WARProgressBarForeground
+        {
+            get { return ((string) (this["WARProgressBarForeground"])); }
+            set
+            {
+                this["WARProgressBarForeground"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("White")]
+        public string WHMProgressBarForeground
+        {
+            get { return ((string) (this["WHMProgressBarForeground"])); }
+            set
+            {
+                this["WHMProgressBarForeground"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("MediumPurple")]
+        public string SCHProgressBarForeground
+        {
+            get { return ((string) (this["SCHProgressBarForeground"])); }
+            set
+            {
+                this["SCHProgressBarForeground"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("GoldenRod")]
+        public string MNKProgressBarForeground
+        {
+            get { return ((string) (this["MNKProgressBarForeground"])); }
+            set
+            {
+                this["MNKProgressBarForeground"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("GreenYellow")]
+        public string BRDProgressBarForeground
+        {
+            get { return ((string) (this["BRDProgressBarForeground"])); }
+            set
+            {
+                this["BRDProgressBarForeground"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("LimeGreen")]
+        public string SMNProgressBarForeground
+        {
+            get { return ((string) (this["SMNProgressBarForeground"])); }
+            set
+            {
+                this["SMNProgressBarForeground"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region DPS Widget Settings
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
         [DefaultSettingValue("250")]
         public int DPSWidgetWidth
         {
@@ -249,136 +445,6 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
             set
             {
                 this["DPSWidgetHeight"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("250")]
-        public int HPSWidgetWidth
-        {
-            get { return ((int) (this["HPSWidgetWidth"])); }
-            set
-            {
-                this["HPSWidgetWidth"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("450")]
-        public int HPSWidgetHeight
-        {
-            get { return ((int) (this["HPSWidgetHeight"])); }
-            set
-            {
-                this["HPSWidgetHeight"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("250")]
-        public int DTPSWidgetWidth
-        {
-            get { return ((int) (this["DTPSWidgetWidth"])); }
-            set
-            {
-                this["DTPSWidgetWidth"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("450")]
-        public int DTPSWidgetHeight
-        {
-            get { return ((int) (this["DTPSWidgetHeight"])); }
-            set
-            {
-                this["DTPSWidgetHeight"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("250")]
-        public int CurrentTargetWidgetWidth
-        {
-            get { return ((int) (this["CurrentTargetWidgetWidth"])); }
-            set
-            {
-                this["CurrentTargetWidgetWidth"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("450")]
-        public int CurrentTargetWidgetHeight
-        {
-            get { return ((int) (this["CurrentTargetWidgetHeight"])); }
-            set
-            {
-                this["CurrentTargetWidgetHeight"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("250")]
-        public int FocusTargetWidgetWidth
-        {
-            get { return ((int) (this["FocusTargetWidgetWidth"])); }
-            set
-            {
-                this["FocusTargetWidgetWidth"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("450")]
-        public int FocusTargetWidgetHeight
-        {
-            get { return ((int) (this["FocusTargetWidgetHeight"])); }
-            set
-            {
-                this["FocusTargetWidgetHeight"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("250")]
-        public int EnmityWidgetWidth
-        {
-            get { return ((int) (this["EnmityWidgetWidth"])); }
-            set
-            {
-                this["EnmityWidgetWidth"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("450")]
-        public int EnmityWidgetHeight
-        {
-            get { return ((int) (this["EnmityWidgetHeight"])); }
-            set
-            {
-                this["EnmityWidgetHeight"] = value;
                 RaisePropertyChanged();
             }
         }
@@ -434,358 +500,6 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
         public StringCollection DPSWidgetSortPropertyList
         {
             get { return ((StringCollection) (this["DPSWidgetSortPropertyList"])); }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("Descending")]
-        public string HPSWidgetSortDirection
-        {
-            get { return ((string) (this["HPSWidgetSortDirection"])); }
-            set
-            {
-                this["HPSWidgetSortDirection"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [ApplicationScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>Ascending</string>
-  <string>Descending</string>
-</ArrayOfString>")]
-        public StringCollection HPSWidgetSortDirectionList
-        {
-            get { return ((StringCollection) (this["HPSWidgetSortDirectionList"])); }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("HPS")]
-        public string HPSWidgetSortProperty
-        {
-            get { return ((string) (this["HPSWidgetSortProperty"])); }
-            set
-            {
-                this["HPSWidgetSortProperty"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [ApplicationScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>Name</string>
-  <string>Job</string>
-  <string>HPS</string>
-  <string>TotalOverallHealing</string>
-  <string>PercentOfOverallHealing</string>
-</ArrayOfString>")]
-        public StringCollection HPSWidgetSortPropertyList
-        {
-            get { return ((StringCollection) (this["HPSWidgetSortPropertyList"])); }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("Descending")]
-        public string DTPSWidgetSortDirection
-        {
-            get { return ((string) (this["DTPSWidgetSortDirection"])); }
-            set
-            {
-                this["DTPSWidgetSortDirection"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [ApplicationScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>Ascending</string>
-  <string>Descending</string>
-</ArrayOfString>")]
-        public StringCollection DTPSWidgetSortDirectionList
-        {
-            get { return ((StringCollection) (this["DTPSWidgetSortDirectionList"])); }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("DTPS")]
-        public string DTPSWidgetSortProperty
-        {
-            get { return ((string) (this["DTPSWidgetSortProperty"])); }
-            set
-            {
-                this["DTPSWidgetSortProperty"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [ApplicationScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>Name</string>
-  <string>Job</string>
-  <string>DTPS</string>
-  <string>TotalOverallDamageTaken</string>
-  <string>PercentOfOverallDamageTaken</string>
-</ArrayOfString>")]
-        public StringCollection DTPSWidgetSortPropertyList
-        {
-            get { return ((StringCollection) (this["DTPSWidgetSortPropertyList"])); }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("1.0")]
-        public string DPSWidgetUIScale
-        {
-            get { return ((string) (this["DPSWidgetUIScale"])); }
-            set
-            {
-                this["DPSWidgetUIScale"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [ApplicationScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>0.8</string>
-  <string>0.9</string>
-  <string>1.0</string>
-  <string>1.1</string>
-  <string>1.2</string>
-  <string>1.3</string>
-  <string>1.4</string>
-  <string>1.5</string>
-</ArrayOfString>")]
-        public StringCollection DPSWidgetUIScaleList
-        {
-            get { return ((StringCollection) (this["DPSWidgetUIScaleList"])); }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("1.0")]
-        public string DTPSWidgetUIScale
-        {
-            get { return ((string) (this["DTPSWidgetUIScale"])); }
-            set
-            {
-                this["DTPSWidgetUIScale"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [ApplicationScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>0.8</string>
-  <string>0.9</string>
-  <string>1.0</string>
-  <string>1.1</string>
-  <string>1.2</string>
-  <string>1.3</string>
-  <string>1.4</string>
-  <string>1.5</string>
-</ArrayOfString>")]
-        public StringCollection DTPSWidgetUIScaleList
-        {
-            get { return ((StringCollection) (this["DTPSWidgetUIScaleList"])); }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("1.0")]
-        public string HPSWidgetUIScale
-        {
-            get { return ((string) (this["HPSWidgetUIScale"])); }
-            set
-            {
-                this["HPSWidgetUIScale"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [ApplicationScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>0.8</string>
-  <string>0.9</string>
-  <string>1.0</string>
-  <string>1.1</string>
-  <string>1.2</string>
-  <string>1.3</string>
-  <string>1.4</string>
-  <string>1.5</string>
-</ArrayOfString>")]
-        public StringCollection HPSWidgetUIScaleList
-        {
-            get { return ((StringCollection) (this["HPSWidgetUIScaleList"])); }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("1.0")]
-        public string CurrentTargetWidgetUIScale
-        {
-            get { return ((string) (this["CurrentTargetWidgetUIScale"])); }
-            set
-            {
-                this["CurrentTargetWidgetUIScale"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [ApplicationScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>0.8</string>
-  <string>0.9</string>
-  <string>1.0</string>
-  <string>1.1</string>
-  <string>1.2</string>
-  <string>1.3</string>
-  <string>1.4</string>
-  <string>1.5</string>
-</ArrayOfString>")]
-        public StringCollection CurrentTargetWidgetUIScaleList
-        {
-            get { return ((StringCollection) (this["CurrentTargetWidgetUIScaleList"])); }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("1.0")]
-        public string FocusTargetWidgetUIScale
-        {
-            get { return ((string) (this["FocusTargetWidgetUIScale"])); }
-            set
-            {
-                this["FocusTargetWidgetUIScale"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [ApplicationScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>0.8</string>
-  <string>0.9</string>
-  <string>1.0</string>
-  <string>1.1</string>
-  <string>1.2</string>
-  <string>1.3</string>
-  <string>1.4</string>
-  <string>1.5</string>
-</ArrayOfString>")]
-        public StringCollection FocusTargetWidgetUIScaleList
-        {
-            get { return ((StringCollection) (this["FocusTargetWidgetUIScaleList"])); }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("1.0")]
-        public string EnmityWidgetUIScale
-        {
-            get { return ((string) (this["EnmityWidgetUIScale"])); }
-            set
-            {
-                this["EnmityWidgetUIScale"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [ApplicationScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>0.8</string>
-  <string>0.9</string>
-  <string>1.0</string>
-  <string>1.1</string>
-  <string>1.2</string>
-  <string>1.3</string>
-  <string>1.4</string>
-  <string>1.5</string>
-</ArrayOfString>")]
-        public StringCollection EnmityWidgetUIScaleList
-        {
-            get { return ((StringCollection) (this["EnmityWidgetUIScaleList"])); }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool WidgetOpenCloseModifiesShowOnLoad
-        {
-            get { return ((bool) (this["WidgetOpenCloseModifiesShowOnLoad"])); }
-            set
-            {
-                this["WidgetOpenCloseModifiesShowOnLoad"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("0.7")]
-        public string WidgetOpacity
-        {
-            get { return ((string) (this["WidgetOpacity"])); }
-            set
-            {
-                this["WidgetOpacity"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [ApplicationScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>0.5</string>
-  <string>0.6</string>
-  <string>0.7</string>
-  <string>0.8</string>
-  <string>0.9</string>
-  <string>1.0</string>
-</ArrayOfString>")]
-        public StringCollection WidgetOpacityList
-        {
-            get { return ((StringCollection) (this["WidgetOpacityList"])); }
-            set
-            {
-                this["WidgetOpacityList"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("False")]
-        public bool WidgetClickThroughEnabled
-        {
-            get { return ((bool) (this["WidgetClickThroughEnabled"])); }
-            set
-            {
-                this["WidgetClickThroughEnabled"] = value;
-                RaisePropertyChanged();
-            }
         }
 
         [UserScopedSetting]
@@ -864,52 +578,13 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        [DefaultSettingValue("True")]
-        public bool ShowDTPSWidgetOnLoad
+        [DefaultSettingValue("1.0")]
+        public string DPSWidgetUIScale
         {
-            get { return ((bool) (this["ShowDTPSWidgetOnLoad"])); }
+            get { return ((string) (this["DPSWidgetUIScale"])); }
             set
             {
-                this["ShowDTPSWidgetOnLoad"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("200")]
-        public int DTPSWidgetTop
-        {
-            get { return ((int) (this["DTPSWidgetTop"])); }
-            set
-            {
-                this["DTPSWidgetTop"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("100")]
-        public int DTPSWidgetLeft
-        {
-            get { return ((int) (this["DTPSWidgetLeft"])); }
-            set
-            {
-                this["DTPSWidgetLeft"] = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        [UserScopedSetting]
-        [DebuggerNonUserCode]
-        [DefaultSettingValue("0")]
-        public string DTPSVisibility
-        {
-            get { return ((string) (this["DTPSVisibility"])); }
-            set
-            {
-                this["DTPSVisibility"] = value;
+                this["DPSWidgetUIScale"] = value;
                 RaisePropertyChanged();
             }
         }
@@ -918,22 +593,132 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
         [DebuggerNonUserCode]
         [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>0</string>
-  <string>50</string>
-  <string>100</string>
-  <string>150</string>
-  <string>200</string>
-  <string>250</string>
-  <string>300</string>
+  <string>0.8</string>
+  <string>0.9</string>
+  <string>1.0</string>
+  <string>1.1</string>
+  <string>1.2</string>
+  <string>1.3</string>
+  <string>1.4</string>
+  <string>1.5</string>
 </ArrayOfString>")]
-        public StringCollection DTPSVisibilityList
+        public StringCollection DPSWidgetUIScaleList
         {
-            get { return ((StringCollection) (this["DTPSVisibilityList"])); }
+            get { return ((StringCollection) (this["DPSWidgetUIScaleList"])); }
+        }
+
+        #endregion
+
+        #region HPS Widget Settings
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("250")]
+        public int HPSWidgetWidth
+        {
+            get { return ((int) (this["HPSWidgetWidth"])); }
             set
             {
-                this["DTPSVisibilityList"] = value;
+                this["HPSWidgetWidth"] = value;
                 RaisePropertyChanged();
             }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("450")]
+        public int HPSWidgetHeight
+        {
+            get { return ((int) (this["HPSWidgetHeight"])); }
+            set
+            {
+                this["HPSWidgetHeight"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("Descending")]
+        public string HPSWidgetSortDirection
+        {
+            get { return ((string) (this["HPSWidgetSortDirection"])); }
+            set
+            {
+                this["HPSWidgetSortDirection"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>Ascending</string>
+  <string>Descending</string>
+</ArrayOfString>")]
+        public StringCollection HPSWidgetSortDirectionList
+        {
+            get { return ((StringCollection) (this["HPSWidgetSortDirectionList"])); }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("HPS")]
+        public string HPSWidgetSortProperty
+        {
+            get { return ((string) (this["HPSWidgetSortProperty"])); }
+            set
+            {
+                this["HPSWidgetSortProperty"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>Name</string>
+  <string>Job</string>
+  <string>HPS</string>
+  <string>TotalOverallHealing</string>
+  <string>PercentOfOverallHealing</string>
+</ArrayOfString>")]
+        public StringCollection HPSWidgetSortPropertyList
+        {
+            get { return ((StringCollection) (this["HPSWidgetSortPropertyList"])); }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("1.0")]
+        public string HPSWidgetUIScale
+        {
+            get { return ((string) (this["HPSWidgetUIScale"])); }
+            set
+            {
+                this["HPSWidgetUIScale"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0.8</string>
+  <string>0.9</string>
+  <string>1.0</string>
+  <string>1.1</string>
+  <string>1.2</string>
+  <string>1.3</string>
+  <string>1.4</string>
+  <string>1.5</string>
+</ArrayOfString>")]
+        public StringCollection HPSWidgetUIScaleList
+        {
+            get { return ((StringCollection) (this["HPSWidgetUIScaleList"])); }
         }
 
         [UserScopedSetting]
@@ -1010,6 +795,255 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
             }
         }
 
+        #endregion
+
+        #region DTPS Widget Settings
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("250")]
+        public int DTPSWidgetWidth
+        {
+            get { return ((int) (this["DTPSWidgetWidth"])); }
+            set
+            {
+                this["DTPSWidgetWidth"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("450")]
+        public int DTPSWidgetHeight
+        {
+            get { return ((int) (this["DTPSWidgetHeight"])); }
+            set
+            {
+                this["DTPSWidgetHeight"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("Descending")]
+        public string DTPSWidgetSortDirection
+        {
+            get { return ((string) (this["DTPSWidgetSortDirection"])); }
+            set
+            {
+                this["DTPSWidgetSortDirection"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>Ascending</string>
+  <string>Descending</string>
+</ArrayOfString>")]
+        public StringCollection DTPSWidgetSortDirectionList
+        {
+            get { return ((StringCollection) (this["DTPSWidgetSortDirectionList"])); }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("DTPS")]
+        public string DTPSWidgetSortProperty
+        {
+            get { return ((string) (this["DTPSWidgetSortProperty"])); }
+            set
+            {
+                this["DTPSWidgetSortProperty"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>Name</string>
+  <string>Job</string>
+  <string>DTPS</string>
+  <string>TotalOverallDamageTaken</string>
+  <string>PercentOfOverallDamageTaken</string>
+</ArrayOfString>")]
+        public StringCollection DTPSWidgetSortPropertyList
+        {
+            get { return ((StringCollection) (this["DTPSWidgetSortPropertyList"])); }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("1.0")]
+        public string DTPSWidgetUIScale
+        {
+            get { return ((string) (this["DTPSWidgetUIScale"])); }
+            set
+            {
+                this["DTPSWidgetUIScale"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0.8</string>
+  <string>0.9</string>
+  <string>1.0</string>
+  <string>1.1</string>
+  <string>1.2</string>
+  <string>1.3</string>
+  <string>1.4</string>
+  <string>1.5</string>
+</ArrayOfString>")]
+        public StringCollection DTPSWidgetUIScaleList
+        {
+            get { return ((StringCollection) (this["DTPSWidgetUIScaleList"])); }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("True")]
+        public bool ShowDTPSWidgetOnLoad
+        {
+            get { return ((bool) (this["ShowDTPSWidgetOnLoad"])); }
+            set
+            {
+                this["ShowDTPSWidgetOnLoad"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("200")]
+        public int DTPSWidgetTop
+        {
+            get { return ((int) (this["DTPSWidgetTop"])); }
+            set
+            {
+                this["DTPSWidgetTop"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("100")]
+        public int DTPSWidgetLeft
+        {
+            get { return ((int) (this["DTPSWidgetLeft"])); }
+            set
+            {
+                this["DTPSWidgetLeft"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("0")]
+        public string DTPSVisibility
+        {
+            get { return ((string) (this["DTPSVisibility"])); }
+            set
+            {
+                this["DTPSVisibility"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0</string>
+  <string>50</string>
+  <string>100</string>
+  <string>150</string>
+  <string>200</string>
+  <string>250</string>
+  <string>300</string>
+</ArrayOfString>")]
+        public StringCollection DTPSVisibilityList
+        {
+            get { return ((StringCollection) (this["DTPSVisibilityList"])); }
+            set
+            {
+                this["DTPSVisibilityList"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        #endregion
+
+        #region Enmity Widget Settings
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("250")]
+        public int EnmityWidgetWidth
+        {
+            get { return ((int) (this["EnmityWidgetWidth"])); }
+            set
+            {
+                this["EnmityWidgetWidth"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("450")]
+        public int EnmityWidgetHeight
+        {
+            get { return ((int) (this["EnmityWidgetHeight"])); }
+            set
+            {
+                this["EnmityWidgetHeight"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("1.0")]
+        public string EnmityWidgetUIScale
+        {
+            get { return ((string) (this["EnmityWidgetUIScale"])); }
+            set
+            {
+                this["EnmityWidgetUIScale"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0.8</string>
+  <string>0.9</string>
+  <string>1.0</string>
+  <string>1.1</string>
+  <string>1.2</string>
+  <string>1.3</string>
+  <string>1.4</string>
+  <string>1.5</string>
+</ArrayOfString>")]
+        public StringCollection EnmityWidgetUIScaleList
+        {
+            get { return ((StringCollection) (this["EnmityWidgetUIScaleList"])); }
+        }
+
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
@@ -1062,6 +1096,67 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
             }
         }
 
+        #endregion
+
+        #region Focus Target Widget Settings
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("250")]
+        public int FocusTargetWidgetWidth
+        {
+            get { return ((int) (this["FocusTargetWidgetWidth"])); }
+            set
+            {
+                this["FocusTargetWidgetWidth"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("450")]
+        public int FocusTargetWidgetHeight
+        {
+            get { return ((int) (this["FocusTargetWidgetHeight"])); }
+            set
+            {
+                this["FocusTargetWidgetHeight"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("1.0")]
+        public string FocusTargetWidgetUIScale
+        {
+            get { return ((string) (this["FocusTargetWidgetUIScale"])); }
+            set
+            {
+                this["FocusTargetWidgetUIScale"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0.8</string>
+  <string>0.9</string>
+  <string>1.0</string>
+  <string>1.1</string>
+  <string>1.2</string>
+  <string>1.3</string>
+  <string>1.4</string>
+  <string>1.5</string>
+</ArrayOfString>")]
+        public StringCollection FocusTargetWidgetUIScaleList
+        {
+            get { return ((StringCollection) (this["FocusTargetWidgetUIScaleList"])); }
+        }
+
         [UserScopedSetting]
         [DebuggerNonUserCode]
         [DefaultSettingValue("True")]
@@ -1099,6 +1194,67 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
                 this["FocusTargetWidgetLeft"] = value;
                 RaisePropertyChanged();
             }
+        }
+
+        #endregion
+
+        #region Current Target Widget Settings
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("250")]
+        public int CurrentTargetWidgetWidth
+        {
+            get { return ((int) (this["CurrentTargetWidgetWidth"])); }
+            set
+            {
+                this["CurrentTargetWidgetWidth"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("450")]
+        public int CurrentTargetWidgetHeight
+        {
+            get { return ((int) (this["CurrentTargetWidgetHeight"])); }
+            set
+            {
+                this["CurrentTargetWidgetHeight"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("1.0")]
+        public string CurrentTargetWidgetUIScale
+        {
+            get { return ((string) (this["CurrentTargetWidgetUIScale"])); }
+            set
+            {
+                this["CurrentTargetWidgetUIScale"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>0.8</string>
+  <string>0.9</string>
+  <string>1.0</string>
+  <string>1.1</string>
+  <string>1.2</string>
+  <string>1.3</string>
+  <string>1.4</string>
+  <string>1.5</string>
+</ArrayOfString>")]
+        public StringCollection CurrentTargetWidgetUIScaleList
+        {
+            get { return ((StringCollection) (this["CurrentTargetWidgetUIScaleList"])); }
         }
 
         [UserScopedSetting]
@@ -1142,6 +1298,8 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
 
         #endregion
 
+        #endregion
+
         #region Implementation of INotifyPropertyChanged
 
         public new event PropertyChangedEventHandler PropertyChanged = delegate { };
@@ -1149,6 +1307,48 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
         private void RaisePropertyChanged([CallerMemberName] string caller = "")
         {
             PropertyChanged(this, new PropertyChangedEventArgs(caller));
+        }
+
+        #endregion
+
+        #region Iterative Settings Saving
+
+        private void SaveSettingsNode()
+        {
+            if (Constants.XSettings == null)
+            {
+                return;
+            }
+            var xElements = Constants.XSettings.Descendants()
+                                     .Elements("Setting");
+            var enumerable = xElements as XElement[] ?? xElements.ToArray();
+            foreach (var setting in Constants.Settings)
+            {
+                var element = enumerable.FirstOrDefault(e => e.Attribute("Key")
+                                                              .Value == setting);
+                if (element == null)
+                {
+                    var xKey = setting;
+                    var xValue = Default[xKey].ToString();
+                    var keyPairList = new List<XValuePair>
+                    {
+                        new XValuePair
+                        {
+                            Key = "Value",
+                            Value = xValue
+                        }
+                    };
+                    XmlHelper.SaveXmlNode(Constants.XSettings, "Settings", "Setting", xKey, keyPairList);
+                }
+                else
+                {
+                    var xElement = element.Element("Value");
+                    if (xElement != null)
+                    {
+                        xElement.Value = Default[setting].ToString();
+                    }
+                }
+            }
         }
 
         #endregion

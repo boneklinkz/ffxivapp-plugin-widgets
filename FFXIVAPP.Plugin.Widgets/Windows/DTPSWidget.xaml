@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:PluginProperties="clr-namespace:FFXIVAPP.Plugin.Widgets.Properties"
         xmlns:ViewModels="clr-namespace:FFXIVAPP.Plugin.Widgets.Windows"
+        xmlns:commonConverters="clr-namespace:FFXIVAPP.Common.Converters;assembly=FFXIVAPP.Common"
         xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:converters="clr-namespace:FFXIVAPP.Plugin.Widgets.Converters"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -36,7 +37,8 @@
                       Member="PluginProperties:Settings.Default" />
             <x:Static x:Key="DTPSWidgetViewModel"
                       Member="ViewModels:DTPSWidgetViewModel.Instance" />
-            <converters:JobToBrushConverter x:Key="JobToBrushConverter" />
+            <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
+            <commonConverters:VisibilityConverter x:Key="VisibilityConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/FFXIVAPP.Plugin.Widgets;component/Resources/WidgetStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -147,7 +149,7 @@
                                              VerticalAlignment="Top"
                                              BorderBrush="Black"
                                              Foreground="{Binding Job,
-                                                                  Converter={StaticResource JobToBrushConverter}}"
+                                                                  Converter={StaticResource StringToBrushConverter}}"
                                              Maximum="1"
                                              Minimum="0"
                                              Style="{StaticResource ProgressBarStyleStopAnimation}"
@@ -171,6 +173,16 @@
                                            FontWeight="Bold"
                                            Foreground="Black"
                                            Style="{StaticResource PercentStyle}" />
+                                    <TextBlock Margin="3 0"
+                                               VerticalAlignment="Center"
+                                               FontWeight="Bold"
+                                               Foreground="Black"
+                                               Style="{StaticResource StatLabelStyle}"
+                                               Text="{Binding Job,
+                                                              StringFormat=[{0}]}"
+                                               Visibility="{Binding ShowJobNameInWidgets,
+                                                                    Source={StaticResource Settings},
+                                                                    Converter={StaticResource VisibilityConverter}}" />
                                 </StackPanel>
                             </Grid>
                         </StackPanel>

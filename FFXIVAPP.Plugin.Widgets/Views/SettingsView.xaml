@@ -48,6 +48,57 @@
                             </GroupBox>
                         </StackPanel>
                     </TabItem>
+                    <TabItem Header="Colors">
+                        <StackPanel>
+                            <TextBlock TextWrapping="WrapWithOverflow">
+                                * Colors are used as either ARGB (Alpha, Red, Green, Blue) or a named color (SkyBlue)
+                            </TextBlock>
+                            <GroupBox Header="Default Progress Bar Foreground">
+                                <TextBox Text="{Binding DefaultProgressBarForeground,
+                                                        Source={StaticResource Settings}}" />
+                            </GroupBox>
+                            <Expander Header="COLORS:JOBS">
+                                <StackPanel>
+                                    <GroupBox Header="PLD">
+                                        <TextBox Text="{Binding PLDProgressBarForeground,
+                                                                Source={StaticResource Settings}}" />
+                                    </GroupBox>
+                                    <GroupBox Header="DRG">
+                                        <TextBox Text="{Binding DRGProgressBarForeground,
+                                                                Source={StaticResource Settings}}" />
+                                    </GroupBox>
+                                    <GroupBox Header="BLM">
+                                        <TextBox Text="{Binding BLMProgressBarForeground,
+                                                                Source={StaticResource Settings}}" />
+                                    </GroupBox>
+                                    <GroupBox Header="WAR">
+                                        <TextBox Text="{Binding WARProgressBarForeground,
+                                                                Source={StaticResource Settings}}" />
+                                    </GroupBox>
+                                    <GroupBox Header="WHM">
+                                        <TextBox Text="{Binding WHMProgressBarForeground,
+                                                                Source={StaticResource Settings}}" />
+                                    </GroupBox>
+                                    <GroupBox Header="SCH">
+                                        <TextBox Text="{Binding SCHProgressBarForeground,
+                                                                Source={StaticResource Settings}}" />
+                                    </GroupBox>
+                                    <GroupBox Header="MNK">
+                                        <TextBox Text="{Binding MNKProgressBarForeground,
+                                                                Source={StaticResource Settings}}" />
+                                    </GroupBox>
+                                    <GroupBox Header="BRD">
+                                        <TextBox Text="{Binding BRDProgressBarForeground,
+                                                                Source={StaticResource Settings}}" />
+                                    </GroupBox>
+                                    <GroupBox Header="SMN">
+                                        <TextBox Text="{Binding SMNProgressBarForeground,
+                                                                Source={StaticResource Settings}}" />
+                                    </GroupBox>
+                                </StackPanel>
+                            </Expander>
+                        </StackPanel>
+                    </TabItem>
                     <TabItem x:Name="SettingsWidgetsTI"
                              Header="Widget Settings">
                         <StackPanel>

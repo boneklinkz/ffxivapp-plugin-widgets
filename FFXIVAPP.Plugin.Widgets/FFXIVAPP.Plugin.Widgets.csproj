@@ -81,7 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-    <Compile Include="Converters\JobToBrushConverter.cs" />
+    <Compile Include="Converters\StringToBrushConverter.cs" />
     <Compile Include="EventSubscriber.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\WidgetTopMostHelper.cs" />
