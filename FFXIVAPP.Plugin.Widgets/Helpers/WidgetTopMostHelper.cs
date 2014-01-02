@@ -1,17 +1,18 @@
-﻿// FFXIVAPP.Plugin.Widgets
+// FFXIVAPP.Plugin.Widgets
 // WidgetTopMostHelper.cs
 // 
 // © 2013 ZAM Network LLC
 
+using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Plugin.Widgets.Interop;
+using FFXIVAPP.Plugin.Widgets.Properties;
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Threading;
-using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Plugin.Widgets.Interop;
-using FFXIVAPP.Plugin.Widgets.Properties;
 
 namespace FFXIVAPP.Plugin.Widgets.Helpers
 {
@@ -19,6 +20,44 @@ namespace FFXIVAPP.Plugin.Widgets.Helpers
     {
         private static WinAPI.WinEventDelegate _delegate;
         private static IntPtr _mainHandleHook;
+
+        private static WindowInteropHelper _dpsWidgetInteropHelper;
+        private static WindowInteropHelper _enmityWidgetInteropHelper;
+        private static WindowInteropHelper _currentTargetWidgetInteropHelper;
+        private static WindowInteropHelper _dtpsWidgetInteropHelper;
+        private static WindowInteropHelper _focusTargetWidgetInteropHelper;
+        private static WindowInteropHelper _hpsWidgetInteropHelper;
+
+        private static WindowInteropHelper DPSWidgetInteropHelper
+        {
+            get { return _dpsWidgetInteropHelper ?? (_dpsWidgetInteropHelper = new WindowInteropHelper(Widgets.Instance.DPSWidget)); }
+        }
+
+        private static WindowInteropHelper EnmityWidgetInteropHelper
+        {
+            get { return _enmityWidgetInteropHelper ?? (_enmityWidgetInteropHelper = new WindowInteropHelper(Widgets.Instance.EnmityWidget)); }
+        }
+
+        private static WindowInteropHelper CurrentTargetWidgetInteropHelper
+        {
+            get { return _currentTargetWidgetInteropHelper ?? (_currentTargetWidgetInteropHelper = new WindowInteropHelper(Widgets.Instance.CurrentTargetWidget)); }
+        }
+
+        private static WindowInteropHelper DTPSWidgetInteropHelper
+        {
+            get { return _dtpsWidgetInteropHelper ?? (_dtpsWidgetInteropHelper = new WindowInteropHelper(Widgets.Instance.DTPSWidget)); }
+        }
+
+        private static WindowInteropHelper FocusTargetWidgetInteropHelper
+        {
+            get { return _focusTargetWidgetInteropHelper ?? (_focusTargetWidgetInteropHelper = new WindowInteropHelper(Widgets.Instance.FocusTargetWidget)); }
+        }
+
+        private static WindowInteropHelper HPSWidgetInteropHelper
+        {
+            get { return _hpsWidgetInteropHelper ?? (_hpsWidgetInteropHelper = new WindowInteropHelper(Widgets.Instance.HPSWidget)); }
+        }
+
 
         private static Timer SetWindowTimer { get; set; }
 
@@ -52,31 +91,33 @@ namespace FFXIVAPP.Plugin.Widgets.Helpers
             try
             {
                 var handle = WinAPI.GetForegroundWindow();
-                var activeTitle = WinAPI.GetActiveWindowTitle()
-                                        .ToUpper();
-                var stayOnTop = Regex.IsMatch(activeTitle, @"^(FFXIVAPP ~ |FINAL FANTASY XIV|[\w\d]+Widget)", Common.RegularExpressions.SharedRegEx.DefaultOptions);
+                var activeTitle = WinAPI.GetActiveWindowTitle();
+
+                bool stayOnTop = Application.Current.Windows.OfType<Window>().Any(w => w.Title == activeTitle)
+                                 || Regex.IsMatch(activeTitle.ToUpper(), @"^(FINAL FANTASY XIV)", Common.RegularExpressions.SharedRegEx.DefaultOptions);
+
                 // If any of the widgets are focused, don't try to hide any of them, or it'll prevent us from moving/closing them
-                if (handle == new WindowInteropHelper(Widgets.Instance.DPSWidget).Handle)
+                if (handle == DPSWidgetInteropHelper.Handle)
                 {
                     return;
                 }
-                if (handle == new WindowInteropHelper(Widgets.Instance.EnmityWidget).Handle)
+                if (handle == EnmityWidgetInteropHelper.Handle)
                 {
                     return;
                 }
-                if (handle == new WindowInteropHelper(Widgets.Instance.CurrentTargetWidget).Handle)
+                if (handle == CurrentTargetWidgetInteropHelper.Handle)
                 {
                     return;
                 }
-                if (handle == new WindowInteropHelper(Widgets.Instance.DTPSWidget).Handle)
+                if (handle == DTPSWidgetInteropHelper.Handle)
                 {
                     return;
                 }
-                if (handle == new WindowInteropHelper(Widgets.Instance.FocusTargetWidget).Handle)
+                if (handle == FocusTargetWidgetInteropHelper.Handle)
                 {
                     return;
                 }
-                if (handle == new WindowInteropHelper(Widgets.Instance.HPSWidget).Handle)
+                if (handle == HPSWidgetInteropHelper.Handle)
                 {
                     return;
                 }
