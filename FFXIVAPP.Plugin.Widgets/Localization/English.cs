@@ -19,7 +19,7 @@ namespace FFXIVAPP.Plugin.Widgets.Localization
             Dictionary.Clear();
             Dictionary.Add("widgets_PLACEHOLDER", "*PH*");
             Dictionary.Add("widgets_OpenNowButtonText", "Open Now");
-            Dictionary.Add("widgets_ResetPositionButtonText", "Reset Postion");
+            Dictionary.Add("widgets_ResetPositionButtonText", "Reset Settings");
             Dictionary.Add("widgets_DPSTitleBar", "[DPS]");
             Dictionary.Add("widgets_HPSTitleBar", "[HPS]");
             Dictionary.Add("widgets_DTPSTitleBar", "[DTPS]");

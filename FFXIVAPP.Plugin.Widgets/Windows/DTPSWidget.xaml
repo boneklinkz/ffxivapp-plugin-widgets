@@ -17,6 +17,8 @@
                          Mode=TwoWay}"
         MinWidth="200"
         MinHeight="360"
+        MaxWidth="375"
+        MaxHeight="600"
         AllowsTransparency="True"
         Background="Transparent"
         Closing="Widget_OnClosing"

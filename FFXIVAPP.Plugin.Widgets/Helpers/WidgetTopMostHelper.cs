@@ -4,6 +4,7 @@
 // © 2013 ZAM Network LLC
 
 using System;
+using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows;
 using System.Windows.Interop;
@@ -51,9 +52,9 @@ namespace FFXIVAPP.Plugin.Widgets.Helpers
             try
             {
                 var handle = WinAPI.GetForegroundWindow();
-                var stayOnTop = WinAPI.GetActiveWindowTitle()
-                                      .ToUpper()
-                                      .StartsWith("FINAL FANTASY XIV");
+                var activeTitle = WinAPI.GetActiveWindowTitle()
+                                        .ToUpper();
+                var stayOnTop = Regex.IsMatch(activeTitle, @"^(FFXIVAPP ~ |FINAL FANTASY XIV)", Common.RegularExpressions.SharedRegEx.DefaultOptions);
                 // If any of the widgets are focused, don't try to hide any of them, or it'll prevent us from moving/closing them
                 if (handle == new WindowInteropHelper(Widgets.Instance.DPSWidget).Handle)
                 {
