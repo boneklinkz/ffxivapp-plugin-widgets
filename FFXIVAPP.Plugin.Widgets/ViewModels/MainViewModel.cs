@@ -6,7 +6,6 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using System.Windows.Input;
 using FFXIVAPP.Common.ViewModelBase;
 using FFXIVAPP.Plugin.Widgets.Properties;
@@ -159,7 +158,7 @@ namespace FFXIVAPP.Plugin.Widgets.ViewModels
             Settings.Default.CurrentTargetWidgetTop = Int32.Parse(Settings.Default.Properties["CurrentTargetWidgetTop"].DefaultValue.ToString());
             Settings.Default.CurrentTargetWidgetLeft = Int32.Parse(Settings.Default.Properties["CurrentTargetWidgetLeft"].DefaultValue.ToString());
             Settings.Default.CurrentTargetWidgetHeight = Int32.Parse(Settings.Default.Properties["CurrentTargetWidgetHeight"].DefaultValue.ToString());
-            Settings.Default.CurrentTargetWidgetWidth = Int32.Parse(Settings.Default.Properties["CurrentTargetWidgetWidth"].DefaultValue.ToString()); 
+            Settings.Default.CurrentTargetWidgetWidth = Int32.Parse(Settings.Default.Properties["CurrentTargetWidgetWidth"].DefaultValue.ToString());
         }
 
         public void OpenCurrentTargetWidget()

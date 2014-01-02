@@ -3,10 +3,8 @@
 // 
 // © 2013 ZAM Network LLC
 
-using System;
 using FFXIVAPP.IPluginInterface.Events;
 using FFXIVAPP.Plugin.Widgets.Helpers;
-using FFXIVAPP.Plugin.Widgets.Utilities;
 using FFXIVAPP.Plugin.Widgets.Windows;
 
 namespace FFXIVAPP.Plugin.Widgets
@@ -16,27 +14,27 @@ namespace FFXIVAPP.Plugin.Widgets
         public static void Subscribe()
         {
             Plugin.PHost.NewConstantsEntity += OnNewConstantsEntity;
-            Plugin.PHost.NewChatLogEntry += OnNewChatLogEntry;
-            Plugin.PHost.NewMonsterEntries += OnNewMonsterEntries;
-            Plugin.PHost.NewNPCEntries += OnNewNPCEntries;
-            Plugin.PHost.NewPCEntries += OnNewPCEntries;
-            Plugin.PHost.NewPlayerEntity += OnNewPlayerEntity;
+            //Plugin.PHost.NewChatLogEntry += OnNewChatLogEntry;
+            //Plugin.PHost.NewMonsterEntries += OnNewMonsterEntries;
+            //Plugin.PHost.NewNPCEntries += OnNewNPCEntries;
+            //Plugin.PHost.NewPCEntries += OnNewPCEntries;
+            //Plugin.PHost.NewPlayerEntity += OnNewPlayerEntity;
             Plugin.PHost.NewTargetEntity += OnNewTargetEntity;
             Plugin.PHost.NewParseEntity += OnNewParseEntity;
-            Plugin.PHost.NewPartyEntries += OnNewPartyEntries;
+            //Plugin.PHost.NewPartyEntries += OnNewPartyEntries;
         }
 
         public static void UnSubscribe()
         {
             Plugin.PHost.NewConstantsEntity -= OnNewConstantsEntity;
-            Plugin.PHost.NewChatLogEntry -= OnNewChatLogEntry;
-            Plugin.PHost.NewMonsterEntries -= OnNewMonsterEntries;
-            Plugin.PHost.NewNPCEntries -= OnNewNPCEntries;
-            Plugin.PHost.NewPCEntries -= OnNewPCEntries;
-            Plugin.PHost.NewPlayerEntity -= OnNewPlayerEntity;
+            //Plugin.PHost.NewChatLogEntry -= OnNewChatLogEntry;
+            //Plugin.PHost.NewMonsterEntries -= OnNewMonsterEntries;
+            //Plugin.PHost.NewNPCEntries -= OnNewNPCEntries;
+            //Plugin.PHost.NewPCEntries -= OnNewPCEntries;
+            //Plugin.PHost.NewPlayerEntity -= OnNewPlayerEntity;
             Plugin.PHost.NewTargetEntity -= OnNewTargetEntity;
             Plugin.PHost.NewParseEntity -= OnNewParseEntity;
-            Plugin.PHost.NewPartyEntries -= OnNewPartyEntries;
+            //Plugin.PHost.NewPartyEntries -= OnNewPartyEntries;
         }
 
         #region Subscriptions
@@ -60,77 +58,77 @@ namespace FFXIVAPP.Plugin.Widgets
             PluginViewModel.Instance.EnableHelpLabels = Constants.EnableHelpLabels;
         }
 
-        private static void OnNewChatLogEntry(object sender, ChatLogEntryEvent chatLogEntryEvent)
-        {
-            // delegate event from chat log, not required to subsribe
-            // this updates 100 times a second and only sends a line when it gets a new one
-            if (sender == null)
-            {
-                return;
-            }
-            var chatLogEntry = chatLogEntryEvent.ChatLogEntry;
-            try
-            {
-                if (chatLogEntry.Line.ToLower()
-                                .StartsWith("com:"))
-                {
-                    LogPublisher.HandleCommands(chatLogEntry);
-                }
-                LogPublisher.Process(chatLogEntry);
-            }
-            catch (Exception ex)
-            {
-            }
-        }
+        //private static void OnNewChatLogEntry(object sender, ChatLogEntryEvent chatLogEntryEvent)
+        //{
+        //    // delegate event from chat log, not required to subsribe
+        //    // this updates 100 times a second and only sends a line when it gets a new one
+        //    if (sender == null)
+        //    {
+        //        return;
+        //    }
+        //    var chatLogEntry = chatLogEntryEvent.ChatLogEntry;
+        //    try
+        //    {
+        //        if (chatLogEntry.Line.ToLower()
+        //                        .StartsWith("com:"))
+        //        {
+        //            LogPublisher.HandleCommands(chatLogEntry);
+        //        }
+        //        LogPublisher.Process(chatLogEntry);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //}
 
-        private static void OnNewMonsterEntries(object sender, ActorEntitiesEvent actorEntitiesEvent)
-        {
-            // delegate event from monster entities from ram, not required to subsribe
-            // this updates 10x a second and only sends data if the items are found in ram
-            // currently there no change/new/removed event handling (looking into it)
-            if (sender == null)
-            {
-                return;
-            }
-            var monsterEntities = actorEntitiesEvent.ActorEntities;
-        }
+        //private static void OnNewMonsterEntries(object sender, ActorEntitiesEvent actorEntitiesEvent)
+        //{
+        //    // delegate event from monster entities from ram, not required to subsribe
+        //    // this updates 10x a second and only sends data if the items are found in ram
+        //    // currently there no change/new/removed event handling (looking into it)
+        //    if (sender == null)
+        //    {
+        //        return;
+        //    }
+        //    var monsterEntities = actorEntitiesEvent.ActorEntities;
+        //}
 
-        private static void OnNewNPCEntries(object sender, ActorEntitiesEvent actorEntitiesEvent)
-        {
-            // delegate event from npc entities from ram, not required to subsribe
-            // this list includes anything that is not a player or monster
-            // this updates 10x a second and only sends data if the items are found in ram
-            // currently there no change/new/removed event handling (looking into it)
-            if (sender == null)
-            {
-                return;
-            }
-            var npcEntities = actorEntitiesEvent.ActorEntities;
-        }
+        //private static void OnNewNPCEntries(object sender, ActorEntitiesEvent actorEntitiesEvent)
+        //{
+        //    // delegate event from npc entities from ram, not required to subsribe
+        //    // this list includes anything that is not a player or monster
+        //    // this updates 10x a second and only sends data if the items are found in ram
+        //    // currently there no change/new/removed event handling (looking into it)
+        //    if (sender == null)
+        //    {
+        //        return;
+        //    }
+        //    var npcEntities = actorEntitiesEvent.ActorEntities;
+        //}
 
-        private static void OnNewPCEntries(object sender, ActorEntitiesEvent actorEntitiesEvent)
-        {
-            // delegate event from player entities from ram, not required to subsribe
-            // this updates 10x a second and only sends data if the items are found in ram
-            // currently there no change/new/removed event handling (looking into it)
-            if (sender == null)
-            {
-                return;
-            }
-            var pcEntities = actorEntitiesEvent.ActorEntities;
-        }
+        //private static void OnNewPCEntries(object sender, ActorEntitiesEvent actorEntitiesEvent)
+        //{
+        //    // delegate event from player entities from ram, not required to subsribe
+        //    // this updates 10x a second and only sends data if the items are found in ram
+        //    // currently there no change/new/removed event handling (looking into it)
+        //    if (sender == null)
+        //    {
+        //        return;
+        //    }
+        //    var pcEntities = actorEntitiesEvent.ActorEntities;
+        //}
 
-        private static void OnNewPlayerEntity(object sender, PlayerEntityEvent playerEntityEvent)
-        {
-            // delegate event from player info from ram, not required to subsribe
-            // this is for YOU and includes all your stats and your agro list with hate values as %
-            // this updates 10x a second and only sends data when the newly read data is differen than what was previously sent
-            if (sender == null)
-            {
-                return;
-            }
-            var playerEntity = playerEntityEvent.PlayerEntity;
-        }
+        //private static void OnNewPlayerEntity(object sender, PlayerEntityEvent playerEntityEvent)
+        //{
+        //    // delegate event from player info from ram, not required to subsribe
+        //    // this is for YOU and includes all your stats and your agro list with hate values as %
+        //    // this updates 10x a second and only sends data when the newly read data is differen than what was previously sent
+        //    if (sender == null)
+        //    {
+        //        return;
+        //    }
+        //    var playerEntity = playerEntityEvent.PlayerEntity;
+        //}
 
         private static void OnNewTargetEntity(object sender, TargetEntityEvent targetEntityEvent)
         {
@@ -186,15 +184,15 @@ namespace FFXIVAPP.Plugin.Widgets
             EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.HPS);
         }
 
-        private static void OnNewPartyEntries(object sender, PartyEntitiesEvent partyEntitiesEvent)
-        {
-            // delegate event that shows current party basic info
-            if (sender == null)
-            {
-                return;
-            }
-            var partyEntities = partyEntitiesEvent.PartyEntities;
-        }
+        //private static void OnNewPartyEntries(object sender, PartyEntitiesEvent partyEntitiesEvent)
+        //{
+        //    // delegate event that shows current party basic info
+        //    if (sender == null)
+        //    {
+        //        return;
+        //    }
+        //    var partyEntities = partyEntitiesEvent.PartyEntities;
+        //}
 
         #endregion
     }

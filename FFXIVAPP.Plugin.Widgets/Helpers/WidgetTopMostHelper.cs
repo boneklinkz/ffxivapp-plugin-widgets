@@ -1,11 +1,8 @@
-// FFXIVAPP.Plugin.Widgets
+﻿// FFXIVAPP.Plugin.Widgets
 // WidgetTopMostHelper.cs
 // 
 // © 2013 ZAM Network LLC
 
-using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Plugin.Widgets.Interop;
-using FFXIVAPP.Plugin.Widgets.Properties;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -13,6 +10,10 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Threading;
+using FFXIVAPP.Common.Helpers;
+using FFXIVAPP.Common.RegularExpressions;
+using FFXIVAPP.Plugin.Widgets.Interop;
+using FFXIVAPP.Plugin.Widgets.Properties;
 
 namespace FFXIVAPP.Plugin.Widgets.Helpers
 {
@@ -93,8 +94,8 @@ namespace FFXIVAPP.Plugin.Widgets.Helpers
                 var handle = WinAPI.GetForegroundWindow();
                 var activeTitle = WinAPI.GetActiveWindowTitle();
 
-                bool stayOnTop = Application.Current.Windows.OfType<Window>().Any(w => w.Title == activeTitle)
-                                 || Regex.IsMatch(activeTitle.ToUpper(), @"^(FINAL FANTASY XIV)", Common.RegularExpressions.SharedRegEx.DefaultOptions);
+                var stayOnTop = Application.Current.Windows.OfType<Window>()
+                                           .Any(w => w.Title == activeTitle) || Regex.IsMatch(activeTitle.ToUpper(), @"^(FINAL FANTASY XIV)", SharedRegEx.DefaultOptions);
 
                 // If any of the widgets are focused, don't try to hide any of them, or it'll prevent us from moving/closing them
                 if (handle == DPSWidgetInteropHelper.Handle)
