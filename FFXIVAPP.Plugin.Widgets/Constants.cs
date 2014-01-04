@@ -3,6 +3,7 @@
 // 
 // © 2013 ZAM Network LLC
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -35,11 +36,28 @@ namespace FFXIVAPP.Plugin.Widgets
         {
             get
             {
-                const string file = "./Plugins/FFXIVAPP.Plugin.Widgets/Settings.xml";
-                if (_xSettings == null)
+                var file = Common.Constants.PluginsSettingsPath + "FFXIVAPP.Plugin.Widgets.xml";
+                var legacyFile = "./Plugins/FFXIVAPP.Plugin.Widgets/Settings.xml";
+                if (_xSettings != null)
+                {
+                    return _xSettings;
+                }
+                try
                 {
                     var found = File.Exists(file);
-                    _xSettings = found ? XDocument.Load(file) : ResourceHelper.XDocResource(LibraryPack + "/Defaults/Settings.xml");
+                    if (found)
+                    {
+                        _xSettings = XDocument.Load(file);
+                    }
+                    else
+                    {
+                        found = File.Exists(legacyFile);
+                        _xSettings = found ? XDocument.Load(legacyFile) : ResourceHelper.XDocResource(LibraryPack + "/Defaults/Settings.xml");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _xSettings = ResourceHelper.XDocResource(LibraryPack + "/Defaults/Settings.xml");
                 }
                 return _xSettings;
             }
