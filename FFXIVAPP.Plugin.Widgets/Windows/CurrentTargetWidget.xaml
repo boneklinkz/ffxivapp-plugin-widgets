@@ -54,7 +54,10 @@
                                              Source={StaticResource Settings}}" />
         </Grid.LayoutTransform>
         <StackPanel>
-            <DockPanel LastChildFill="True">
+            <DockPanel LastChildFill="True"
+                       Visibility="{Binding ShowTitlesOnWidgets,
+                                            Source={StaticResource Settings},
+                                            Converter={StaticResource VisibilityConverter}}">
                 <Border Margin="5"
                         Background="WhiteSmoke"
                         BorderBrush="Black"

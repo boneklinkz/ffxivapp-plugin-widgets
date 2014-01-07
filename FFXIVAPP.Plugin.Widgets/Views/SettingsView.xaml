@@ -22,16 +22,22 @@
 
     <Grid x:Name="LayoutRoot"
           DataContext="{StaticResource SettingsViewModel}">
-        <ScrollViewer>
-            <StackPanel>
-                <TabControl x:Name="SettingsTC">
-                    <TabItem Header="{Binding Locale[app_MainSettingsTabHeader],
-                                              Source={StaticResource PluginViewModel}}">
+        <StackPanel>
+            <TabControl x:Name="SettingsTC">
+                <TabItem Header="{Binding Locale[app_MainSettingsTabHeader],
+                                          Source={StaticResource PluginViewModel}}">
+                    <ScrollViewer>
                         <StackPanel>
                             <GroupBox Header="{Binding Locale[widgets_EnableClickThroughHeader],
                                                        Source={StaticResource PluginViewModel}}">
                                 <StackPanel>
                                     <controls:ToggleSwitch IsChecked="{Binding WidgetClickThroughEnabled,
+                                                                               Source={StaticResource Settings}}" />
+                                </StackPanel>
+                            </GroupBox>
+                            <GroupBox Header="Show Titles On Widgets">
+                                <StackPanel>
+                                    <controls:ToggleSwitch IsChecked="{Binding ShowTitlesOnWidgets,
                                                                                Source={StaticResource Settings}}" />
                                 </StackPanel>
                             </GroupBox>
@@ -47,8 +53,10 @@
                                 </StackPanel>
                             </GroupBox>
                         </StackPanel>
-                    </TabItem>
-                    <TabItem Header="Colors">
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="Colors">
+                    <ScrollViewer>
                         <StackPanel>
                             <TextBlock TextWrapping="WrapWithOverflow">
                                 * Colors are used as either ARGB (Alpha, Red, Green, Blue) or a named color (SkyBlue)
@@ -98,9 +106,11 @@
                                 </StackPanel>
                             </Expander>
                         </StackPanel>
-                    </TabItem>
-                    <TabItem x:Name="SettingsWidgetsTI"
-                             Header="Widget Settings">
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem x:Name="SettingsWidgetsTI"
+                         Header="Widget Settings">
+                    <ScrollViewer>
                         <StackPanel>
                             <Expander Header="Settings:DPS">
                                 <StackPanel>
@@ -285,9 +295,9 @@
                                 </StackPanel>
                             </Expander>
                         </StackPanel>
-                    </TabItem>
-                </TabControl>
-            </StackPanel>
-        </ScrollViewer>
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
+        </StackPanel>
     </Grid>
 </UserControl>
