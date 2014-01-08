@@ -26,6 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Xml.Linq;
 using FFXIVAPP.Common.Helpers;
 
@@ -35,14 +36,21 @@ namespace FFXIVAPP.Plugin.Widgets
     {
         #region Declarations
 
-        public const string BaseDirectory = "./Plugins/FFXIVAPP.Plugin.Widgets/";
-
         public const string LibraryPack = "pack://application:,,,/FFXIVAPP.Plugin.Widgets;component/";
 
         public static readonly string[] Supported = new[]
         {
-            "en"
+            "ja", "fr", "en", "de"
         };
+
+        public static string BaseDirectory
+        {
+            get
+            {
+                return Path.GetDirectoryName(Assembly.GetExecutingAssembly()
+                                                     .Location);
+            }
+        }
 
         #endregion
 
@@ -55,7 +63,7 @@ namespace FFXIVAPP.Plugin.Widgets
         {
             get
             {
-                var file = Common.Constants.PluginsSettingsPath + "FFXIVAPP.Plugin.Widgets.xml";
+                var file = Path.Combine(Common.Constants.PluginsSettingsPath, "FFXIVAPP.Plugin.Widgets.xml");
                 var legacyFile = "./Plugins/FFXIVAPP.Plugin.Widgets/Settings.xml";
                 if (_xSettings != null)
                 {

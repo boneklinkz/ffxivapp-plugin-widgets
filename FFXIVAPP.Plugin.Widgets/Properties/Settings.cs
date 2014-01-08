@@ -29,6 +29,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
@@ -57,7 +58,7 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
             // this call to default settings only ensures we keep the settings we want and delete the ones we don't (old)
             DefaultSettings();
             SaveSettingsNode();
-            Constants.XSettings.Save(Common.Constants.PluginsSettingsPath + "FFXIVAPP.Plugin.Widgets.xml");
+            Constants.XSettings.Save(Path.Combine(Common.Constants.PluginsSettingsPath, "FFXIVAPP.Plugin.Widgets.xml"));
         }
 
         private void DefaultSettings()
