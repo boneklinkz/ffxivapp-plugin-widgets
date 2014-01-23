@@ -72,6 +72,7 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
             Constants.Settings.Add("DPSWidgetHeight");
             Constants.Settings.Add("DPSWidgetSortDirection");
             Constants.Settings.Add("DPSWidgetSortProperty");
+            Constants.Settings.Add("DPSWidgetDisplayProperty");
             Constants.Settings.Add("DPSWidgetUIScale");
             Constants.Settings.Add("ShowDPSWidgetOnLoad");
             Constants.Settings.Add("DPSWidgetTop");
@@ -81,6 +82,7 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
             Constants.Settings.Add("HPSWidgetHeight");
             Constants.Settings.Add("HPSWidgetSortDirection");
             Constants.Settings.Add("HPSWidgetSortProperty");
+            Constants.Settings.Add("HPSWidgetDisplayProperty");
             Constants.Settings.Add("HPSWidgetUIScale");
             Constants.Settings.Add("ShowHPSWidgetOnLoad");
             Constants.Settings.Add("HPSWidgetTop");
@@ -90,6 +92,7 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
             Constants.Settings.Add("DTPSWidgetHeight");
             Constants.Settings.Add("DTPSWidgetSortDirection");
             Constants.Settings.Add("DTPSWidgetSortProperty");
+            Constants.Settings.Add("DTPSWidgetDisplayProperty");
             Constants.Settings.Add("DTPSWidgetUIScale");
             Constants.Settings.Add("ShowDTPSWidgetOnLoad");
             Constants.Settings.Add("DTPSWidgetTop");
@@ -507,7 +510,7 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        [DefaultSettingValue("DPS")]
+        [DefaultSettingValue("CombinedDPS")]
         public string DPSWidgetSortProperty
         {
             get { return ((string) (this["DPSWidgetSortProperty"])); }
@@ -525,12 +528,39 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
   <string>Name</string>
   <string>Job</string>
   <string>DPS</string>
+  <string>CombinedDPS</string>
   <string>TotalOverallDamage</string>
+  <string>CombinedTotalOverallDamage</string>
   <string>PercentOfOverallDamage</string>
 </ArrayOfString>")]
         public StringCollection DPSWidgetSortPropertyList
         {
             get { return ((StringCollection) (this["DPSWidgetSortPropertyList"])); }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("Combined")]
+        public string DPSWidgetDisplayProperty
+        {
+            get { return ((string) (this["DPSWidgetDisplayProperty"])); }
+            set
+            {
+                this["DPSWidgetDisplayProperty"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>Combined</string>
+  <string>Individual</string>
+</ArrayOfString>")]
+        public StringCollection DPSWidgetDisplayPropertyList
+        {
+            get { return ((StringCollection) (this["DPSWidgetDisplayPropertyList"])); }
         }
 
         [UserScopedSetting]
@@ -695,7 +725,7 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        [DefaultSettingValue("HPS")]
+        [DefaultSettingValue("CombinedHPS")]
         public string HPSWidgetSortProperty
         {
             get { return ((string) (this["HPSWidgetSortProperty"])); }
@@ -713,12 +743,39 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
   <string>Name</string>
   <string>Job</string>
   <string>HPS</string>
+  <string>CombinedHPS</string>
   <string>TotalOverallHealing</string>
+  <string>CombinedTotalOverallHealing</string>
   <string>PercentOfOverallHealing</string>
 </ArrayOfString>")]
         public StringCollection HPSWidgetSortPropertyList
         {
             get { return ((StringCollection) (this["HPSWidgetSortPropertyList"])); }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("Combined")]
+        public string HPSWidgetDisplayProperty
+        {
+            get { return ((string) (this["HPSWidgetDisplayProperty"])); }
+            set
+            {
+                this["HPSWidgetDisplayProperty"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>Combined</string>
+  <string>Individual</string>
+</ArrayOfString>")]
+        public StringCollection HPSWidgetDisplayPropertyList
+        {
+            get { return ((StringCollection) (this["HPSWidgetDisplayPropertyList"])); }
         }
 
         [UserScopedSetting]
@@ -883,7 +940,7 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        [DefaultSettingValue("DTPS")]
+        [DefaultSettingValue("CombinedDTPS")]
         public string DTPSWidgetSortProperty
         {
             get { return ((string) (this["DTPSWidgetSortProperty"])); }
@@ -901,12 +958,39 @@ namespace FFXIVAPP.Plugin.Widgets.Properties
   <string>Name</string>
   <string>Job</string>
   <string>DTPS</string>
+  <string>CombinedDTPS</string>
   <string>TotalOverallDamageTaken</string>
+  <string>CombinedTotalOverallDamageTaken</string>
   <string>PercentOfOverallDamageTaken</string>
 </ArrayOfString>")]
         public StringCollection DTPSWidgetSortPropertyList
         {
             get { return ((StringCollection) (this["DTPSWidgetSortPropertyList"])); }
+        }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue("Combined")]
+        public string DTPSWidgetDisplayProperty
+        {
+            get { return ((string) (this["DTPSWidgetDisplayProperty"])); }
+            set
+            {
+                this["DTPSWidgetDisplayProperty"] = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        [ApplicationScopedSetting]
+        [DebuggerNonUserCode]
+        [DefaultSettingValue(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>Combined</string>
+  <string>Individual</string>
+</ArrayOfString>")]
+        public StringCollection DTPSWidgetDisplayPropertyList
+        {
+            get { return ((StringCollection) (this["DTPSWidgetDisplayPropertyList"])); }
         }
 
         [UserScopedSetting]

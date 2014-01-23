@@ -40,6 +40,7 @@
             <x:Static x:Key="HPSWidgetViewModel"
                       Member="ViewModels:HPSWidgetViewModel.Instance" />
             <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
+            <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
             <commonConverters:VisibilityConverter x:Key="VisibilityConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/FFXIVAPP.Plugin.Widgets;component/Resources/WidgetStyle.xaml" />
@@ -135,7 +136,22 @@
                                                    FontSize="12"
                                                    FontWeight="Bold"
                                                    Foreground="Black"
-                                                   Style="{StaticResource DecimalStyle}" />
+                                                   Style="{StaticResource DecimalStyle}"
+                                                   Tag="HPS"
+                                                   Visibility="{Binding RelativeSource={RelativeSource Self},
+                                                                        Path=Tag,
+                                                                        Converter={StaticResource StringToVisibilityConverter}}" />
+                                            <Label Margin="5 0"
+                                                   HorizontalAlignment="Left"
+                                                   Content="{Binding CombinedHPS}"
+                                                   FontSize="12"
+                                                   FontWeight="Bold"
+                                                   Foreground="Black"
+                                                   Style="{StaticResource DecimalStyle}"
+                                                   Tag="CombinedHPS"
+                                                   Visibility="{Binding RelativeSource={RelativeSource Self},
+                                                                        Path=Tag,
+                                                                        Converter={StaticResource StringToVisibilityConverter}}" />
                                         </DockPanel>
                                         <DockPanel>
                                             <Label Margin="5 0"
@@ -166,7 +182,23 @@
                                        Content="{Binding TotalOverallHealing}"
                                        FontWeight="Bold"
                                        Foreground="Black"
-                                       Style="{StaticResource CommaNumberStyle}" />
+                                       Style="{StaticResource CommaNumberStyle}"
+                                       Tag="TotalOverallHealing"
+                                       Visibility="{Binding RelativeSource={RelativeSource Self},
+                                                            Path=Tag,
+                                                            Converter={StaticResource StringToVisibilityConverter}}" />
+                                <Label Grid.Row="0"
+                                       Margin="5 0"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Content="{Binding CombinedTotalOverallHealing}"
+                                       FontWeight="Bold"
+                                       Foreground="Black"
+                                       Style="{StaticResource CommaNumberStyle}"
+                                       Tag="CombinedTotalOverallHealing"
+                                       Visibility="{Binding RelativeSource={RelativeSource Self},
+                                                            Path=Tag,
+                                                            Converter={StaticResource StringToVisibilityConverter}}" />
                                 <StackPanel Grid.Row="0"
                                             Margin="5 0"
                                             HorizontalAlignment="Right"

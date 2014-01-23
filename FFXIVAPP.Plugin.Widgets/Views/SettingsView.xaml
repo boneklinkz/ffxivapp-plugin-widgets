@@ -143,6 +143,16 @@
                                                                           Source={StaticResource Settings}}" />
                                     </StackPanel>
                                 </GroupBox>
+                                <GroupBox Header="Display Property">
+                                    <StackPanel>
+                                        <ComboBox Margin="5"
+                                                  IsReadOnly="False"
+                                                  ItemsSource="{Binding DPSWidgetDisplayPropertyList,
+                                                                        Source={StaticResource Settings}}"
+                                                  SelectedValue="{Binding DPSWidgetDisplayProperty,
+                                                                          Source={StaticResource Settings}}" />
+                                    </StackPanel>
+                                </GroupBox>
                                 <GroupBox Header="Player Visibility Threshold">
                                     <StackPanel>
                                         <ComboBox Margin="5"
@@ -187,6 +197,16 @@
                                                                           Source={StaticResource Settings}}" />
                                     </StackPanel>
                                 </GroupBox>
+                                <GroupBox Header="Display Property">
+                                    <StackPanel>
+                                        <ComboBox Margin="5"
+                                                  IsReadOnly="False"
+                                                  ItemsSource="{Binding DTPSWidgetDisplayPropertyList,
+                                                                        Source={StaticResource Settings}}"
+                                                  SelectedValue="{Binding DTPSWidgetDisplayProperty,
+                                                                          Source={StaticResource Settings}}" />
+                                    </StackPanel>
+                                </GroupBox>
                                 <GroupBox Header="Player Visibility Threshold">
                                     <StackPanel>
                                         <ComboBox Margin="5"
@@ -228,6 +248,16 @@
                                                   ItemsSource="{Binding HPSWidgetSortPropertyList,
                                                                         Source={StaticResource Settings}}"
                                                   SelectedValue="{Binding HPSWidgetSortProperty,
+                                                                          Source={StaticResource Settings}}" />
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Header="Display Property">
+                                    <StackPanel>
+                                        <ComboBox Margin="5"
+                                                  IsReadOnly="False"
+                                                  ItemsSource="{Binding HPSWidgetDisplayPropertyList,
+                                                                        Source={StaticResource Settings}}"
+                                                  SelectedValue="{Binding HPSWidgetDisplayProperty,
                                                                           Source={StaticResource Settings}}" />
                                     </StackPanel>
                                 </GroupBox>

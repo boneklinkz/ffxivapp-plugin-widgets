@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Converters\StringToBrushConverter.cs" />
     <Compile Include="EventSubscriber.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />

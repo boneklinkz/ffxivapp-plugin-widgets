@@ -22,6 +22,7 @@
 // WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE 
 // USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FFXIVAPP.Common.Core.Parse;
@@ -43,201 +44,305 @@ namespace FFXIVAPP.Plugin.Widgets.Helpers
 
             public static void CleanAndCopy(ParseEntity source, ParseType parseType)
             {
-                var target = new ParseEntity
+                try
                 {
-                    DPS = source.DPS,
-                    DTPS = source.DTPS,
-                    HPS = source.HPS,
-                    TotalOverallDamage = source.TotalOverallDamage,
-                    TotalOverallDamageTaken = source.TotalOverallDamageTaken,
-                    TotalOverallHealing = source.TotalOverallHealing
-                };
-                foreach (var playerEntity in source.Players)
-                {
+                    var target = new ParseEntity
+                    {
+                        CombinedDPS = source.CombinedDPS,
+                        DPS = source.DPS,
+                        DOTPS = source.DOTPS,
+                        CombinedHPS = source.CombinedHPS,
+                        HPS = source.HPS,
+                        HOTPS = source.HOTPS,
+                        HOHPS = source.HOHPS,
+                        HMPS = source.HMPS,
+                        CombinedDTPS = source.CombinedDTPS,
+                        DTPS = source.DTPS,
+                        DTOTPS = source.DTOTPS,
+                        CombinedTotalOverallDamage = source.CombinedTotalOverallDamage,
+                        TotalOverallDamage = source.TotalOverallDamage,
+                        TotalOverallDamageOverTime = source.TotalOverallDamageOverTime,
+                        CombinedTotalOverallHealing = source.CombinedTotalOverallHealing,
+                        TotalOverallHealing = source.TotalOverallHealing,
+                        TotalOverallHealingOverTime = source.TotalOverallHealingOverTime,
+                        TotalOverallHealingOverHealing = source.TotalOverallHealingOverHealing,
+                        TotalOverallHealingMitigated = source.TotalOverallHealingMitigated,
+                        CombinedTotalOverallDamageTaken = source.CombinedTotalOverallDamageTaken,
+                        TotalOverallDamageTaken = source.TotalOverallDamageTaken,
+                        TotalOverallDamageTakenOverTime = source.TotalOverallDamageTakenOverTime,
+                        PercentOfTotalOverallDamage = source.PercentOfTotalOverallDamage,
+                        PercentOfTotalOverallDamageOverTime = source.PercentOfTotalOverallDamageOverTime,
+                        PercentOfTotalOverallHealing = source.PercentOfTotalOverallHealing,
+                        PercentOfTotalOverallHealingOverTime = source.PercentOfTotalOverallHealingOverTime,
+                        PercentOfTotalOverallHealingOverHealing = source.PercentOfTotalOverallHealingOverHealing,
+                        PercentOfTotalOverallHealingMitigated = source.PercentOfTotalOverallHealingMitigated,
+                        PercentOfTotalOverallDamageTaken = source.PercentOfTotalOverallDamageTaken,
+                        PercentOfTotalOverallDamageTakenOverTime = source.PercentOfTotalOverallDamageTakenOverTime,
+                        Players = new List<PlayerEntity>()
+                    };
+                    foreach (var playerEntity in source.Players)
+                    {
+                        try
+                        {
+                            switch (parseType)
+                            {
+                                case ParseType.DPS:
+                                    decimal dps;
+                                    decimal.TryParse(Settings.Default.DPSVisibility, out dps);
+                                    if (playerEntity.CombinedDPS <= dps)
+                                    {
+                                        continue;
+                                    }
+                                    break;
+                                case ParseType.DTPS:
+                                    decimal dtps;
+                                    decimal.TryParse(Settings.Default.DTPSVisibility, out dtps);
+                                    if (playerEntity.CombinedDTPS <= dtps)
+                                    {
+                                        continue;
+                                    }
+                                    break;
+                                case ParseType.HPS:
+                                    decimal hps;
+                                    decimal.TryParse(Settings.Default.HPSVisibility, out hps);
+                                    if (playerEntity.CombinedHPS <= hps)
+                                    {
+                                        continue;
+                                    }
+                                    break;
+                            }
+                            var entity = new PlayerEntity
+                            {
+                                Name = playerEntity.Name,
+                                Job = playerEntity.Job,
+                                CombinedDPS = playerEntity.CombinedDPS,
+                                DPS = playerEntity.DPS,
+                                DOTPS = playerEntity.DOTPS,
+                                CombinedHPS = playerEntity.CombinedHPS,
+                                HPS = playerEntity.HPS,
+                                HOTPS = playerEntity.HOTPS,
+                                HOHPS = playerEntity.HOHPS,
+                                HMPS = playerEntity.HMPS,
+                                CombinedDTPS = playerEntity.CombinedDTPS,
+                                DTPS = playerEntity.DTPS,
+                                DTOTPS = playerEntity.DTOTPS,
+                                CombinedTotalOverallDamage = playerEntity.CombinedTotalOverallDamage,
+                                TotalOverallDamage = playerEntity.TotalOverallDamage,
+                                TotalOverallDamageOverTime = playerEntity.TotalOverallDamageOverTime,
+                                CombinedTotalOverallHealing = playerEntity.CombinedTotalOverallHealing,
+                                TotalOverallHealing = playerEntity.TotalOverallHealing,
+                                TotalOverallHealingOverTime = playerEntity.TotalOverallHealingOverTime,
+                                TotalOverallHealingOverHealing = playerEntity.TotalOverallHealingOverHealing,
+                                TotalOverallHealingMitigated = playerEntity.TotalOverallHealingMitigated,
+                                CombinedTotalOverallDamageTaken = playerEntity.CombinedTotalOverallDamageTaken,
+                                TotalOverallDamageTaken = playerEntity.TotalOverallDamageTaken,
+                                TotalOverallDamageTakenOverTime = playerEntity.TotalOverallDamageTakenOverTime,
+                                PercentOfTotalOverallDamage = playerEntity.PercentOfTotalOverallDamage,
+                                PercentOfTotalOverallDamageOverTime = playerEntity.PercentOfTotalOverallDamageOverTime,
+                                PercentOfTotalOverallHealing = playerEntity.PercentOfTotalOverallHealing,
+                                PercentOfTotalOverallHealingOverTime = playerEntity.PercentOfTotalOverallHealingOverTime,
+                                PercentOfTotalOverallHealingOverHealing = playerEntity.PercentOfTotalOverallHealingOverHealing,
+                                PercentOfTotalOverallHealingMitigated = playerEntity.PercentOfTotalOverallHealingMitigated,
+                                PercentOfTotalOverallDamageTaken = playerEntity.PercentOfTotalOverallDamageTaken,
+                                PercentOfTotalOverallDamageTakenOverTime = playerEntity.PercentOfTotalOverallDamageTakenOverTime,
+                                Type = playerEntity.Type
+                            };
+                            target.Players.Add(entity);
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+                    }
+                    // sort entity based on settings
                     switch (parseType)
                     {
                         case ParseType.DPS:
-                            decimal dps;
-                            decimal.TryParse(Settings.Default.DPSVisibility, out dps);
-                            if (playerEntity.DPS <= dps)
+                            if (target.Players.Any())
                             {
-                                continue;
+                                switch (Settings.Default.DPSWidgetSortDirection)
+                                {
+                                    case "Descending":
+                                        switch (Settings.Default.DPSWidgetSortProperty)
+                                        {
+                                            case "Name":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.Name));
+                                                break;
+                                            case "Job":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.Job));
+                                                break;
+                                            case "DPS":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.DPS));
+                                                break;
+                                            case "CombinedDPS":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.CombinedDPS));
+                                                break;
+                                            case "TotalOverallDamage":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.TotalOverallDamage));
+                                                break;
+                                            case "CombinedTotalOverallDamage":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.CombinedTotalOverallDamage));
+                                                break;
+                                            case "PercentOfTotalOverallDamage":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.PercentOfTotalOverallDamage));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        switch (Settings.Default.DPSWidgetSortProperty)
+                                        {
+                                            case "Name":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.Name));
+                                                break;
+                                            case "Job":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.Job));
+                                                break;
+                                            case "DPS":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.DPS));
+                                                break;
+                                            case "CombinedDPS":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.CombinedDPS));
+                                                break;
+                                            case "TotalOverallDamage":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.TotalOverallDamage));
+                                                break;
+                                            case "CombinedTotalOverallDamage":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.CombinedTotalOverallDamage));
+                                                break;
+                                            case "PercentOfTotalOverallDamage":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.PercentOfTotalOverallDamage));
+                                                break;
+                                        }
+                                        break;
+                                }
                             }
+                            DPSWidgetViewModel.Instance.ParseEntity = target;
                             break;
                         case ParseType.DTPS:
-                            decimal dtps;
-                            decimal.TryParse(Settings.Default.DTPSVisibility, out dtps);
-                            if (playerEntity.DTPS <= dtps)
+                            if (target.Players.Any())
                             {
-                                continue;
+                                switch (Settings.Default.DTPSWidgetSortDirection)
+                                {
+                                    case "Descending":
+                                        switch (Settings.Default.DTPSWidgetSortProperty)
+                                        {
+                                            case "Name":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.Name));
+                                                break;
+                                            case "Job":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.Job));
+                                                break;
+                                            case "DTPS":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.DTPS));
+                                                break;
+                                            case "CombinedDTPS":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.CombinedDTPS));
+                                                break;
+                                            case "TotalOverallDamageTaken":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.TotalOverallDamageTaken));
+                                                break;
+                                            case "CombinedTotalOverallDamageTaken":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.CombinedTotalOverallDamageTaken));
+                                                break;
+                                            case "PercentOfTotalOverallDamageTaken":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.PercentOfTotalOverallDamageTaken));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        switch (Settings.Default.DTPSWidgetSortProperty)
+                                        {
+                                            case "Name":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.Name));
+                                                break;
+                                            case "Job":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.Job));
+                                                break;
+                                            case "DTPS":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.DTPS));
+                                                break;
+                                            case "CombinedDTPS":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.CombinedDTPS));
+                                                break;
+                                            case "TotalOverallDamageTaken":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.TotalOverallDamageTaken));
+                                                break;
+                                            case "CombinedTotalOverallDamageTaken":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.CombinedTotalOverallDamageTaken));
+                                                break;
+                                            case "PercentOfTotalOverallDamageTaken":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.PercentOfTotalOverallDamageTaken));
+                                                break;
+                                        }
+                                        break;
+                                }
                             }
+                            DTPSWidgetViewModel.Instance.ParseEntity = target;
                             break;
                         case ParseType.HPS:
-                            decimal hps;
-                            decimal.TryParse(Settings.Default.HPSVisibility, out hps);
-                            if (playerEntity.HPS <= hps)
+                            if (target.Players.Any())
                             {
-                                continue;
+                                switch (Settings.Default.HPSWidgetSortDirection)
+                                {
+                                    case "Descending":
+                                        switch (Settings.Default.HPSWidgetSortProperty)
+                                        {
+                                            case "Name":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.Name));
+                                                break;
+                                            case "Job":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.Job));
+                                                break;
+                                            case "HPS":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.HPS));
+                                                break;
+                                            case "CombinedHPS":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.CombinedHPS));
+                                                break;
+                                            case "TotalOverallHealing":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.TotalOverallHealing));
+                                                break;
+                                            case "CombinedTotalOverallHealing":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.CombinedTotalOverallHealing));
+                                                break;
+                                            case "PercentOfTotalOverallHealing":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.PercentOfTotalOverallHealing));
+                                                break;
+                                        }
+                                        break;
+                                    default:
+                                        switch (Settings.Default.HPSWidgetSortProperty)
+                                        {
+                                            case "Name":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.Name));
+                                                break;
+                                            case "Job":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.Job));
+                                                break;
+                                            case "HPS":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.HPS));
+                                                break;
+                                            case "CombinedHPS":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.CombinedHPS));
+                                                break;
+                                            case "TotalOverallHealing":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.TotalOverallHealing));
+                                                break;
+                                            case "CombinedTotalOverallHealing":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.CombinedTotalOverallHealing));
+                                                break;
+                                            case "PercentOfTotalOverallHealing":
+                                                target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.PercentOfTotalOverallHealing));
+                                                break;
+                                        }
+                                        break;
+                                }
                             }
+                            HPSWidgetViewModel.Instance.ParseEntity = target;
                             break;
                     }
-                    var entity = new PlayerEntity
-                    {
-                        DPS = playerEntity.DPS,
-                        DTPS = playerEntity.DTPS,
-                        HPS = playerEntity.HPS,
-                        Name = playerEntity.Name,
-                        Job = playerEntity.Job,
-                        TotalOverallDamage = playerEntity.TotalOverallDamage,
-                        TotalOverallDamageTaken = playerEntity.TotalOverallDamageTaken,
-                        TotalOverallHealing = playerEntity.TotalOverallHealing,
-                        PercentOfTotalOverallDamage = playerEntity.PercentOfTotalOverallDamage,
-                        PercentOfTotalOverallDamageTaken = playerEntity.PercentOfTotalOverallDamageTaken,
-                        PercentOfTotalOverallHealing = playerEntity.PercentOfTotalOverallHealing
-                    };
-                    target.Players.Add(entity);
                 }
-                // sort entity based on settings
-                switch (parseType)
+                catch (Exception ex)
                 {
-                    case ParseType.DPS:
-                        switch (Settings.Default.DPSWidgetSortDirection)
-                        {
-                            case "Descending":
-                                switch (Settings.Default.DPSWidgetSortProperty)
-                                {
-                                    case "Name":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.Name));
-                                        break;
-                                    case "Job":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.Job));
-                                        break;
-                                    case "DPS":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.DPS));
-                                        break;
-                                    case "TotalOverallDamage":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.TotalOverallDamage));
-                                        break;
-                                    case "PercentOfTotalOverallDamage":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.PercentOfTotalOverallDamage));
-                                        break;
-                                }
-                                break;
-                            default:
-                                switch (Settings.Default.DPSWidgetSortProperty)
-                                {
-                                    case "Name":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.Name));
-                                        break;
-                                    case "Job":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.Job));
-                                        break;
-                                    case "DPS":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.DPS));
-                                        break;
-                                    case "TotalOverallDamage":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.TotalOverallDamage));
-                                        break;
-                                    case "PercentOfTotalOverallDamage":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.PercentOfTotalOverallDamage));
-                                        break;
-                                }
-                                break;
-                        }
-                        DPSWidgetViewModel.Instance.ParseEntity = target;
-                        break;
-                    case ParseType.DTPS:
-                        switch (Settings.Default.DTPSWidgetSortDirection)
-                        {
-                            case "Descending":
-                                switch (Settings.Default.DTPSWidgetSortProperty)
-                                {
-                                    case "Name":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.Name));
-                                        break;
-                                    case "Job":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.Job));
-                                        break;
-                                    case "DTPS":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.DTPS));
-                                        break;
-                                    case "TotalOverallDamageTaken":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.TotalOverallDamageTaken));
-                                        break;
-                                    case "PercentOfTotalOverallDamageTaken":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.PercentOfTotalOverallDamageTaken));
-                                        break;
-                                }
-                                break;
-                            default:
-                                switch (Settings.Default.DTPSWidgetSortProperty)
-                                {
-                                    case "Name":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.Name));
-                                        break;
-                                    case "Job":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.Job));
-                                        break;
-                                    case "DTPS":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.DTPS));
-                                        break;
-                                    case "TotalOverallDamageTaken":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.TotalOverallDamageTaken));
-                                        break;
-                                    case "PercentOfTotalOverallDamageTaken":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.PercentOfTotalOverallDamageTaken));
-                                        break;
-                                }
-                                break;
-                        }
-                        DTPSWidgetViewModel.Instance.ParseEntity = target;
-                        break;
-                    case ParseType.HPS:
-                        switch (Settings.Default.HPSWidgetSortDirection)
-                        {
-                            case "Descending":
-                                switch (Settings.Default.HPSWidgetSortProperty)
-                                {
-                                    case "Name":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.Name));
-                                        break;
-                                    case "Job":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.Job));
-                                        break;
-                                    case "HPS":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.HPS));
-                                        break;
-                                    case "TotalOverallHealing":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.TotalOverallHealing));
-                                        break;
-                                    case "PercentOfTotalOverallHealing":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderByDescending(p => p.PercentOfTotalOverallHealing));
-                                        break;
-                                }
-                                break;
-                            default:
-                                switch (Settings.Default.HPSWidgetSortProperty)
-                                {
-                                    case "Name":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.Name));
-                                        break;
-                                    case "Job":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.Job));
-                                        break;
-                                    case "HPS":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.HPS));
-                                        break;
-                                    case "TotalOverallHealing":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.TotalOverallHealing));
-                                        break;
-                                    case "PercentOfTotalOverallHealing":
-                                        target.Players = new List<PlayerEntity>(target.Players.OrderBy(p => p.PercentOfTotalOverallHealing));
-                                        break;
-                                }
-                                break;
-                        }
-                        HPSWidgetViewModel.Instance.ParseEntity = target;
-                        break;
                 }
             }
         }
