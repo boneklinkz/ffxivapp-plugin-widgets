@@ -23,19 +23,19 @@
 // USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using FFXIVAPP.Common.Events;
 using FFXIVAPP.Common.Helpers;
-using FFXIVAPP.Common.Utilities;
 using FFXIVAPP.IPluginInterface;
-using FFXIVAPP.Plugin.Widgets.Helpers;
+using FFXIVAPP.Localization;
 using FFXIVAPP.Plugin.Widgets.Properties;
-using NLog;
 
 namespace FFXIVAPP.Plugin.Widgets
 {
@@ -81,7 +81,9 @@ namespace FFXIVAPP.Plugin.Widgets
             set
             {
                 _locale = value;
-                var locale = LocaleHelper.Update(Constants.CultureInfo);
+                var locale = LocaleHelper.ResolveOne(Constants.CultureInfo, "widgets")
+                                         .Cast<DictionaryEntry>()
+                                         .ToDictionary(item => (string) item.Key, item => (string) item.Value);
                 foreach (var resource in locale)
                 {
                     try
@@ -90,7 +92,6 @@ namespace FFXIVAPP.Plugin.Widgets
                     }
                     catch (Exception ex)
                     {
-                        Logging.Log(LogManager.GetCurrentClassLogger(), "", ex);
                     }
                 }
                 PluginViewModel.Instance.Locale = _locale;
