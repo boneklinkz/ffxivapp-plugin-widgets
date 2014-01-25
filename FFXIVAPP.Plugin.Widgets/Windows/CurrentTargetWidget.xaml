@@ -79,22 +79,22 @@
                         <DockPanel Background="WhiteSmoke"
                                    PreviewMouseDown="TitleBar_OnPreviewMouseDown">
                             <Grid>
-                                <Label Grid.Row="0"
-                                       Margin="5 -1"
-                                       HorizontalAlignment="Right"
-                                       Content="[CURRENT]"
-                                       FontSize="14"
-                                       FontWeight="Bold"
-                                       Foreground="Black"
-                                       Padding="0" />
-                                <Label Grid.Row="0"
-                                       Margin="5 2"
-                                       HorizontalAlignment="Left"
-                                       Content="FFXIV-APP"
-                                       FontSize="10"
-                                       FontWeight="Bold"
-                                       Foreground="Black"
-                                       Padding="0" />
+                                <TextBlock Grid.Row="0"
+                                           Margin="5 -1"
+                                           HorizontalAlignment="Right"
+                                           FontSize="14"
+                                           FontWeight="Bold"
+                                           Foreground="Black"
+                                           Padding="0"
+                                           Text="[CURRENT]" />
+                                <TextBlock Grid.Row="0"
+                                           Margin="5 2"
+                                           HorizontalAlignment="Left"
+                                           FontSize="10"
+                                           FontWeight="Bold"
+                                           Foreground="Black"
+                                           Padding="0"
+                                           Text="FFXIV-APP" />
                             </Grid>
                         </DockPanel>
                     </DockPanel>
@@ -119,13 +119,13 @@
                             BorderBrush="Black"
                             BorderThickness="1"
                             CornerRadius="2">
-                        <Label Margin="5 1"
-                               HorizontalAlignment="Center"
-                               Content="{Binding Name}"
-                               FontSize="12"
-                               FontWeight="Bold"
-                               Foreground="Black"
-                               Style="{StaticResource StatLabelStyle}" />
+                        <TextBlock Margin="5 1"
+                                   HorizontalAlignment="Center"
+                                   FontSize="12"
+                                   FontWeight="Bold"
+                                   Foreground="Black"
+                                   Style="{StaticResource StatLabelStyle}"
+                                   Text="{Binding Name}" />
                     </Border>
                     <ProgressBar Grid.Row="0"
                                  Grid.RowSpan="2"
@@ -140,34 +140,57 @@
                                  Style="{StaticResource ProgressBarStyleStopAnimation}"
                                  Value="{Binding CurrentTargetHPPercent,
                                                  Source={StaticResource CurrentTargetWidgetViewModel}}" />
-                    <Label Grid.Row="0"
-                           Margin="5 0"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           Content="{Binding HPCurrent}"
-                           FontWeight="Bold"
-                           Foreground="Black"
-                           Style="{StaticResource CommaNumberStyle}" />
-                    <StackPanel Grid.Row="0"
-                                Margin="5 0"
-                                HorizontalAlignment="Right"
-                                Orientation="Horizontal">
-                        <Label VerticalAlignment="Center"
-                               Content="{Binding HPPercent}"
+                    <TextBlock Grid.Row="0"
+                               Margin="5 0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
                                FontWeight="Bold"
                                Foreground="Black"
-                               Style="{StaticResource PercentStyle}" />
+                               Style="{StaticResource CommaNumberStyle}"
+                               Text="{Binding HPCurrent,
+                                              StringFormat={}{0:N0}}" />
+                    <TextBlock Grid.Row="0"
+                               Margin="5 0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               Foreground="Black"
+                               Style="{StaticResource PercentStyle}"
+                               Text="{Binding HPPercent,
+                                              StringFormat={}{0:P}}" />
+                    <TextBlock Grid.Row="0"
+                               Margin="5 0"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               Foreground="Black"
+                               Style="{StaticResource DecimalStyle}"
+                               Text="{Binding CurrentTargetDistance,
+                                              Source={StaticResource CurrentTargetWidgetViewModel},
+                                              StringFormat={}{0:N2}}" />
+                    <!--
+                        <StackPanel Grid.Row="0"
+                        Margin="5 0"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center"
+                        FontWeight="Bold"
+                        Foreground="Black"
+                        Style="{StaticResource PercentStyle}"
+                        Text="{Binding HPPercent,
+                        StringFormat={}{0:P}}" />
                         <TextBlock Margin="3 0"
-                                   VerticalAlignment="Center"
-                                   FontWeight="Bold"
-                                   Foreground="Black"
-                                   Style="{StaticResource StatLabelStyle}"
-                                   Text="{Binding Job,
-                                                  StringFormat=[{0}]}"
-                                   Visibility="{Binding ShowJobNameInWidgets,
-                                                        Source={StaticResource Settings},
-                                                        Converter={StaticResource VisibilityConverter}}" />
-                    </StackPanel>
+                        VerticalAlignment="Center"
+                        FontWeight="Bold"
+                        Foreground="Black"
+                        Style="{StaticResource StatLabelStyle}"
+                        Text="{Binding Job,
+                        StringFormat=[{0}]}"
+                        Visibility="{Binding ShowJobNameInWidgets,
+                        Source={StaticResource Settings},
+                        Converter={StaticResource VisibilityConverter}}" />
+                        </StackPanel>
+                    -->
                 </Grid>
             </StackPanel>
         </StackPanel>

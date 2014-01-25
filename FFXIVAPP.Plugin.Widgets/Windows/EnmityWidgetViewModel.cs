@@ -33,8 +33,9 @@ namespace FFXIVAPP.Plugin.Widgets.Windows
         #region Property Bindings
 
         private static EnmityWidgetViewModel _instance;
-        private double _currentTargetHPPercent;
-        private bool _currentTargetIsValid;
+        private float _enmityTargetDistance;
+        private double _enmityTargetHPPercent;
+        private bool _enmityTargetIsValid;
         private TargetEntity _targetEntity;
 
         public static EnmityWidgetViewModel Instance
@@ -52,22 +53,32 @@ namespace FFXIVAPP.Plugin.Widgets.Windows
             }
         }
 
-        public bool CurrentTargetIsValid
+        public bool EnmityTargetIsValid
         {
-            get { return _currentTargetIsValid; }
+            get { return _enmityTargetIsValid; }
             set
             {
-                _currentTargetIsValid = value;
+                _enmityTargetIsValid = value;
                 RaisePropertyChanged();
             }
         }
 
-        public double CurrentTargetHPPercent
+        public double EnmityTargetHPPercent
         {
-            get { return _currentTargetHPPercent; }
+            get { return _enmityTargetHPPercent; }
             set
             {
-                _currentTargetHPPercent = value;
+                _enmityTargetHPPercent = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public float EnmityTargetDistance
+        {
+            get { return _enmityTargetDistance; }
+            set
+            {
+                _enmityTargetDistance = value;
                 RaisePropertyChanged();
             }
         }

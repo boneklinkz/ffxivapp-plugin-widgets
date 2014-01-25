@@ -28,6 +28,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Xml.Linq;
+using FFXIVAPP.Common.Core.Memory;
 using FFXIVAPP.Common.Helpers;
 
 namespace FFXIVAPP.Plugin.Widgets
@@ -51,6 +52,8 @@ namespace FFXIVAPP.Plugin.Widgets
                                                      .Location);
             }
         }
+
+        public static ActorEntity CurrentUser { get; set; }
 
         #endregion
 

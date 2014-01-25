@@ -33,6 +33,7 @@ namespace FFXIVAPP.Plugin.Widgets.Windows
         #region Property Bindings
 
         private static CurrentTargetWidgetViewModel _instance;
+        private float _currentTargetDistance;
         private double _currentTargetHPPercent;
         private bool _currentTargetIsValid;
         private TargetEntity _targetEntity;
@@ -68,6 +69,16 @@ namespace FFXIVAPP.Plugin.Widgets.Windows
             set
             {
                 _currentTargetHPPercent = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public float CurrentTargetDistance
+        {
+            get { return _currentTargetDistance; }
+            set
+            {
+                _currentTargetDistance = value;
                 RaisePropertyChanged();
             }
         }

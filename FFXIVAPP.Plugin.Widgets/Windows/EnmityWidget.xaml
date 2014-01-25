@@ -80,22 +80,22 @@
                         <DockPanel Background="WhiteSmoke"
                                    PreviewMouseDown="TitleBar_OnPreviewMouseDown">
                             <Grid>
-                                <Label Grid.Row="0"
-                                       Margin="5 -1"
-                                       HorizontalAlignment="Right"
-                                       Content="[ENMITY]"
-                                       FontSize="14"
-                                       FontWeight="Bold"
-                                       Foreground="Black"
-                                       Padding="0" />
-                                <Label Grid.Row="0"
-                                       Margin="5 2"
-                                       HorizontalAlignment="Left"
-                                       Content="FFXIV-APP"
-                                       FontSize="10"
-                                       FontWeight="Bold"
-                                       Foreground="Black"
-                                       Padding="0" />
+                                <TextBlock Grid.Row="0"
+                                           Margin="5 -1"
+                                           HorizontalAlignment="Right"
+                                           FontSize="14"
+                                           FontWeight="Bold"
+                                           Foreground="Black"
+                                           Padding="0"
+                                           Text="[ENMITY]" />
+                                <TextBlock Grid.Row="0"
+                                           Margin="5 2"
+                                           HorizontalAlignment="Left"
+                                           FontSize="10"
+                                           FontWeight="Bold"
+                                           Foreground="Black"
+                                           Padding="0"
+                                           Text="FFXIV-APP" />
                             </Grid>
                         </DockPanel>
                     </DockPanel>
@@ -108,7 +108,7 @@
                         Visibility="{Binding ShowEnmityWidgetCurrentTargetInfo,
                                              Source={StaticResource Settings},
                                              Converter={StaticResource VisibilityConverter}}">
-                <Grid Visibility="{Binding CurrentTargetIsValid,
+                <Grid Visibility="{Binding EnmityTargetIsValid,
                                            Source={StaticResource EnmityWidgetViewModel},
                                            Converter={StaticResource VisibilityConverter}}">
                     <Grid.RowDefinitions>
@@ -122,13 +122,13 @@
                             BorderBrush="Black"
                             BorderThickness="1"
                             CornerRadius="2">
-                        <Label Margin="5 1"
-                               HorizontalAlignment="Center"
-                               Content="{Binding Name}"
-                               FontSize="12"
-                               FontWeight="Bold"
-                               Foreground="Black"
-                               Style="{StaticResource StatLabelStyle}" />
+                        <TextBlock Margin="5 1"
+                                   HorizontalAlignment="Center"
+                                   FontSize="12"
+                                   FontWeight="Bold"
+                                   Foreground="Black"
+                                   Style="{StaticResource StatLabelStyle}"
+                                   Text="{Binding Name}" />
                     </Border>
                     <ProgressBar Grid.Row="0"
                                  Grid.RowSpan="2"
@@ -141,24 +141,36 @@
                                  Maximum="1"
                                  Minimum="0"
                                  Style="{StaticResource ProgressBarStyleStopAnimation}"
-                                 Value="{Binding CurrentTargetHPPercent,
+                                 Value="{Binding EnmityTargetHPPercent,
                                                  Source={StaticResource EnmityWidgetViewModel}}" />
-                    <Label Grid.Row="0"
-                           Margin="5 0"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           Content="{Binding HPCurrent}"
-                           FontWeight="Bold"
-                           Foreground="Black"
-                           Style="{StaticResource CommaNumberStyle}" />
-                    <Label Grid.Row="0"
-                           Margin="5 0"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Center"
-                           Content="{Binding HPPercent}"
-                           FontWeight="Bold"
-                           Foreground="Black"
-                           Style="{StaticResource PercentStyle}" />
+                    <TextBlock Grid.Row="0"
+                               Margin="5 0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               Foreground="Black"
+                               Style="{StaticResource CommaNumberStyle}"
+                               Text="{Binding HPCurrent,
+                                              StringFormat={}{0:N0}}" />
+                    <TextBlock Grid.Row="0"
+                               Margin="5 0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               Foreground="Black"
+                               Style="{StaticResource PercentStyle}"
+                               Text="{Binding HPPercent,
+                                              StringFormat={}{0:P}}" />
+                    <TextBlock Grid.Row="0"
+                               Margin="5 0"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               Foreground="Black"
+                               Style="{StaticResource DecimalStyle}"
+                               Text="{Binding EnmityTargetDistance,
+                                              Source={StaticResource EnmityWidgetViewModel},
+                                              StringFormat={}{0:N2}}" />
                 </Grid>
             </StackPanel>
             <ItemsControl>
@@ -192,22 +204,23 @@
                                              Minimum="0"
                                              Style="{StaticResource ProgressBarStyleStopAnimation}"
                                              Value="0" />
-                                <Label Grid.Row="0"
-                                       Margin="5 0"
-                                       HorizontalAlignment="Right"
-                                       VerticalAlignment="Center"
-                                       Content="{Binding Enmity}"
-                                       FontWeight="Bold"
-                                       Foreground="Black"
-                                       Style="{StaticResource CommaNumberStyle}" />
-                                <Label Grid.Row="0"
-                                       Margin="5 0"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Center"
-                                       Content="{Binding Name}"
-                                       FontWeight="Bold"
-                                       Foreground="Black"
-                                       Style="{StaticResource StatLabelStyle}" />
+                                <TextBlock Grid.Row="0"
+                                           Margin="5 0"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Bold"
+                                           Foreground="Black"
+                                           Style="{StaticResource CommaNumberStyle}"
+                                           Text="{Binding Enmity,
+                                                          StringFormat={}{0:N0}}" />
+                                <TextBlock Grid.Row="0"
+                                           Margin="5 0"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Bold"
+                                           Foreground="Black"
+                                           Style="{StaticResource StatLabelStyle}"
+                                           Text="{Binding Name}" />
                             </Grid>
                         </StackPanel>
                     </DataTemplate>

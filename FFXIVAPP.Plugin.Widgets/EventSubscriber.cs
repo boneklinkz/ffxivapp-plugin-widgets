@@ -22,6 +22,9 @@
 // WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE 
 // USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
 
+using System;
+using System.Linq;
+using System.Windows;
 using FFXIVAPP.IPluginInterface.Events;
 using FFXIVAPP.Plugin.Widgets.Helpers;
 using FFXIVAPP.Plugin.Widgets.Windows;
@@ -36,7 +39,7 @@ namespace FFXIVAPP.Plugin.Widgets
             //Plugin.PHost.NewChatLogEntry += OnNewChatLogEntry;
             //Plugin.PHost.NewMonsterEntries += OnNewMonsterEntries;
             //Plugin.PHost.NewNPCEntries += OnNewNPCEntries;
-            //Plugin.PHost.NewPCEntries += OnNewPCEntries;
+            Plugin.PHost.NewPCEntries += OnNewPCEntries;
             //Plugin.PHost.NewPlayerEntity += OnNewPlayerEntity;
             Plugin.PHost.NewTargetEntity += OnNewTargetEntity;
             Plugin.PHost.NewParseEntity += OnNewParseEntity;
@@ -49,7 +52,7 @@ namespace FFXIVAPP.Plugin.Widgets
             //Plugin.PHost.NewChatLogEntry -= OnNewChatLogEntry;
             //Plugin.PHost.NewMonsterEntries -= OnNewMonsterEntries;
             //Plugin.PHost.NewNPCEntries -= OnNewNPCEntries;
-            //Plugin.PHost.NewPCEntries -= OnNewPCEntries;
+            Plugin.PHost.NewPCEntries -= OnNewPCEntries;
             //Plugin.PHost.NewPlayerEntity -= OnNewPlayerEntity;
             Plugin.PHost.NewTargetEntity -= OnNewTargetEntity;
             Plugin.PHost.NewParseEntity -= OnNewParseEntity;
@@ -125,17 +128,21 @@ namespace FFXIVAPP.Plugin.Widgets
         //    var npcEntities = actorEntitiesEvent.ActorEntities;
         //}
 
-        //private static void OnNewPCEntries(object sender, ActorEntitiesEvent actorEntitiesEvent)
-        //{
-        //    // delegate event from player entities from ram, not required to subsribe
-        //    // this updates 10x a second and only sends data if the items are found in ram
-        //    // currently there no change/new/removed event handling (looking into it)
-        //    if (sender == null)
-        //    {
-        //        return;
-        //    }
-        //    var pcEntities = actorEntitiesEvent.ActorEntities;
-        //}
+        private static void OnNewPCEntries(object sender, ActorEntitiesEvent actorEntitiesEvent)
+        {
+            // delegate event from player entities from ram, not required to subsribe
+            // this updates 10x a second and only sends data if the items are found in ram
+            // currently there no change/new/removed event handling (looking into it)
+            if (sender == null)
+            {
+                return;
+            }
+            var pcEntities = actorEntitiesEvent.ActorEntities;
+            if (pcEntities.Any())
+            {
+                Constants.CurrentUser = pcEntities.FirstOrDefault();
+            }
+        }
 
         //private static void OnNewPlayerEntity(object sender, PlayerEntityEvent playerEntityEvent)
         //{
@@ -166,25 +173,49 @@ namespace FFXIVAPP.Plugin.Widgets
             FocusTargetWidgetViewModel.Instance.TargetEntity = targetEntity;
             CurrentTargetWidgetViewModel.Instance.TargetEntity = targetEntity;
             // assign default current/focus target info
-            EnmityWidgetViewModel.Instance.CurrentTargetIsValid = false;
-            EnmityWidgetViewModel.Instance.CurrentTargetHPPercent = 0;
+            EnmityWidgetViewModel.Instance.EnmityTargetIsValid = false;
+            EnmityWidgetViewModel.Instance.EnmityTargetHPPercent = 0;
+            EnmityWidgetViewModel.Instance.EnmityTargetDistance = 0;
             FocusTargetWidgetViewModel.Instance.FocusTargetIsValid = false;
             FocusTargetWidgetViewModel.Instance.FocusTargetHPPercent = 0;
+            FocusTargetWidgetViewModel.Instance.FocusTargetDistance = 0;
             CurrentTargetWidgetViewModel.Instance.CurrentTargetIsValid = false;
             CurrentTargetWidgetViewModel.Instance.CurrentTargetHPPercent = 0;
+            CurrentTargetWidgetViewModel.Instance.CurrentTargetDistance = 0;
             // if valid assign actual current target info
             if (targetEntity.CurrentTarget != null && targetEntity.CurrentTarget.IsValid)
             {
-                EnmityWidgetViewModel.Instance.CurrentTargetIsValid = true;
-                EnmityWidgetViewModel.Instance.CurrentTargetHPPercent = (double) targetEntity.CurrentTarget.HPPercent;
+                EnmityWidgetViewModel.Instance.EnmityTargetIsValid = true;
+                EnmityWidgetViewModel.Instance.EnmityTargetHPPercent = (double) targetEntity.CurrentTarget.HPPercent;
+                try
+                {
+                    EnmityWidgetViewModel.Instance.EnmityTargetDistance = Constants.CurrentUser.GetDistanceTo(targetEntity.CurrentTarget);
+                }
+                catch (Exception ex)
+                {
+                }
                 CurrentTargetWidgetViewModel.Instance.CurrentTargetIsValid = true;
                 CurrentTargetWidgetViewModel.Instance.CurrentTargetHPPercent = (double) targetEntity.CurrentTarget.HPPercent;
+                try
+                {
+                    CurrentTargetWidgetViewModel.Instance.CurrentTargetDistance = Constants.CurrentUser.GetDistanceTo(targetEntity.CurrentTarget);
+                }
+                catch (Exception ex)
+                {
+                }
             }
             // if valid assign actual focus target info
             if (targetEntity.FocusTarget != null && targetEntity.FocusTarget.IsValid)
             {
                 FocusTargetWidgetViewModel.Instance.FocusTargetIsValid = true;
                 FocusTargetWidgetViewModel.Instance.FocusTargetHPPercent = (double) targetEntity.FocusTarget.HPPercent;
+                try
+                {
+                    FocusTargetWidgetViewModel.Instance.FocusTargetDistance = Constants.CurrentUser.GetDistanceTo(targetEntity.FocusTarget);
+                }
+                catch (Exception ex)
+                {
+                }
             }
         }
 

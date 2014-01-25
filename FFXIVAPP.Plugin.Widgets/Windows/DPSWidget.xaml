@@ -81,22 +81,22 @@
                         <DockPanel Background="WhiteSmoke"
                                    PreviewMouseDown="TitleBar_OnPreviewMouseDown">
                             <Grid>
-                                <Label Grid.Row="0"
-                                       Margin="5 -1"
-                                       HorizontalAlignment="Right"
-                                       Content="[DPS]"
-                                       FontSize="14"
-                                       FontWeight="Bold"
-                                       Foreground="Black"
-                                       Padding="0" />
-                                <Label Grid.Row="0"
-                                       Margin="5 2"
-                                       HorizontalAlignment="Left"
-                                       Content="FFXIV-APP"
-                                       FontSize="10"
-                                       FontWeight="Bold"
-                                       Foreground="Black"
-                                       Padding="0" />
+                                <TextBlock Grid.Row="0"
+                                           Margin="5 -1"
+                                           HorizontalAlignment="Right"
+                                           FontSize="14"
+                                           FontWeight="Bold"
+                                           Foreground="Black"
+                                           Padding="0"
+                                           Text="[DPS]" />
+                                <TextBlock Grid.Row="0"
+                                           Margin="5 2"
+                                           HorizontalAlignment="Left"
+                                           FontSize="10"
+                                           FontWeight="Bold"
+                                           Foreground="Black"
+                                           Padding="0"
+                                           Text="FFXIV-APP" />
                             </Grid>
                         </DockPanel>
                     </DockPanel>
@@ -130,37 +130,39 @@
                                     <DockPanel Margin="1"
                                                LastChildFill="True">
                                         <DockPanel DockPanel.Dock="Right">
-                                            <Label Margin="5 0"
-                                                   HorizontalAlignment="Left"
-                                                   Content="{Binding DPS}"
-                                                   FontSize="12"
-                                                   FontWeight="Bold"
-                                                   Foreground="Black"
-                                                   Style="{StaticResource DecimalStyle}"
-                                                   Tag="DPS"
-                                                   Visibility="{Binding RelativeSource={RelativeSource Self},
-                                                                        Path=Tag,
-                                                                        Converter={StaticResource StringToVisibilityConverter}}" />
-                                            <Label Margin="5 0"
-                                                   HorizontalAlignment="Left"
-                                                   Content="{Binding CombinedDPS}"
-                                                   FontSize="12"
-                                                   FontWeight="Bold"
-                                                   Foreground="Black"
-                                                   Style="{StaticResource DecimalStyle}"
-                                                   Tag="CombinedDPS"
-                                                   Visibility="{Binding RelativeSource={RelativeSource Self},
-                                                                        Path=Tag,
-                                                                        Converter={StaticResource StringToVisibilityConverter}}" />
+                                            <TextBlock Margin="5 0"
+                                                       HorizontalAlignment="Left"
+                                                       FontSize="12"
+                                                       FontWeight="Bold"
+                                                       Foreground="Black"
+                                                       Style="{StaticResource DecimalStyle}"
+                                                       Tag="DPS"
+                                                       Text="{Binding DPS,
+                                                                      StringFormat={}{0:F2}}"
+                                                       Visibility="{Binding RelativeSource={RelativeSource Self},
+                                                                            Path=Tag,
+                                                                            Converter={StaticResource StringToVisibilityConverter}}" />
+                                            <TextBlock Margin="5 0"
+                                                       HorizontalAlignment="Left"
+                                                       FontSize="12"
+                                                       FontWeight="Bold"
+                                                       Foreground="Black"
+                                                       Style="{StaticResource DecimalStyle}"
+                                                       Tag="CombinedDPS"
+                                                       Text="{Binding CombinedDPS,
+                                                                      StringFormat={}{0:F2}}"
+                                                       Visibility="{Binding RelativeSource={RelativeSource Self},
+                                                                            Path=Tag,
+                                                                            Converter={StaticResource StringToVisibilityConverter}}" />
                                         </DockPanel>
                                         <DockPanel>
-                                            <Label Margin="5 0"
-                                                   HorizontalAlignment="Left"
-                                                   Content="{Binding Name}"
-                                                   FontSize="12"
-                                                   FontWeight="Bold"
-                                                   Foreground="Black"
-                                                   Style="{StaticResource StatLabelStyle}" />
+                                            <TextBlock Margin="5 0"
+                                                       HorizontalAlignment="Left"
+                                                       FontSize="12"
+                                                       FontWeight="Bold"
+                                                       Foreground="Black"
+                                                       Style="{StaticResource StatLabelStyle}"
+                                                       Text="{Binding Name}" />
                                         </DockPanel>
                                     </DockPanel>
                                 </Border>
@@ -175,41 +177,44 @@
                                              Minimum="0"
                                              Style="{StaticResource ProgressBarStyleStopAnimation}"
                                              Value="{Binding PercentOfTotalOverallDamage}" />
-                                <Label Grid.Row="0"
-                                       Margin="5 0"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Center"
-                                       Content="{Binding TotalOverallDamage}"
-                                       FontWeight="Bold"
-                                       Foreground="Black"
-                                       Style="{StaticResource CommaNumberStyle}"
-                                       Tag="TotalOverallDamage"
-                                       Visibility="{Binding RelativeSource={RelativeSource Self},
-                                                            Path=Tag,
-                                                            Converter={StaticResource StringToVisibilityConverter}}" />
-                                <Label Grid.Row="0"
-                                       Margin="5 0"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Center"
-                                       Content="{Binding CombinedTotalOverallDamage}"
-                                       FontWeight="Bold"
-                                       Foreground="Black"
-                                       Style="{StaticResource CommaNumberStyle}"
-                                       Tag="CombinedTotalOverallDamage"
-                                       Visibility="{Binding RelativeSource={RelativeSource Self},
-                                                            Path=Tag,
-                                                            Converter={StaticResource StringToVisibilityConverter}}" />
+                                <TextBlock Grid.Row="0"
+                                           Margin="5 0"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Bold"
+                                           Foreground="Black"
+                                           Style="{StaticResource CommaNumberStyle}"
+                                           Tag="TotalOverallDamage"
+                                           Text="{Binding TotalOverallDamage,
+                                                          StringFormat={}{0:N0}}"
+                                           Visibility="{Binding RelativeSource={RelativeSource Self},
+                                                                Path=Tag,
+                                                                Converter={StaticResource StringToVisibilityConverter}}" />
+                                <TextBlock Grid.Row="0"
+                                           Margin="5 0"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Bold"
+                                           Foreground="Black"
+                                           Style="{StaticResource CommaNumberStyle}"
+                                           Tag="CombinedTotalOverallDamage"
+                                           Text="{Binding CombinedTotalOverallDamage,
+                                                          StringFormat={}{0:N0}}"
+                                           Visibility="{Binding RelativeSource={RelativeSource Self},
+                                                                Path=Tag,
+                                                                Converter={StaticResource StringToVisibilityConverter}}" />
                                 <StackPanel Grid.Row="0"
                                             Margin="5 0"
                                             HorizontalAlignment="Right"
                                             VerticalAlignment="Center"
                                             Orientation="Horizontal">
-                                    <Label Margin="2 0"
-                                           VerticalAlignment="Center"
-                                           Content="{Binding PercentOfTotalOverallDamage}"
-                                           FontWeight="Bold"
-                                           Foreground="Black"
-                                           Style="{StaticResource PercentStyle}" />
+                                    <TextBlock Margin="2 0"
+                                               VerticalAlignment="Center"
+                                               FontWeight="Bold"
+                                               Foreground="Black"
+                                               Style="{StaticResource PercentStyle}"
+                                               Text="{Binding PercentOfTotalOverallDamage,
+                                                              StringFormat={}{0:P}}" />
                                     <TextBlock Margin="3 0"
                                                VerticalAlignment="Center"
                                                FontWeight="Bold"

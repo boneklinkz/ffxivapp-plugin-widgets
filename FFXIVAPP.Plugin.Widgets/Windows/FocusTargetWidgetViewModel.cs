@@ -33,6 +33,7 @@ namespace FFXIVAPP.Plugin.Widgets.Windows
         #region Property Bindings
 
         private static FocusTargetWidgetViewModel _instance;
+        private float _focusTargetDistance;
         private double _focusTargetHPPercent;
         private bool _focusTargetIsValid;
         private TargetEntity _targetEntity;
@@ -68,6 +69,16 @@ namespace FFXIVAPP.Plugin.Widgets.Windows
             set
             {
                 _focusTargetHPPercent = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public float FocusTargetDistance
+        {
+            get { return _focusTargetDistance; }
+            set
+            {
+                _focusTargetDistance = value;
                 RaisePropertyChanged();
             }
         }
