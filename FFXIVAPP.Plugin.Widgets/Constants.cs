@@ -147,6 +147,8 @@ namespace FFXIVAPP.Plugin.Widgets
 
         public static bool EnableHelpLabels { get; set; }
 
+        public static string Theme { get; set; }
+
         #endregion
     }
 }
