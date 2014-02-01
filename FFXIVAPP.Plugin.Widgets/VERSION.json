@@ -1,7 +1,7 @@
 ﻿{
     "PluginInfo": {
         "Name": "FFXIVAPP.Plugin.Widgets",
-        "Version": "3.0.5144.40620",
+        "Version": "3.0.5145.26804",
         "Files": [
             {
                 "Name": "FFXIVAPP.Plugin.Widgets.dll",
