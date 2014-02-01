@@ -30,7 +30,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\build\Release\Plugins\FFXIVAPP.Plugin.Widgets\</OutputPath>
+    <OutputPath>..\distribution\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -152,6 +152,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VERSION.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Media\Images\License.png" />
