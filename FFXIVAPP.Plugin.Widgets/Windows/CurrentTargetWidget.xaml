@@ -26,6 +26,7 @@
                        Source={x:Static PluginProperties:Settings.Default}}"
         Opacity="{Binding WidgetOpacity,
                           Source={x:Static PluginProperties:Settings.Default}}"
+        ResizeMode="NoResize"
         ShowInTaskbar="False"
         Top="{Binding CurrentTargetWidgetTop,
                       Mode=TwoWay,
@@ -58,7 +59,7 @@
                        Visibility="{Binding ShowTitlesOnWidgets,
                                             Source={StaticResource Settings},
                                             Converter={StaticResource VisibilityConverter}}">
-                <Border Margin="5"
+                <Border Margin="5 0 5 5"
                         Background="WhiteSmoke"
                         BorderBrush="Black"
                         BorderThickness="1"
