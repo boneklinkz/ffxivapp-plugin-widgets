@@ -27,6 +27,7 @@ using System.Linq;
 using System.Windows;
 using FFXIVAPP.IPluginInterface.Events;
 using FFXIVAPP.Plugin.Widgets.Helpers;
+using FFXIVAPP.Plugin.Widgets.Properties;
 using FFXIVAPP.Plugin.Widgets.Windows;
 
 namespace FFXIVAPP.Plugin.Widgets
@@ -184,10 +185,10 @@ namespace FFXIVAPP.Plugin.Widgets
             CurrentTargetWidgetViewModel.Instance.CurrentTargetHPPercent = 0;
             CurrentTargetWidgetViewModel.Instance.CurrentTargetDistance = 0;
             // if valid assign actual current target info
-            if (targetEntity.CurrentTarget != null && targetEntity.CurrentTarget.IsValid)
+            if (targetEntity.CurrentTarget != null && targetEntity.CurrentTarget.IsValid && Settings.Default.ShowEnmityWidgetOnLoad)
             {
                 EnmityWidgetViewModel.Instance.EnmityTargetIsValid = true;
-                EnmityWidgetViewModel.Instance.EnmityTargetHPPercent = (double) targetEntity.CurrentTarget.HPPercent;
+                EnmityWidgetViewModel.Instance.EnmityTargetHPPercent = (double)targetEntity.CurrentTarget.HPPercent;
                 try
                 {
                     EnmityWidgetViewModel.Instance.EnmityTargetDistance = Constants.CurrentUser.GetDistanceTo(targetEntity.CurrentTarget);
@@ -195,8 +196,12 @@ namespace FFXIVAPP.Plugin.Widgets
                 catch (Exception ex)
                 {
                 }
+            }
+            // if valid assign actual current target info
+            if (targetEntity.CurrentTarget != null && targetEntity.CurrentTarget.IsValid && Settings.Default.ShowCurrentTargetWidgetOnLoad)
+            {
                 CurrentTargetWidgetViewModel.Instance.CurrentTargetIsValid = true;
-                CurrentTargetWidgetViewModel.Instance.CurrentTargetHPPercent = (double) targetEntity.CurrentTarget.HPPercent;
+                CurrentTargetWidgetViewModel.Instance.CurrentTargetHPPercent = (double)targetEntity.CurrentTarget.HPPercent;
                 try
                 {
                     CurrentTargetWidgetViewModel.Instance.CurrentTargetDistance = Constants.CurrentUser.GetDistanceTo(targetEntity.CurrentTarget);
@@ -206,7 +211,7 @@ namespace FFXIVAPP.Plugin.Widgets
                 }
             }
             // if valid assign actual focus target info
-            if (targetEntity.FocusTarget != null && targetEntity.FocusTarget.IsValid)
+            if (targetEntity.FocusTarget != null && targetEntity.FocusTarget.IsValid && Settings.Default.ShowFocusTargetWidgetOnLoad)
             {
                 FocusTargetWidgetViewModel.Instance.FocusTargetIsValid = true;
                 FocusTargetWidgetViewModel.Instance.FocusTargetHPPercent = (double) targetEntity.FocusTarget.HPPercent;
@@ -230,9 +235,18 @@ namespace FFXIVAPP.Plugin.Widgets
                 return;
             }
             var parseEntity = parseEntityEvent.ParseEntity;
-            EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.DPS);
-            EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.DTPS);
-            EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.HPS);
+            if (Settings.Default.ShowDPSWidgetOnLoad)
+            {
+                EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.DPS);
+            }
+            if (Settings.Default.ShowDTPSWidgetOnLoad)
+            {
+                EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.DTPS);
+            }
+            if (Settings.Default.ShowHPSWidgetOnLoad)
+            {
+                EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.HPS);
+            }
         }
 
         //private static void OnNewPartyEntries(object sender, PartyEntitiesEvent partyEntitiesEvent)
