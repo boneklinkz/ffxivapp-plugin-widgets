@@ -25,6 +25,8 @@
 using System;
 using System.Linq;
 using System.Windows;
+using FFXIVAPP.Common.Core.Memory;
+using FFXIVAPP.Common.Core.Parse;
 using FFXIVAPP.IPluginInterface.Events;
 using FFXIVAPP.Plugin.Widgets.Helpers;
 using FFXIVAPP.Plugin.Widgets.Properties;
@@ -170,10 +172,11 @@ namespace FFXIVAPP.Plugin.Widgets
                 return;
             }
             var targetEntity = targetEntityEvent.TargetEntity;
-            // assign entity
-            EnmityWidgetViewModel.Instance.TargetEntity = targetEntity;
-            FocusTargetWidgetViewModel.Instance.TargetEntity = targetEntity;
-            CurrentTargetWidgetViewModel.Instance.TargetEntity = targetEntity;
+            var emptyEntity = new TargetEntity();
+            // assign empty entity
+            EnmityWidgetViewModel.Instance.TargetEntity = emptyEntity;
+            FocusTargetWidgetViewModel.Instance.TargetEntity = emptyEntity;
+            CurrentTargetWidgetViewModel.Instance.TargetEntity = emptyEntity;
             // assign default current/focus target info
             EnmityWidgetViewModel.Instance.EnmityTargetIsValid = false;
             EnmityWidgetViewModel.Instance.EnmityTargetHPPercent = 0;
@@ -187,6 +190,7 @@ namespace FFXIVAPP.Plugin.Widgets
             // if valid assign actual current target info
             if (targetEntity.CurrentTarget != null && targetEntity.CurrentTarget.IsValid && Settings.Default.ShowEnmityWidgetOnLoad)
             {
+                EnmityWidgetViewModel.Instance.TargetEntity = targetEntity;
                 EnmityWidgetViewModel.Instance.EnmityTargetIsValid = true;
                 EnmityWidgetViewModel.Instance.EnmityTargetHPPercent = (double)targetEntity.CurrentTarget.HPPercent;
                 try
@@ -200,6 +204,7 @@ namespace FFXIVAPP.Plugin.Widgets
             // if valid assign actual current target info
             if (targetEntity.CurrentTarget != null && targetEntity.CurrentTarget.IsValid && Settings.Default.ShowCurrentTargetWidgetOnLoad)
             {
+                CurrentTargetWidgetViewModel.Instance.TargetEntity = targetEntity;
                 CurrentTargetWidgetViewModel.Instance.CurrentTargetIsValid = true;
                 CurrentTargetWidgetViewModel.Instance.CurrentTargetHPPercent = (double)targetEntity.CurrentTarget.HPPercent;
                 try
@@ -213,6 +218,7 @@ namespace FFXIVAPP.Plugin.Widgets
             // if valid assign actual focus target info
             if (targetEntity.FocusTarget != null && targetEntity.FocusTarget.IsValid && Settings.Default.ShowFocusTargetWidgetOnLoad)
             {
+                FocusTargetWidgetViewModel.Instance.TargetEntity = targetEntity;
                 FocusTargetWidgetViewModel.Instance.FocusTargetIsValid = true;
                 FocusTargetWidgetViewModel.Instance.FocusTargetHPPercent = (double) targetEntity.FocusTarget.HPPercent;
                 try
@@ -235,6 +241,10 @@ namespace FFXIVAPP.Plugin.Widgets
                 return;
             }
             var parseEntity = parseEntityEvent.ParseEntity;
+            var emptyEntity = new ParseEntity();
+            DPSWidgetViewModel.Instance.ParseEntity = emptyEntity;
+            DTPSWidgetViewModel.Instance.ParseEntity = emptyEntity;
+            HPSWidgetViewModel.Instance.ParseEntity = emptyEntity;
             if (Settings.Default.ShowDPSWidgetOnLoad)
             {
                 EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.DPS);
