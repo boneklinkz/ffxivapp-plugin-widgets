@@ -241,10 +241,6 @@ namespace FFXIVAPP.Plugin.Widgets
                 return;
             }
             var parseEntity = parseEntityEvent.ParseEntity;
-            var emptyEntity = new ParseEntity();
-            DPSWidgetViewModel.Instance.ParseEntity = emptyEntity;
-            DTPSWidgetViewModel.Instance.ParseEntity = emptyEntity;
-            HPSWidgetViewModel.Instance.ParseEntity = emptyEntity;
             if (Settings.Default.ShowDPSWidgetOnLoad)
             {
                 EntityHelper.Parse.CleanAndCopy(parseEntity, EntityHelper.Parse.ParseType.DPS);
